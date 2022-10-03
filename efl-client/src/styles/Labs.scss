@@ -209,6 +209,17 @@
         color: #fff;
       }
     }
+    .disabled {
+      border: 2px solid lightgray;
+      background: lightgray;
+      color: #fff;
+      cursor: auto;
+
+      &:hover {
+        background: lightgray;
+        color: #fff;
+      }
+    }
   }
 }
 

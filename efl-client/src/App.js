@@ -154,8 +154,9 @@ function App() {
   });
 
   const [photo, setPhoto] = React.useState(''); // ?
+  const [quantity, setQuantity] = React.useState('');
 
-  const [secretKey, setSecretKet] = React.useState();
+  const [secretKey, setSecretKey] = React.useState();
 
   return (
     <>
@@ -173,6 +174,10 @@ function App() {
           setTable4,
           photo,
           setPhoto,
+          quantity,
+          setQuantity,
+          secretKey,
+          setSecretKey,
         }}>
         <BrowserRouter>
           <Routes>

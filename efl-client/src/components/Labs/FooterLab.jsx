@@ -5,10 +5,19 @@ import '../../styles/Labs.scss';
 import { Context } from '../../Context';
 
 function FooterLab() {
-  const { setPhoto } = React.useContext(Context);
+  const { photo, setPhoto, quantity, setQuantity, secretKey, setSecretKey } =
+    React.useContext(Context);
+
+  const handleChangeQuantity = (event) => {
+    setQuantity({ ...quantity, [event.target.name]: event.target.value });
+  };
+
+  const handleChangeSecret = (event) => {
+    setSecretKey({ ...secretKey, [event.target.name]: event.target.value });
+  };
 
   const handleChangePhoto = (event) => {
-    //setPhoto(event.target.files);
+    setPhoto({ ...photo, [event.target.name]: event.target.files[0] });
     const file = event.target.files;
     const f = file[0];
     if (!f.type.match('image.*')) {
@@ -34,6 +43,18 @@ function FooterLab() {
     <div>
       <h2>Подтверждение работы</h2>
       <div className="row">
+        <div className="row">
+          <div className="input col">
+            <input
+              type="text"
+              name="quantity"
+              required="required"
+              onChange={handleChangeQuantity}
+            />
+            <span>Количество участников</span>
+            <i></i>
+          </div>
+        </div>
         <div className="main-text">
           Фотографии всех участников работы со стендом лабораторной работы
         </div>
@@ -42,18 +63,19 @@ function FooterLab() {
             <span>File</span>
             <input type="file" onChange={handleChangePhoto} required="required" />
           </div>
-          <div class="row">
+          <div className="row">
             <span id="output"></span>
           </div>
         </div>
       </div>
-      <div className="main-text">Предъявите заполненный протокол преподавателю.</div>
-      <div className="main-text"></div>
-      <div className="row">
-        <div className="input col subm">
-          <input type="text" name="code" required="required" />
-          <span>Код подтверждения</span>
-          <i></i>
+      <div className="main-text">Предъявите заполненную форму преподавателю.</div>
+      <div className="main-text">
+        <div className="row">
+          <div className="input col subm">
+            <input type="text" name="token" required="required" onChange={handleChangeSecret} />
+            <span>Код подтверждения</span>
+            <i></i>
+          </div>
         </div>
       </div>
     </div>
