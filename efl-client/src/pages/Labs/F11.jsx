@@ -24,59 +24,44 @@ function F11() {
   const FColName = 'Напряжение, В';
   const SColName = 'Ток, мА';
 
-  const { performers, table1, table2, table3, table4, photo } = React.useContext(Context);
+  const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
+    React.useContext(Context);
 
   const labHandler = async () => {
     try {
-      await axios.post();
-      await axios.post(
-        '/api/labs/f11',
-        { ...table1 },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      await axios.post(
-        '/api/labs/f11',
-        { ...table2 },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      await axios.post(
-        '/api/labs/f11',
-        { ...table3 },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      await axios.post(
-        '/api/labs/f11',
-        { ...table4 },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
       await axios
         .post(
-          '/api/labs/summary',
+          '/api/labs/f11',
           {
+            ...secretKey,
+            table1,
+            table2,
+            table3,
+            table4,
             fio: performers.fio,
             performers: performers.performers,
             group: performers.group,
             email: performers.email,
             lab_name: lab_name,
             id_lab: id_lab,
-            photo,
+            photo: photo,
+            quantity: quantity.quantity,
           },
+          // { ...secretKey },
+          // { ...table1 },
+          // { ...table2 },
+          // { ...table3 },
+          // { ...table4 },
+          // {
+          //   fio: performers.fio,
+          //   performers: performers.performers,
+          //   group: performers.group,
+          //   email: performers.email,
+          //   lab_name: lab_name,
+          //   id_lab: id_lab,
+          //   photo: photo,
+          //   quantity: quantity,
+          // },
           {
             headers: {
               'Content-Type': 'application/json',
@@ -171,7 +156,10 @@ function F11() {
       <div className="footer">
         <FooterLab />
         <div className="centering"></div>
-        <button className="wawes-effect wawes-light btn btn-blue" onClick={labHandler}>
+        <button
+          className="wawes-effect wawes-light btn btn-blue"
+          onClick={labHandler}
+          id="subm_btn">
           Отправить
         </button>
       </div>
