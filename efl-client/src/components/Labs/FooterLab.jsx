@@ -5,8 +5,7 @@ import '../../styles/Labs.scss';
 import { Context } from '../../Context';
 
 function FooterLab() {
-  const { photo, setPhoto, quantity, setQuantity, secretKey, setSecretKey } =
-    React.useContext(Context);
+  const { setPhoto, quantity, setQuantity, secretKey, setSecretKey } = React.useContext(Context);
 
   const handleChangeQuantity = (event) => {
     setQuantity({ ...quantity, [event.target.name]: event.target.value });
@@ -17,11 +16,10 @@ function FooterLab() {
   };
 
   const handleChangePhoto = (event) => {
-    setPhoto({ ...photo, [event.target.name]: event.target.files[0] });
-    const file = event.target.files;
-    const f = file[0];
-    if (!f.type.match('image.*')) {
-      alert('Тутъ место для Ваших мордашек!');
+    const file = event.target.files[0];
+    console.log(file);
+    if (!file.type.match('image.*')) {
+      alert('Попробуйте что-нибудь другое');
     }
     const reader = new FileReader();
     reader.onload = (function (theFile) {
@@ -35,8 +33,9 @@ function FooterLab() {
           '" />',
         ].join('');
       };
-    })(f);
-    reader.readAsDataURL(f);
+    })(file);
+    reader.readAsDataURL(file);
+    setPhoto(file);
   };
 
   return (
@@ -61,7 +60,7 @@ function FooterLab() {
         <div className="file">
           <div className="btn">
             <span>File</span>
-            <input type="file" onChange={handleChangePhoto} required="required" />
+            <input type="file" onChange={handleChangePhoto} required="required" name="avatar" />
           </div>
           <div className="row">
             <span id="output"></span>
