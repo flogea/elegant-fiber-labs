@@ -7,7 +7,7 @@ const schema = new Schema({
   email: { type: String, required: true },
   lab_name: { type: String, required: true },
   id_lab: { type: String, required: true, unique: true },
-  photo: { data: Buffer, contentType: String },
+  photo: { type: String, required: true, unique: true },
   quantity: { type: Number, required: true },
 });
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import F11tab from './F11tab';
 
+import F11tab from './F11tab';
+import { Context } from '../../Context';
 import difr from '../../images/diffraction.png';
 
 function F12Research1({}) {
@@ -12,6 +13,12 @@ function F12Research1({}) {
   const SColName2 = 'I1, мкА';
   const array2 = [1, 2, 3, 4, 5, 6, 7, 8];
 
+  const { table12_1, setTable12_1 } = React.useContext(Context);
+
+  const handleChangeTable12_1 = (event) => {
+    setTable12_1({ ...table12_1, [event.target.name]: event.target.value });
+  };
+
   return (
     <>
       <div>
@@ -20,7 +27,7 @@ function F12Research1({}) {
         <div className="row">
           <div className="col">
             <label>Частота, МГц</label>
-            <input type="text" className="input-table" />
+            <input type="text" className="input-table" name="frequency" />
           </div>
         </div>
         <h2>Углы дифракции</h2>
@@ -31,13 +38,13 @@ function F12Research1({}) {
 
         <div className="row">
           <div className="col">
-            <input type="text" className="input-table upper" />
-            <input type="text" className="input-table upper" />
+            <input type="text" className="input-table upper" name="1" />
+            <input type="text" className="input-table upper" name="2" />
           </div>
           <img src={difr} className="diffraction" />
           <div className="col">
-            <input type="text" className="input-table lower" />
-            <input type="text" className="input-table lower" />
+            <input type="text" className="input-table lower" name="3" />
+            <input type="text" className="input-table lower" name="4" />
           </div>
         </div>
         <div className="main-text">
@@ -46,13 +53,13 @@ function F12Research1({}) {
         </div>
         <div className="row">
           <div className="col">
-            <input type="text" className="input-table upper" />
-            <input type="text" className="input-table upper" />
+            <input type="text" className="input-table upper" name="5" />
+            <input type="text" className="input-table upper" name="6" />
           </div>
           <img src={difr} className="diffraction" />
           <div className="col">
-            <input type="text" className="input-table lower" />
-            <input type="text" className="input-table lower" />
+            <input type="text" className="input-table lower" name="7" />
+            <input type="text" className="input-table lower" name="8" />
           </div>
         </div>
       </div>

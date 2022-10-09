@@ -5,7 +5,7 @@ import { Context } from './Context';
 
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import { F11, F12, F13, F14, F15 } from './pages/Labs';
+import { F11, F12, F13, F14, F15, Try } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import F31 from './pages/Labs/F31';
 
@@ -153,6 +153,105 @@ function App() {
     299: '',
   });
 
+  const [table12, setTable12] = React.useState({
+    'ток, мкА': '',
+    'Расстояние от плоскости лазера до модулятора, см': '',
+    'Расстояние от модулятора до плоскости фотоприемника, см': '',
+  });
+
+  const [table12_1, setTable12_1] = React.useState({
+    frequency: '',
+    1_1: '',
+    2_1: '',
+    3_1: '',
+    4_1: '',
+    5_1: '',
+    6_1: '',
+    7_1: '',
+    8_1: '',
+    0.25: '',
+    0.5: '',
+    0.75: '',
+    2_1: '',
+    off: '',
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+    6: '',
+    7: '',
+    8: '',
+    a: '',
+    0.25_1: '',
+    0.5_1: '',
+    0.75_1: '',
+    2_3: '',
+    off_1: '',
+  });
+
+  const [table12_2, setTable12_2] = React.useState({
+    frequency: '',
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+    6: '',
+    7: '',
+    8: '',
+    0.25: '',
+    0.5: '',
+    0.75: '',
+    2_1: '',
+    off: '',
+    1_1: '',
+    2_2: '',
+    3_1: '',
+    4_1: '',
+    5_1: '',
+    6_1: '',
+    7_1: '',
+    8_1: '',
+    a: '',
+    0.25_1: '',
+    0.5_1: '',
+    0.75_1: '',
+    2_3: '',
+    off_1: '',
+  });
+
+  const [table12_3, setTable12_3] = React.useState({
+    frequency: '',
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+    6: '',
+    7: '',
+    8: '',
+    0.25: '',
+    0.5: '',
+    0.75: '',
+    2_1: '',
+    off: '',
+    1_1: '',
+    2_2: '',
+    3_1: '',
+    4_1: '',
+    5_1: '',
+    6_1: '',
+    7_1: '',
+    8_1: '',
+    a: '',
+    0.25_1: '',
+    0.5_1: '',
+    0.75_1: '',
+    2_3: '',
+    off_1: '',
+  });
+
   const [photo, setPhoto] = React.useState(''); // ?
   const [quantity, setQuantity] = React.useState('');
 
@@ -178,6 +277,14 @@ function App() {
           setQuantity,
           secretKey,
           setSecretKey,
+          table12,
+          setTable12,
+          table12_1,
+          setTable12_1,
+          table12_2,
+          setTable12_2,
+          table12_3,
+          setTable12_3,
         }}>
         <BrowserRouter>
           <Routes>

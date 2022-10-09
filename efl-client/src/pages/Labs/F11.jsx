@@ -29,45 +29,27 @@ function F11() {
 
   const labHandler = async () => {
     try {
+      const data = new FormData();
+      data.append('token', secretKey.token);
+      data.append('table1', JSON.stringify(table1));
+      data.append('table2', JSON.stringify(table2));
+      data.append('table3', JSON.stringify(table3));
+      data.append('table4', JSON.stringify(table4));
+      data.append('fio', performers.fio);
+      data.append('performers', performers.performers);
+      data.append('group', performers.group);
+      data.append('email', performers.email);
+      data.append('lab_name', lab_name);
+      data.append('id_lab', id_lab);
+      data.append('quantity', quantity.quantity);
+      data.append('avatar', photo);
+
       await axios
-        .post(
-          '/api/labs/f11',
-          {
-            ...secretKey,
-            table1,
-            table2,
-            table3,
-            table4,
-            fio: performers.fio,
-            performers: performers.performers,
-            group: performers.group,
-            email: performers.email,
-            lab_name: lab_name,
-            id_lab: id_lab,
-            photo: photo,
-            quantity: quantity.quantity,
+        .post('/api/labs/f11', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
           },
-          // { ...secretKey },
-          // { ...table1 },
-          // { ...table2 },
-          // { ...table3 },
-          // { ...table4 },
-          // {
-          //   fio: performers.fio,
-          //   performers: performers.performers,
-          //   group: performers.group,
-          //   email: performers.email,
-          //   lab_name: lab_name,
-          //   id_lab: id_lab,
-          //   photo: photo,
-          //   quantity: quantity,
-          // },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
+        })
         .then((res) => console.log(res));
     } catch (error) {
       console.log(error);
