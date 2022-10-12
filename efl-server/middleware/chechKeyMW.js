@@ -14,9 +14,10 @@ module.exports = async (req, res, next) => {
 
     if (verified) {
       await SecretKey.updateOne({ id: EMAIL }, { secret });
+      console.log(true);
       next();
     } else {
-      res.json({ verified: false });
+      res.status(500).json({ verified: false });
       console.log('verified false');
     }
   } catch (error) {

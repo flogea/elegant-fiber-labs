@@ -1,69 +1,12 @@
 const { Router } = require('express');
-const fs = require('fs');
 
-const F11model = require('../models/F11model');
-const Summary = require('../models/Summary');
 const checkKey = require('../middleware/chechKeyMW');
+const f11_controller = require('../controllers/f11_controller');
 const uploadFileMW = require('../middleware/uploadfileMW');
+const middleware = require('../middleware/middleware');
 
 const router = new Router();
 
-router.post('/f11', checkKey, uploadFileMW.single('avatar'), async (req, res) => {
-  try {
-    if (checkKey) {
-      const {
-        table1,
-        table2,
-        table3,
-        table4,
-        fio,
-        performers,
-        group,
-        email,
-        lab_name,
-        id_lab,
-        quantity,
-      } = req.body;
-      console.log(req.body);
-
-      const f11 = new F11model({
-        data: JSON.parse(table1),
-      });
-      await f11.save();
-
-      const f11_2 = new F11model({
-        data: JSON.parse(table2),
-      });
-      await f11_2.save();
-
-      const f11_3 = new F11model({
-        data: JSON.parse(table3),
-      });
-      await f11_3.save();
-
-      const f11_4 = new F11model({
-        data: JSON.parse(table4),
-      });
-      await f11_4.save();
-
-      const summary = new Summary({
-        fio,
-        performers,
-        group,
-        email,
-        lab_name,
-        id_lab,
-        photo,
-        quantity,
-      });
-      await summary.save();
-
-      res.status(201).json({ message: 'success f11' });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'error f11' });
-  }
-});
+router.post('/f11', checkKey, middleware.single('photo'), f11_controller.addData);
 
 module.exports = router;
