@@ -60,7 +60,13 @@ function FooterLab() {
         <div className="file">
           <div className="btn">
             <span>File</span>
-            <input type="file" onChange={handleChangePhoto} required="required" name="avatar" />
+            <input
+              type="file"
+              onChange={handleChangePhoto}
+              required="required"
+              name="avatar"
+              accept="image/*,.png,.jpg,.jpeg"
+            />
           </div>
           <div className="row">
             <span id="output"></span>

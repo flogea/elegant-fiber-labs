@@ -5,6 +5,7 @@ const storage = multer.diskStorage({
     cb(null, './images/'); //Здесь указывается путь для сохранения файлов
   },
   filename(req, file, cb) {
+    console.log('mv', req.file);
     const id = req.body.id_lab;
     const ext = file.mimetype.split('/')[1];
     cb(null, id + '_photo.' + ext);

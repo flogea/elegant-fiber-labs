@@ -24,32 +24,76 @@ function F11() {
   const FColName = 'Напряжение, В';
   const SColName = 'Ток, мА';
 
+  const [photo64, setPhoto64] = React.useState();
+
   const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
     React.useContext(Context);
 
+  const getBase64 = (file, cb) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      cb(reader.result);
+    };
+    reader.onerror = (err) => {
+      console.log('Error: ', err);
+    };
+  };
+
   const labHandler = async () => {
     try {
-      const data = new FormData();
-      data.append('token', secretKey.token);
-      data.append('table1', JSON.stringify(table1));
-      data.append('table2', JSON.stringify(table2));
-      data.append('table3', JSON.stringify(table3));
-      data.append('table4', JSON.stringify(table4));
-      data.append('fio', performers.fio);
-      data.append('performers', performers.performers);
-      data.append('group', performers.group);
-      data.append('email', performers.email);
-      data.append('lab_name', lab_name);
-      data.append('id_lab', id_lab);
-      data.append('quantity', quantity.quantity);
-      data.append('avatar', photo);
+      await getBase64(photo, (result) => {
+        setPhoto64(result);
+      });
+      console.log(photo64);
+      // const data = new FormData();
+      // data.append('token', secretKey.token);
+      // data.append('table1', JSON.stringify(table1));
+      // data.append('table2', JSON.stringify(table2));
+      // data.append('table3', JSON.stringify(table3));
+      // data.append('table4', JSON.stringify(table4));
+      // data.append('fio', performers.fio);
+      // data.append('performers', performers.performers);
+      // data.append('group', performers.group);
+      // data.append('email', performers.email);
+      // data.append('lab_name', lab_name);
+      // data.append('id_lab', id_lab);
+      // data.append('quantity', quantity.quantity);
+      // data.append('avatar', photo);
+
+      // const newPhoto = JSON.stringify(photo);
+      // console.log(newPhoto);
+      // console.log(photo);
+      // data.forEach(function (value, key) {
+      //   photo[key] = value;
+      // });
+      // const json = JSON.stringify(photo);
+      // console.log(json);
 
       await axios
-        .post('/api/labs/f11', data, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        .post(
+          '/api/labs/f11',
+          {
+            token: secretKey.token,
+            table1,
+            table2,
+            table3,
+            table4,
+            fio: performers.fio,
+            performers: performers.performers,
+            group: performers.group,
+            email: performers.email,
+            lab_name,
+            id_lab,
+            quantity: quantity.quantity,
+            photo: photo64,
           },
-        })
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
         .then((res) => console.log(res));
     } catch (error) {
       console.log(error);
