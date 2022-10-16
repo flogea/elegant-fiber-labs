@@ -15,7 +15,19 @@ function FooterLab() {
     setSecretKey({ ...secretKey, [event.target.name]: event.target.value });
   };
 
-  const handleChangePhoto = (event) => {
+  const getBase64 = (file, cb) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      cb(reader.result);
+      console.log(reader.result);
+    };
+    reader.onerror = (err) => {
+      console.log('Error: ', err);
+    };
+  };
+
+  const handleChangePhoto = async (event) => {
     const file = event.target.files[0];
     console.log(file);
     if (!file.type.match('image.*')) {
@@ -26,7 +38,7 @@ function FooterLab() {
       return function (e) {
         const span = document.getElementById('output');
         span.innerHTML = [
-          '<img className="main-text" title="',
+          '<img title="',
           escape(theFile.name),
           '" src="',
           e.target.result,
@@ -35,7 +47,15 @@ function FooterLab() {
       };
     })(file);
     reader.readAsDataURL(file);
-    setPhoto(file);
+
+    try {
+      await getBase64(file, (result) => {
+        setPhoto(result);
+        console.log(result);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -57,23 +77,26 @@ function FooterLab() {
         <div className="main-text">
           Фотографии всех участников работы со стендом лабораторной работы
         </div>
-        <div className="file">
-          <div className="btn">
-            <span>File</span>
-            <input
-              type="file"
-              onChange={handleChangePhoto}
-              required="required"
-              name="avatar"
-              accept="image/*,.png,.jpg,.jpeg"
-            />
+        <div className="row">
+          <div className="file">
+            <div className="btn">
+              <span>File</span>
+              <input
+                type="file"
+                onChange={handleChangePhoto}
+                required="required"
+                name="avatar"
+                accept="image/*,.png,.jpg,.jpeg"
+              />
+            </div>
           </div>
           <div className="row">
-            <span id="output"></span>
+            <span id="output" className="main-text"></span>
           </div>
         </div>
+        <div className="main-text">Предъявите заполненную форму преподавателю.</div>
       </div>
-      <div className="main-text">Предъявите заполненную форму преподавателю.</div>
+
       <div className="main-text">
         <div className="row">
           <div className="input col subm">
