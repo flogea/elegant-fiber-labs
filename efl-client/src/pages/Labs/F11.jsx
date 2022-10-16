@@ -29,23 +29,12 @@ function F11() {
   const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
     React.useContext(Context);
 
-  const getBase64 = (file, cb) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      cb(reader.result);
-    };
-    reader.onerror = (err) => {
-      console.log('Error: ', err);
-    };
-  };
-
   const labHandler = async () => {
     try {
-      await getBase64(photo, (result) => {
-        setPhoto64(result);
-      });
-      console.log(photo64);
+      //   await getBase64(photo, (result) => {
+      //     setPhoto64(result);
+      //   });
+      //   console.log(photo64);
       // const data = new FormData();
       // data.append('token', secretKey.token);
       // data.append('table1', JSON.stringify(table1));
@@ -86,7 +75,7 @@ function F11() {
             lab_name,
             id_lab,
             quantity: quantity.quantity,
-            photo: photo64,
+            photo: photo,
           },
           {
             headers: {
@@ -182,12 +171,14 @@ function F11() {
       <div className="footer">
         <FooterLab />
         <div className="centering"></div>
-        <button
-          className="wawes-effect wawes-light btn btn-blue"
-          onClick={labHandler}
-          id="subm_btn">
-          Отправить
-        </button>
+        <div className="row">
+          <button
+            className="wawes-effect wawes-light btn btn-blue"
+            onClick={labHandler}
+            id="subm_btn">
+            Отправить
+          </button>
+        </div>
       </div>
     </div>
   );

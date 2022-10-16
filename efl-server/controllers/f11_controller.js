@@ -23,22 +23,22 @@ class f11_controller {
       //const { photo } = req.file;
 
       const f11 = new F11model({
-        data: JSON.parse(table1),
+        data: table1,
       });
       await f11.save();
 
       const f11_2 = new F11model({
-        data: JSON.parse(table2),
+        data: table2,
       });
       await f11_2.save();
 
       const f11_3 = new F11model({
-        data: JSON.parse(table3),
+        data: table3,
       });
       await f11_3.save();
 
       const f11_4 = new F11model({
-        data: JSON.parse(table4),
+        data: table4,
       });
       await f11_4.save();
 
