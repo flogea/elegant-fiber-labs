@@ -4,8 +4,8 @@ import '../../styles/Labs.scss';
 
 function Header({ Qr, Subject, LabName, LabLink }) {
   return (
-    <div className="row header">
-      <div className="col">
+    <div className="row">
+      <div className="col header">
         <div className="flex-image">
           <div className="qr">
             <img src={Qr} />

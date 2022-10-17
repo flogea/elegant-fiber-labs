@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import '../../styles/Labs.scss';
 
@@ -7,8 +8,11 @@ import HeaderLab from '../../components/Labs/HeaderLab';
 import Performers from '../../components/Labs/Performers';
 import F11tab from '../../components/Labs/F11tab';
 import f13Qr from '../../images/qr/f13.png';
+import { Context } from '../../Context';
 
 function F13() {
+  const lab_name = 'F13';
+  const id_lab = new Date().getTime();
   const array = [
     0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110,
     115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180,
@@ -18,6 +22,40 @@ function F13() {
   const LabLink = 'ъыъ.рф/аъые';
   const FColName = 'α, °';
   const SColName = 'I3 Y, нА';
+
+  const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
+    React.useContext(Context);
+
+  const labHandler = async () => {
+    try {
+      await axios
+        .post(
+          '/api/labs/f13',
+          {
+            token: secretKey.token,
+            table1,
+            table2,
+            table3,
+            table4,
+            performers: performers.performers,
+            group: performers.group,
+            email: performers.email,
+            lab_name,
+            id_lab,
+            quantity: quantity.quantity,
+            photo,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((res) => console.log(res));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="container">
@@ -95,7 +133,19 @@ function F13() {
         <F11tab FColName={FColName} SColName={SColName} array={array} research="4" />
       </div>
 
-      <FooterLab />
+      <div className="footer">
+        <FooterLab />
+        <div className="row">
+          <div className="centering">
+            <button
+              className="wawes-effect wawes-light btn btn-blue"
+              onClick={labHandler}
+              id="subm_btn">
+              Отправить
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
