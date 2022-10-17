@@ -1,9 +1,9 @@
 const fs = require('fs');
-const F11model = require('../models/F11model');
+const F13model = require('../models/F13model');
 const Summary = require('../models/Summary');
 const { format } = require('date-fns');
 
-class f11_controller {
+class f13_controller {
   // async jsonParse(table) {
   //   console.log(here);
   //   for (const [key, value] of Object.entries(table)) {
@@ -32,25 +32,25 @@ class f11_controller {
       } = req.body;
       const photoName = res.locals.photoName;
 
-      const f11 = new F11model({
+      const f13 = new F13model({
         data: table1,
       });
-      await f11.save();
+      await f13.save();
 
-      const f11_2 = new F11model({
+      const f13_2 = new F13model({
         data: table2,
       });
-      await f11_2.save();
+      await f13_2.save();
 
-      const f11_3 = new F11model({
+      const f13_3 = new F13model({
         data: table3,
       });
-      await f11_3.save();
+      await f13_3.save();
 
-      const f11_4 = new F11model({
+      const f13_4 = new F13model({
         data: table4,
       });
-      await f11_4.save();
+      await f13_4.save();
 
       const summary = new Summary({
         performers,
@@ -116,12 +116,12 @@ class f11_controller {
         if (err) throw err;
       });
 
-      res.status(201).json({ message: 'success f11' });
+      res.status(201).json({ message: 'success f13' });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'error f11' });
+      res.status(500).json({ message: 'error f13' });
     }
   }
 }
 
-module.exports = new f11_controller();
+module.exports = new f13_controller();

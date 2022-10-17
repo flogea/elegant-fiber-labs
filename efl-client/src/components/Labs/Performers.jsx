@@ -35,7 +35,7 @@ function Performers() {
               required="required"
               onChange={handleChangePerformer}
             />
-            <span htmlFor="performers">Фамилия И.О. исполнителей</span>
+            <span htmlFor="performers">Фамилии И.О. исполнителей</span>
             <i></i>
           </div>
           <div className="input col s12 m6 l6">
@@ -57,7 +57,7 @@ function Performers() {
               required="required"
               onChange={handleChangePerformer}
             />
-            <span>E-mail ответсвенного исполнителя</span>
+            <span>E-mail ответственного исполнителя</span>
             <i></i>
           </div>
         </div>
