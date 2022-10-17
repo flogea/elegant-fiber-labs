@@ -13,7 +13,8 @@ import { Context } from '../../Context';
 
 function F11() {
   const lab_name = 'F11';
-  const id_lab = v4().slice(0, 6);
+  //const id_lab = v4().slice(0, 6);
+  const id_lab = new Date().getTime();
   const array = [
     1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200,
     210, 220, 230, 240, 250, 260, 270, 280, 290, 299,
@@ -24,41 +25,11 @@ function F11() {
   const FColName = 'Напряжение, В';
   const SColName = 'Ток, мА';
 
-  const [photo64, setPhoto64] = React.useState();
-
   const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
     React.useContext(Context);
 
   const labHandler = async () => {
     try {
-      //   await getBase64(photo, (result) => {
-      //     setPhoto64(result);
-      //   });
-      //   console.log(photo64);
-      // const data = new FormData();
-      // data.append('token', secretKey.token);
-      // data.append('table1', JSON.stringify(table1));
-      // data.append('table2', JSON.stringify(table2));
-      // data.append('table3', JSON.stringify(table3));
-      // data.append('table4', JSON.stringify(table4));
-      // data.append('fio', performers.fio);
-      // data.append('performers', performers.performers);
-      // data.append('group', performers.group);
-      // data.append('email', performers.email);
-      // data.append('lab_name', lab_name);
-      // data.append('id_lab', id_lab);
-      // data.append('quantity', quantity.quantity);
-      // data.append('avatar', photo);
-
-      // const newPhoto = JSON.stringify(photo);
-      // console.log(newPhoto);
-      // console.log(photo);
-      // data.forEach(function (value, key) {
-      //   photo[key] = value;
-      // });
-      // const json = JSON.stringify(photo);
-      // console.log(json);
-
       await axios
         .post(
           '/api/labs/f11',
@@ -68,14 +39,13 @@ function F11() {
             table2,
             table3,
             table4,
-            fio: performers.fio,
             performers: performers.performers,
             group: performers.group,
             email: performers.email,
             lab_name,
             id_lab,
             quantity: quantity.quantity,
-            photo: photo,
+            photo,
           },
           {
             headers: {
@@ -170,14 +140,15 @@ function F11() {
 
       <div className="footer">
         <FooterLab />
-        <div className="centering"></div>
         <div className="row">
-          <button
-            className="wawes-effect wawes-light btn btn-blue"
-            onClick={labHandler}
-            id="subm_btn">
-            Отправить
-          </button>
+          <div className="centering">
+            <button
+              className="wawes-effect wawes-light btn btn-blue"
+              onClick={labHandler}
+              id="subm_btn">
+              Отправить
+            </button>
+          </div>
         </div>
       </div>
     </div>

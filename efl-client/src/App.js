@@ -11,7 +11,6 @@ import F31 from './pages/Labs/F31';
 
 function App() {
   const [performers, setPerformers] = React.useState({
-    fio: '',
     performers: '',
     group: '',
     email: '',
@@ -252,7 +251,7 @@ function App() {
     off_1: '',
   });
 
-  const [photo, setPhoto] = React.useState(''); // ?
+  const [photo, setPhoto] = React.useState('');
   const [quantity, setQuantity] = React.useState('');
 
   const [secretKey, setSecretKey] = React.useState();

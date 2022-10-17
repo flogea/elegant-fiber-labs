@@ -5,7 +5,6 @@ const SecretKey = require('../models/SecretKey');
 module.exports = async (req, res, next) => {
   const EMAIL = process.env.EMAIL;
   const { token } = req.body;
-  console.log(req.body);
 
   try {
     const secretKey = await SecretKey.findOne({ id: EMAIL }, { secret: 1, _id: 0 });
