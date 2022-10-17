@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
-  fio: { type: String, required: true },
   performers: { type: String, required: true },
   group: { type: String, required: true },
   email: { type: String, required: true },

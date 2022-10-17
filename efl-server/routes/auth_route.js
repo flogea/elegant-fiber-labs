@@ -36,14 +36,6 @@ router.post('/reg', async (req, res) => {
 
   //     res.status(201).json({message: "success"})
 
-  //     // Запись в текстовый файл
-  //     const data = [email + '\n' + password]
-  //     let timeId = new Date().getTime();
-  //     fs.writeFile(`${timeId}.txt`, `${data}`, (err) => {
-  //         if (err) throw err;
-  //         console.log('writed')
-  //     })
-
   // } catch (error) {
   //     console.log(error)
   // }

@@ -1,8 +1,20 @@
 const fs = require('fs');
 const F11model = require('../models/F11model');
 const Summary = require('../models/Summary');
+const { format } = require('date-fns');
 
 class f11_controller {
+  // async jsonParse(table) {
+  //   console.log(here);
+  //   for (const [key, value] of Object.entries(table)) {
+  //     if (value === '') {
+  //       str += NaN;
+  //     }
+  //     str += value + '\n';
+  //   }
+  //   console.log(str);
+  // }
+
   async addData(req, res) {
     try {
       const {
@@ -10,7 +22,6 @@ class f11_controller {
         table2,
         table3,
         table4,
-        fio,
         performers,
         group,
         email,
@@ -19,8 +30,7 @@ class f11_controller {
         quantity,
         photo,
       } = req.body;
-      //console.log(req.body);
-      //const { photo } = req.file;
+      const photoName = res.locals.photoName;
 
       const f11 = new F11model({
         data: table1,
@@ -43,16 +53,69 @@ class f11_controller {
       await f11_4.save();
 
       const summary = new Summary({
-        fio,
         performers,
         group,
         email,
         lab_name,
         id_lab,
-        photo,
+        photo: photoName,
         quantity,
       });
       await summary.save();
+
+      // Запись в текстовый файл
+      let str = null;
+      for (const [key, value] of Object.entries(table1)) {
+        if (value === '') {
+          str += null;
+        }
+        str += value + '\n';
+      }
+
+      for (const [key, value] of Object.entries(table1)) {
+        if (value === '') {
+          str += null;
+        }
+        str += value + '\n';
+      }
+
+      for (const [key, value] of Object.entries(table1)) {
+        if (value === '') {
+          str += null;
+        }
+        str += value + '\n';
+      }
+
+      for (const [key, value] of Object.entries(table1)) {
+        if (value === '') {
+          str += null;
+        }
+        str += value + '\n';
+      }
+      console.log(str);
+
+      let timeId = new Date();
+      const data = [
+        id_lab +
+          '\n' +
+          format(timeId, 'dd.MM.yyyy HH:MM:ss') +
+          '\n' +
+          group +
+          '\n' +
+          email +
+          '\n' +
+          performers +
+          '\n' +
+          quantity +
+          '\n' +
+          photoName +
+          '\n' +
+          str,
+      ];
+
+      fs.writeFile(`${id_lab}.txt`, `${data}`, (err) => {
+        if (err) throw err;
+      });
 
       res.status(201).json({ message: 'success f11' });
     } catch (error) {

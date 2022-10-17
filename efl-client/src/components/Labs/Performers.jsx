@@ -16,7 +16,7 @@ function Performers() {
       <h2>Исполнители</h2>
       <form className="form form-login" onSubmit={(e) => e.preventDefault()}>
         <div className="row perform">
-          <div className="input col s12 m6 l6">
+          {/* <div className="input col s12 m6 l6">
             <input
               type="text"
               name="fio"
@@ -26,7 +26,7 @@ function Performers() {
             />
             <span htmlFor="fio">Ответственный исполнитель (Фамилия И.О.)</span>
             <i></i>
-          </div>
+          </div> */}
           <div className="input col s12 m6 l6">
             <input
               type="text"

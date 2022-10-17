@@ -20,7 +20,6 @@ function FooterLab() {
     reader.readAsDataURL(file);
     reader.onload = () => {
       cb(reader.result);
-      console.log(reader.result);
     };
     reader.onerror = (err) => {
       console.log('Error: ', err);
@@ -48,10 +47,12 @@ function FooterLab() {
     })(file);
     reader.readAsDataURL(file);
 
+    const label = document.getElementById('input__label');
+    label.innerHTML = file.name;
+
     try {
       await getBase64(file, (result) => {
         setPhoto(result);
-        console.log(result);
       });
     } catch (e) {
       console.log(e);
@@ -78,17 +79,17 @@ function FooterLab() {
           Фотографии всех участников работы со стендом лабораторной работы
         </div>
         <div className="row">
-          <div className="file">
-            <div className="btn">
-              <span>File</span>
-              <input
-                type="file"
-                onChange={handleChangePhoto}
-                required="required"
-                name="avatar"
-                accept="image/*,.png,.jpg,.jpeg"
-              />
-            </div>
+          <div className="input-file">
+            <input
+              type="file"
+              onChange={handleChangePhoto}
+              required="required"
+              name="avatar"
+              id="upload__input"
+              accept="image/*,.png,.jpg,.jpeg"
+            />
+            <label htmlFor="upload__input">File</label>
+            <i id="input__label"></i>
           </div>
           <div className="row">
             <span id="output" className="main-text"></span>
