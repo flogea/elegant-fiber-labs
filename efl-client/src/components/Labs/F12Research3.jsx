@@ -3,7 +3,7 @@ import F11tab from './F11tab';
 
 import difr from '../../images/diffraction.png';
 
-function F12Research3({}) {
+function F12Research3() {
   const FColName1 = 'Pсигн, В';
   const SColName1 = 'I1, мкА';
   const array1 = [0.25, 0.5, 0.75, 2, 'Зашкаливает'];

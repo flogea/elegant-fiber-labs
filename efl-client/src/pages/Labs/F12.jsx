@@ -15,7 +15,7 @@ import { Context } from '../../Context';
 
 function F12() {
   const lab_name = 'F12';
-  const id_lab = v4().slice(0, 6);
+  const id_lab = new Date().getTime();
   const Subject = 'Фотоника';
   const LabName = 'Ф12 АКУСТООПТИЧЕСКАЯ МОДУЛЯЦИЯ';
   const LabLink = 'ъыъ.рф/АЪыЬ';
@@ -34,45 +34,26 @@ function F12() {
 
   const labHandler = async () => {
     try {
-      const data = new FormData();
-      data.append('photo', photo);
-      console.log(data);
-      console.log(photo.photo);
       await axios
         .post(
-          '/api/labs/f11',
+          '/api/labs/f12',
           {
-            ...secretKey,
+            token: secretKey.token,
             table12,
             table12_1,
             table12_2,
             table12_3,
-            fio: performers.fio,
             performers: performers.performers,
             group: performers.group,
             email: performers.email,
             lab_name: lab_name,
             id_lab: id_lab,
-            photo: data,
+            photo,
             quantity: quantity.quantity,
           },
           {
             headers: {
               'Content-Type': 'application/json',
-            },
-          },
-        )
-        .then((res) => console.log(res));
-
-      await axios
-        .post(
-          '/api/labs/testrouter',
-          {
-            data: photo.data,
-          },
-          {
-            headers: {
-              'content-type': 'multipart/form-data',
             },
           },
         )
@@ -137,13 +118,16 @@ function F12() {
 
       <div className="footer">
         <FooterLab />
-        <div className="centering"></div>
-        <button
-          className="wawes-effect wawes-light btn btn-blue"
-          onClick={labHandler}
-          id="subm_btn">
-          Отправить
-        </button>
+        <div className="row">
+          <div className="centering">
+            <button
+              className="wawes-effect wawes-light btn btn-blue"
+              onClick={labHandler}
+              id="subm_btn">
+              Отправить
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
