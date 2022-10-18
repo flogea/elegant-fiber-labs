@@ -4,7 +4,7 @@ import F11tab from './F11tab';
 import { Context } from '../../Context';
 import difr from '../../images/diffraction.png';
 
-function F12Research1({}) {
+function F12Research1() {
   const FColName1 = 'Pсигн, В';
   const SColName1 = 'I1, мкА';
   const array1 = [0.25, 0.5, 0.75, 2, 'Зашкаливает'];
@@ -27,7 +27,7 @@ function F12Research1({}) {
         <div className="row">
           <div className="col">
             <label>Частота, МГц</label>
-            <input type="text" className="input-table" name="frequency" />
+            <input type="text" className="input-table" name="1" />
           </div>
         </div>
         <h2>Углы дифракции</h2>
@@ -38,13 +38,13 @@ function F12Research1({}) {
 
         <div className="row">
           <div className="col">
-            <input type="text" className="input-table upper" name="1" />
             <input type="text" className="input-table upper" name="2" />
+            <input type="text" className="input-table upper" name="3" />
           </div>
           <img src={difr} className="diffraction" />
           <div className="col">
-            <input type="text" className="input-table lower" name="3" />
             <input type="text" className="input-table lower" name="4" />
+            <input type="text" className="input-table lower" name="5" />
           </div>
         </div>
         <div className="main-text">
@@ -53,13 +53,13 @@ function F12Research1({}) {
         </div>
         <div className="row">
           <div className="col">
-            <input type="text" className="input-table upper" name="5" />
             <input type="text" className="input-table upper" name="6" />
+            <input type="text" className="input-table upper" name="7" />
           </div>
           <img src={difr} className="diffraction" />
           <div className="col">
-            <input type="text" className="input-table lower" name="7" />
             <input type="text" className="input-table lower" name="8" />
+            <input type="text" className="input-table lower" name="9" />
           </div>
         </div>
       </div>
