@@ -18,7 +18,7 @@ function Header({ Qr, Subject, LabName, LabLink }) {
           <h1 id="labname" className="title">
             {LabName}
           </h1>
-          <a href="ъыъ.рф/ыьеа" className="main-text">
+          <a href={'http://' + LabLink} className="main-text">
             {LabLink}
           </a>
         </div>
