@@ -1,6 +1,7 @@
 import React from 'react';
-import F11tab from './F11tab';
 
+import F11tab from './F11tab';
+import { Context } from '../../Context';
 import difr from '../../images/diffraction.png';
 
 function F12Research2() {
@@ -11,6 +12,12 @@ function F12Research2() {
   const FColName2 = 'a, мм';
   const SColName2 = 'I1, мкА';
   const array2 = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  const { table12_2, setTable12_2, table1, table2, table3 } = React.useContext(Context);
+
+  const handleChangeTable12_2 = (event) => {
+    setTable12_2({ ...table12_2, [event.target.name]: event.target.value, table1, table2, table3 });
+  };
 
   return (
     <>
@@ -23,7 +30,7 @@ function F12Research2() {
         <div className="row">
           <div className="col">
             <label>Частота, МГц</label>
-            <input type="text" className="input-table" />
+            <input type="text" className="input-table" name="1" onChange={handleChangeTable12_2} />
           </div>
         </div>
         <h2>Углы дифракции</h2>
@@ -34,13 +41,33 @@ function F12Research2() {
 
         <div className="row">
           <div className="col">
-            <input type="text" className="input-table upper" />
-            <input type="text" className="input-table upper" />
+            <input
+              type="text"
+              className="input-table upper"
+              name="2"
+              onChange={handleChangeTable12_2}
+            />
+            <input
+              type="text"
+              className="input-table upper"
+              name="3"
+              onChange={handleChangeTable12_2}
+            />
           </div>
           <img src={difr} className="diffraction" />
           <div className="col">
-            <input type="text" className="input-table lower" />
-            <input type="text" className="input-table lower" />
+            <input
+              type="text"
+              className="input-table lower"
+              name="4"
+              onChange={handleChangeTable12_2}
+            />
+            <input
+              type="text"
+              className="input-table lower"
+              name="5"
+              onChange={handleChangeTable12_2}
+            />
           </div>
         </div>
         <div className="main-text">
@@ -49,13 +76,33 @@ function F12Research2() {
         </div>
         <div className="row">
           <div className="col">
-            <input type="text" className="input-table upper" />
-            <input type="text" className="input-table upper" />
+            <input
+              type="text"
+              className="input-table upper"
+              name="6"
+              onChange={handleChangeTable12_2}
+            />
+            <input
+              type="text"
+              className="input-table upper"
+              name="7"
+              onChange={handleChangeTable12_2}
+            />
           </div>
           <img src={difr} className="diffraction" />
           <div className="col">
-            <input type="text" className="input-table lower" />
-            <input type="text" className="input-table lower" />
+            <input
+              type="text"
+              className="input-table lower"
+              name="8"
+              onChange={handleChangeTable12_2}
+            />
+            <input
+              type="text"
+              className="input-table lower"
+              name="9"
+              onChange={handleChangeTable12_2}
+            />
           </div>
         </div>
       </div>
@@ -98,7 +145,12 @@ function F12Research2() {
         <div className="row">
           <div className="col">
             <label>a оптимальное, мм</label>
-            <input type="text" className="input-table" />
+            <input
+              type="text"
+              className="input-table"
+              name="aopt"
+              onChange={handleChangeTable12_2}
+            />
           </div>
         </div>
       </div>

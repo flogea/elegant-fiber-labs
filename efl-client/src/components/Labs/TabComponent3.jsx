@@ -22,6 +22,7 @@ function TabComponent({ array }) {
               name={name}
               className="input-table"
               onChange={handleChangeTable3}
+              required="required"
             />
           </div>
         ))}

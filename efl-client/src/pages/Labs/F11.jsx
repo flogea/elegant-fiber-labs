@@ -13,7 +13,6 @@ import { Context } from '../../Context';
 
 function F11() {
   const lab_name = 'F11';
-  //const id_lab = v4().slice(0, 6);
   const id_lab = new Date().getTime();
   const array = [
     1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200,
