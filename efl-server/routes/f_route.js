@@ -1,7 +1,9 @@
 const { Router } = require('express');
 
 const checkKey = require('../middleware/chechKeyMW');
-const { f11_controller, f12_controller, f13_controller } = require('../controllers/');
+const f11_controller = require('../controllers/f11_controller');
+const f12_controller = require('../controllers/f12_controller');
+const f13_controller = require('../controllers/f13_controller');
 const decode = require('../middleware/decode');
 
 const router = new Router();

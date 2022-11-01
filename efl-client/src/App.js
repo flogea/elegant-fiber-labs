@@ -5,9 +5,8 @@ import { Context } from './Context';
 
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import { F11, F12, F13, F14, F15, Try } from './pages/Labs';
+import { F11, F12, F13, F14, F15, F21 } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
-import F31 from './pages/Labs/F31';
 
 function App() {
   const [performers, setPerformers] = React.useState({
@@ -183,6 +182,7 @@ function App() {
             <Route path="/f13" element={<F13 />} />
             <Route path="/f14" element={<F14 />} />
             <Route path="/f15" element={<F15 />} />
+            <Route path="/f21" element={<F21 />} />
           </Routes>
         </BrowserRouter>
       </Context.Provider>
