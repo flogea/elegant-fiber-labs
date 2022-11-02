@@ -1,9 +1,10 @@
 import React from 'react';
+import { Context } from '../Context';
 
 import '../styles/Home.scss';
 
 function Categories({ items, onClickItem }) {
-  const [activeItem, setActiveItem] = React.useState(null);
+  const { activeItem, setActiveItem } = React.useContext(Context);
 
   const onSelectItem = (index) => {
     setActiveItem(index);
@@ -18,8 +19,8 @@ function Categories({ items, onClickItem }) {
         {items &&
           items.map((name, index) => (
             <li
-              className={activeItem === index ? 'active' : ''}
-              onClick={() => onSelectItem(index)}
+              className={activeItem === name ? 'active' : ''}
+              onClick={() => onSelectItem(name)}
               key={`${name}_${index}`}>
               {name}
             </li>

@@ -9,6 +9,8 @@ import { F11, F12, F13, F14, F15, F21 } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 
 function App() {
+  const [activeItem, setActiveItem] = React.useState(null);
+
   const [performers, setPerformers] = React.useState({
     performers: '',
     group: '',
@@ -173,7 +175,10 @@ function App() {
           setTable12_2,
           table12_3,
           setTable12_3,
+          activeItem,
+          setActiveItem,
         }}>
+        <Navbar />
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home />} />
