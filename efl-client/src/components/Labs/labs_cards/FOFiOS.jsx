@@ -6,17 +6,10 @@ import '../../../styles/Home.scss';
 import SubjectCard from '../../SubjectCard';
 
 function FOFiOS() {
-  const { activeItem } = React.useContext(Context);
-
   return (
     <div className="subjBlock">
       <div className="inline">
         <div className="wrap">
-          {activeItem === null ? (
-            ''
-          ) : (
-            <div className="subjTitle">ФИЗИЧЕСКИЕ ОСНОВЫ ФОТОНИКИ И ОПТИЧЕСКОЙ СВЯЗИ</div>
-          )}
           <SubjectCard
             bigName="Ф11"
             subject="Фотоника"
