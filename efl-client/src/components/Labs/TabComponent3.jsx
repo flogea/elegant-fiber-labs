@@ -23,7 +23,7 @@ function TabComponent({ array }) {
               className="input-table"
               onChange={handleChangeTable3}
               required="required"
-              inputmode="numeric"
+              inputMode="numeric"
               pattern="[1-9]"
             />
           </div>
