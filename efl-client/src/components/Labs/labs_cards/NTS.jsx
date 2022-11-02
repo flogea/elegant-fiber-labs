@@ -1,22 +1,14 @@
 import React from 'react';
-import { Context } from '../../../Context';
 
 import '../../../styles/Home.scss';
 
 import SubjectCard from '../../SubjectCard';
 
 function NTS() {
-  const { activeItem } = React.useContext(Context);
-
   return (
     <div className="subjBlock">
       <div className="inline">
         <div className="wrap">
-          {activeItem === null ? (
-            ''
-          ) : (
-            <div className="subjTitle">Направляющие телекоммуникационные системы</div>
-          )}
           <SubjectCard
             bigName="H11"
             subject="НТС"
