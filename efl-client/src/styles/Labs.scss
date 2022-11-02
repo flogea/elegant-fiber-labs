@@ -150,10 +150,11 @@
           box-shadow: none;
           font-size: 12pt;
           letter-spacing: 0.1em;
+          -moz-appearance: textfield;
 
           &::-webkit-outer-spin-button,
           &::-webkit-inner-spin-button {
-            /* display: none; <- Crashes Chrome on hover */
+            display: none;
             -webkit-appearance: none;
           }
         }
