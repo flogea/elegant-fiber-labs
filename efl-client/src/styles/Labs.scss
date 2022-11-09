@@ -228,7 +228,7 @@
             background-position-x: 0;
           }
           100% {
-            background-position-x: 350px;
+            background-position-x: 60vw;
           }
         }
       }
@@ -301,6 +301,19 @@
   .container {
     width: 75%;
 
+    .input {
+      i {
+        @keyframes animate {
+          0% {
+            background-position-x: 0;
+          }
+          100% {
+            background-position-x: 75vw * 0.7;
+          }
+        }
+      }
+    }
+
     .col {
       width: 70%;
     }
@@ -316,6 +329,19 @@
   .container {
     width: 80%;
 
+    .input {
+      i {
+        @keyframes animate {
+          0% {
+            background-position-x: 0;
+          }
+          100% {
+            background-position-x: 80vw;
+          }
+        }
+      }
+    }
+
     .col {
       label,
       .fname {
@@ -328,6 +354,20 @@
 @media screen and (max-width: 600px) {
   .container {
     width: 85%;
+
+    .input {
+      i {
+        @keyframes animate {
+          0% {
+            background-position-x: 0;
+          }
+          100% {
+            background-position-x: 85vw;
+          }
+        }
+      }
+    }
+
     .row {
       .col {
         label,
