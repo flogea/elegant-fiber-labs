@@ -1,63 +1,38 @@
 import React from 'react';
+import axios from 'axios';
 
 import '../styles/Home.scss';
 
 import Categories from '../components/Categories';
-import { FOFiOS, IntFot, NTS, OIS, OptInf, OptPrib, VychTeh } from '../components/Labs/labs_cards';
 import { Context } from '../Context';
+import CardLab from '../components/CardLab';
 
 function Home() {
-  const { activeItem } = React.useContext(Context);
+  const { activeItem, setLabData } = React.useContext(Context);
 
-  const renderSwitch = (activeItem) => {
-    switch (activeItem) {
-      case 'Фотоника':
-        return (
-          <>
-            <FOFiOS />
-            <OIS />
-            <OptPrib />
-            <OptInf />
-            <IntFot />
-          </>
-        );
-
-      case 'Направляющие телекоммуникационные системы':
-        return (
-          <>
-            <NTS />
-          </>
-        );
-
-      case 'Вычислительная техника':
-        return (
-          <>
-            <VychTeh />
-          </>
-        );
-
-      case null:
-        return (
-          <>
-            <FOFiOS />
-            <NTS />
-            <OIS />
-            <OptPrib />
-            <OptInf />
-            <IntFot />
-            <VychTeh />
-          </>
-        );
-    }
-  };
+  React.useEffect(() => {
+    axios.get('/api/labs/labsInfo').then((resp) => {
+      setLabData(resp.data.result);
+    });
+  }, [setLabData]);
 
   return (
     <>
       <div className="greeting"></div>
       <Categories
-        items={['Фотоника', 'Направляющие телекоммуникационные системы', 'Вычислительная техника']}
+        items={[
+          'Физические основы фотоники и оптической связи',
+          'Оптические измерительные системы',
+          'Оптическое приборостроение',
+          'Интегральная фотоника',
+          'Оптическая информатика',
+          'Направляющие телекоммуникационные системы',
+          'Вычислительная техника',
+          'Технологии разработки программного обеспечения',
+          'Информационные технологии в редакционно-издательской деятельности',
+        ]}
       />
-      {renderSwitch(activeItem)}
+      <CardLab activeItem={activeItem} />
     </>
   );
 }
