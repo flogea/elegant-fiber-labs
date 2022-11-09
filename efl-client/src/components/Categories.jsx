@@ -1,7 +1,8 @@
 import React from 'react';
-import { Context } from '../Context';
 
 import '../styles/Home.scss';
+
+import { Context } from '../Context';
 
 function Categories({ items, onClickItem }) {
   const { activeItem, setActiveItem } = React.useContext(Context);
@@ -12,20 +13,24 @@ function Categories({ items, onClickItem }) {
 
   return (
     <div className="categories">
-      <ul>
-        <li className={activeItem === null ? 'active' : ''} onClick={() => onSelectItem(null)}>
+      <select onChange={(e) => onSelectItem(e.target.value ? e.target.value : 'Все')}>
+        <option
+          className={activeItem === 'Все' ? 'active' : ''}
+          onChange={() => onSelectItem('Все')}
+          value="Все">
           Все
-        </li>
+        </option>
         {items &&
           items.map((name, index) => (
-            <li
+            <option
               className={activeItem === name ? 'active' : ''}
-              onClick={() => onSelectItem(name)}
-              key={`${name}_${index}`}>
+              onChange={() => onSelectItem(index)}
+              key={`${name}_${index}`}
+              value={name}>
               {name}
-            </li>
+            </option>
           ))}
-      </ul>
+      </select>
     </div>
   );
 }
