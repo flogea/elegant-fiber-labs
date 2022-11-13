@@ -7,12 +7,7 @@ function TabComponent({ array }) {
   const [isEmpty, setEmpty] = React.useState(false);
 
   const handleChangeTable2 = (event) => {
-    if (!event.target.value === '') {
-      setEmpty(false);
-      setTable2({ ...table2, [event.target.name]: event.target.value });
-    } else {
-      setEmpty(true);
-    }
+    setTable2({ ...table2, [event.target.name]: event.target.value });
   };
 
   const handleBlur = (event) => {
@@ -31,7 +26,7 @@ function TabComponent({ array }) {
           <div key={`${name}_${index}`} className="col s12 m6 l6">
             <label>{name}</label>
             <input
-              style={isEmpty ? { borderColor: 'red' } : { borderColor: 'green' }}
+              // style={isEmpty ? { borderColor: 'red' } : { borderColor: 'green' }}
               key={`${name}_${index}`}
               type="number"
               step="any"

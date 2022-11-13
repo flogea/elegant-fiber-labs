@@ -31,50 +31,6 @@ function TabComponent({ array }) {
     setTable1({ ...table1, [event.target.name]: event.target.value });
   };
 
-  // const onBlur = () => {
-  //   setDirty(true);
-  // };
-
-  // useEffect(() => {
-  //   for (const validation in validations) {
-  //     switch (validation) {
-  //       case 'isEmpty':
-  //         table1 ? setEmpty(false) : setEmpty(true);
-  //         break;
-  //     }
-  //   }
-  // }, [table1]);
-
-  // const useValidation = (value, validations) => {
-  //   const [isEmpty, setEmpty] = useState(true);
-  //   const [isDirty, setDirty] = useState(false);
-
-  //   const onBlur = () => {
-  //     setDirty(true);
-  //   };
-
-  //   useEffect(() => {
-  //     for (const validation in validations) {
-  //       switch (validation) {
-  //         case 'isEmpty':
-  //           value ? setEmpty(false) : setEmpty(true);
-  //           break;
-  //       }
-  //     }
-  //   }, [value]);
-
-  //   return {
-  //     isEmpty,
-  //     onBlur,
-  //   };
-  // };
-
-  //const name = useInput('', { isEmpty: true });
-
-  useEffect(() => {
-    console.log('init');
-  }, [table1]);
-
   return (
     <div className="row">
       {array &&
