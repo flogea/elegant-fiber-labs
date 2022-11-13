@@ -14,9 +14,9 @@ function Performers() {
   return (
     <div>
       <h2>Исполнители</h2>
-      <form className="form form-login" onSubmit={(e) => e.preventDefault()}>
-        <div className="row perform">
-          {/* <div className="input col s12 m6 l6">
+      {/* <form className="form form-login" onSubmit={(e) => e.preventDefault()}> */}
+      <div className="row perform">
+        {/* <div className="input col s12 m6 l6">
             <input
               type="text"
               name="fio"
@@ -27,41 +27,41 @@ function Performers() {
             <span htmlFor="fio">Ответственный исполнитель (Фамилия И.О.)</span>
             <i></i>
           </div> */}
-          <div className="input col s12 m6 l6">
-            <input
-              type="text"
-              name="performers"
-              className="validate"
-              required="required"
-              onChange={handleChangePerformer}
-            />
-            <span htmlFor="performers">Фамилии И.О. исполнителей</span>
-            <i></i>
-          </div>
-          <div className="input col s12 m6 l6">
-            <input
-              type="text"
-              name="group"
-              className="validate"
-              required="required"
-              onChange={handleChangePerformer}
-            />
-            <span htmlFor="group">Группа</span>
-            <i></i>
-          </div>
-          <div className="input col s12 m6 l6">
-            <input
-              type="email"
-              name="email"
-              className="validate"
-              required="required"
-              onChange={handleChangePerformer}
-            />
-            <span>E-mail ответственного исполнителя</span>
-            <i></i>
-          </div>
+        <div className="input col s12 m6 l6">
+          <input
+            type="text"
+            name="performers"
+            className="validate"
+            required="required"
+            onChange={handleChangePerformer}
+          />
+          <span htmlFor="performers">Фамилии И.О. исполнителей</span>
+          <i></i>
         </div>
-      </form>
+        <div className="input col s12 m6 l6">
+          <input
+            type="text"
+            name="group"
+            className="validate"
+            required="required"
+            onChange={handleChangePerformer}
+          />
+          <span htmlFor="group">Группа</span>
+          <i></i>
+        </div>
+        <div className="input col s12 m6 l6">
+          <input
+            type="email"
+            name="email"
+            className="validate"
+            required="required"
+            onChange={handleChangePerformer}
+          />
+          <span>E-mail ответственного исполнителя</span>
+          <i></i>
+        </div>
+      </div>
+      {/* </form> */}
     </div>
   );
 }
