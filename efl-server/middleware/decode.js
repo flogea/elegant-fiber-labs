@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 module.exports = (req, res, next) => {
   const base64 = req.body.photo;
@@ -7,8 +8,13 @@ module.exports = (req, res, next) => {
   const id = req.body.id_lab;
   const ext = base64.split('/')[1].split(';')[0];
   const photoName = id + '_photo.' + ext;
-  const path = __dirname + '\\..\\images\\F11\\' + photoName;
-  fs.writeFileSync(path, buff);
+  // for windows
+  const mypath = __dirname + '\\..\\images\\F11\\' + photoName;
+
+  // for linux
+  //const mypath = path.join(__dirname + '/../images/F11/' + photoName);
+
+  fs.writeFileSync(mypath, buff);
   res.locals.photoName = photoName;
   next();
 };
