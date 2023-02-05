@@ -31,7 +31,6 @@ class f11_controller {
         photo,
       } = req.body;
       const photoName = res.locals.photoName;
-      console.log(req.body);
 
       const f11 = new F11model({
         data: table1,
@@ -113,7 +112,7 @@ class f11_controller {
           str,
       ];
 
-      fs.writeFile(`${id_lab}.txt`, data, (err) => {
+      fs.writeFile(`${id_lab}.txt`, `${data}`, (err) => {
         if (err) throw err;
       });
 
