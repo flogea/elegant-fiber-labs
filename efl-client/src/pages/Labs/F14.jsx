@@ -16,8 +16,8 @@ function F14() {
   const Subject = 'Фотоника';
   const LabName = 'Ф14 СПЕКТРАЛЬНЫЕ ХАРАКТЕРИСТИКИ ИСТОЧНИКОВ ИЗЛУЧЕНИЯ';
   const LabLink = 'ъыъ.рф/ЪыеУ';
-  const FColName = 'λ1, нм';
-  const SColName = 'p1, дБм';
+  const FColName = 'λ<sub>1</sub>, нм';
+  const SColName = 'p<sub>1</sub>, дБм';
 
   const labHandler = async () => {
     try {
@@ -65,11 +65,15 @@ function F14() {
         </div>
         <div className="row">
           <div className="col">
-            <label>λmax 1, нм</label>
+            <label>
+              λ<sub>max</sub> 1, нм
+            </label>
             <input type="text" className="input-table" />
           </div>
           <div className="col">
-            <label>pmax 1, дБм</label>
+            <label>
+              p<sub>max</sub> 1, дБм
+            </label>
             <input type="text" className="input-table" />
           </div>
         </div>
@@ -78,7 +82,9 @@ function F14() {
         </div>
         <div className="row">
           <div className="col">
-            <label>pmin, дБм</label>
+            <label>
+              p<sub>min</sub>, дБм
+            </label>
             <input type="text" className="input-table" />
           </div>
         </div>
@@ -98,11 +104,15 @@ function F14() {
         </div>
         <div className="row">
           <div className="col">
-            <label>λmax 2, нм</label>
+            <label>
+              λ<sub>max</sub> 2, нм
+            </label>
             <input type="text" className="input-table" />
           </div>
           <div className="col">
-            <label>pmax 2, дБм</label>
+            <label>
+              p<sub>max</sub> 2, дБм
+            </label>
             <input type="text" className="input-table" />
           </div>
         </div>

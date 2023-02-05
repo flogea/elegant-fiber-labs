@@ -21,7 +21,7 @@ function F13() {
   const LabName = 'Ф13 ПРОСТРАНСТВЕННЫЕ ХАРАКТЕРИСТИКИ ИСТОЧНИКОВ ИЗЛУЧЕНИЯ';
   const LabLink = 'ъыъ.рф/аъые';
   const FColName = 'α, °';
-  const SColName = 'I3 Y, нА';
+  const SColName = 'I<sub>3</sub> Y, нА';
 
   const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
     React.useContext(Context);

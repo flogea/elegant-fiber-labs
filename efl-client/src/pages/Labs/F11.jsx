@@ -26,8 +26,61 @@ function F11() {
 
   const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
     React.useContext(Context);
+  const [errors, setErrors] = React.useState('');
+  const [isOk, setOk] = React.useState('');
 
-  const labHandler = async () => {
+  //const labHandler = async (e) => {
+  //e.preventDefault();
+  // try {
+  //   await axios
+  //     .post(
+  //       '/api/labs/f11',
+  //       {
+  //         token: secretKey.token,
+  //         table1,
+  //         table2,
+  //         table3,
+  //         table4,
+  //         performers: performers.performers,
+  //         group: performers.group,
+  //         email: performers.email,
+  //         lab_name,
+  //         id_lab,
+  //         quantity: quantity.quantity,
+  //         photo,
+  //       },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       },
+  //     )
+  //     .then((res) => {
+  //       setErrors(null);
+  //       setOk('ok');
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       switch (err.response.status) {
+  //         case 401:
+  //           setErrors('Неверный код');
+  //           break;
+  //         case 500:
+  //           setErrors('Ошибка данных');
+  //           break;
+  //       }
+  //       setErrors('errors');
+  //       throw new Error('Error post');
+  //       //return Error;
+  //     });
+  // } catch (error) {
+  //   throw new Error(error.status);
+
+  //   setErrors('Ошибка! Проверьте правильность данных');
+  // }
+
+  const labHandler = async (e) => {
+    e.preventDefault();
     try {
       await axios
         .post(
@@ -57,6 +110,7 @@ function F11() {
       console.log(error);
     }
   };
+  //};
 
   return (
     <form>
