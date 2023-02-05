@@ -89,8 +89,11 @@ function F12() {
         </div>
         <div className="row">
           <div className="col">
-            <label>ток, мкА</label>
-            <input type="text" className="input-table" />
+            <div className="input col s12 m6 l6">
+              <input type="text" name="tok" className="validate" required="required" />
+              <span htmlFor="tok">ток, мкА</span>
+              <i></i>
+            </div>
           </div>
         </div>
 
@@ -101,14 +104,20 @@ function F12() {
         <div className="main-text">5 Измерьте расстояния:</div>
         <div className="row">
           <div className="col">
-            <label>Расстояние от плоскости лазера до модулятора, см</label>
-            <input type="text" className="input-table" />
+            <div className="input col s12 m6 l6">
+              <input type="text" name="tok" className="validate" required="required" />
+              <span htmlFor="tok">Расстояние от плоскости лазера до модулятора, см</span>
+              <i></i>
+            </div>
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <label>Расстояние от модулятора до плоскости фотоприемника, см</label>
-            <input type="text" className="input-table" />
+            <div className="input col s12 m6 l6">
+              <input type="text" name="tok" className="validate" required="required" />
+              <span htmlFor="tok">Расстояние от модулятора до плоскости фотоприемника, см</span>
+              <i></i>
+            </div>
           </div>
         </div>
       </div>
