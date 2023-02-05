@@ -1,4 +1,5 @@
 import React from 'react';
+import parse from 'html-react-parser';
 
 import '../../styles/Labs.scss';
 
@@ -24,8 +25,8 @@ function F11tab({ FColName, SColName, array, research }) {
   return (
     <div className="row">
       <div className="col s6">
-        <label className="fname">{FColName}</label>
-        <label className="sname">{SColName}</label>
+        <label className="fname">{parse(FColName)}</label>
+        <label className="sname">{parse(SColName)}</label>
       </div>
       {handleSwitch(research)}
     </div>
