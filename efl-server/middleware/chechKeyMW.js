@@ -16,10 +16,10 @@ module.exports = async (req, res, next) => {
       console.log(true);
       next();
     } else {
-      res.status(500).json({ verified: false });
       console.log('verified false');
+      return res.status(401).json({ message: 'error code' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'error verified' });
+    return res.status(400).json({ message: 'error verified' });
   }
 };
