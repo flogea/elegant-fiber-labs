@@ -51,16 +51,16 @@ function TableGenerate() {
 
   let str = [];
   const len = 2;
-  const len2 = 21;
+  const len2 = 24;
 
   let rand = Math.floor(Math.random() * values.length);
 
-  for (let i = 0; i < len; i++) {
+  let i = 0;
+  while (str.length < len) {
     let pos = Math.floor(Math.random() * alphabet.length);
-    if (alphabet[pos] !== str) {
+    if (str.indexOf(alphabet[pos]) === -1) {
       str[i] = alphabet[pos];
-    } else {
-      i--;
+      i++;
     }
   }
 
@@ -141,10 +141,18 @@ function TableGenerate() {
         <tr>
           <td>1</td>
           <td>1</td>
-          <td>1</td>
+          <td>0</td>
           <td>{str[20]}</td>
           <td>{str[21]}</td>
           <td>{str[22]}</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>{str[23]}</td>
+          <td>{str[24]}</td>
+          <td>{str[25]}</td>
         </tr>
       </tbody>
     </table>
@@ -158,8 +166,36 @@ function M11() {
   const LabName = 'М11 QUARTUS II. СОЗДАНИЕ ПРОСТЕЙШИХ ЦИФРОВЫХ СХЕМ';
   const LabLink = 'ъыъ.рф/ьАуУ';
 
-  const { performers, table1, table2, table3, table4, photo, quantity, secretKey } =
-    React.useContext(Context);
+  const { performers, photo, quantity, secretKey } = React.useContext(Context);
+
+  const labHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await axios
+        .post(
+          '/api/labs/m11',
+          {
+            token: secretKey.token,
+            performers: performers.performers,
+            group: performers.group,
+            email: performers.email,
+            lab_name,
+            id_lab,
+            quantity: quantity.quantity,
+            photo,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((res) => console.log(res));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //};
 
   return (
     <div className="container">
@@ -338,9 +374,43 @@ function M11() {
         </p>
         <p>19 Сохраните разработанную логическую схему в pdf.</p>
         {/* input */}
+
+        <div className="row">
+          <div className="input-file">
+            <input
+              type="file"
+              //onChange={handleChangePhoto}
+              required="required"
+              id="upload__input__pdf1"
+              accept=".pdf"
+            />
+            <label htmlFor="upload__input__pdf1">Файл</label>
+          </div>
+        </div>
+        <div className="row">
+          <span id="output" className="main-text"></span>
+        </div>
+
         <p>20 Получите и изучите RTL-схему модуля.</p>
         <p>21 Сохраните RTL-схему в pdf.</p>
         {/* input */}
+
+        <div className="row">
+          <div className="input-file">
+            <input
+              type="file"
+              //onChange={handleChangePhoto}
+              required="required"
+              id="upload__input__pdf2"
+              accept=".pdf"
+            />
+            <label htmlFor="upload__input__pdf2">Файл</label>
+          </div>
+        </div>
+        <div className="row">
+          <span id="output" className="main-text"></span>
+        </div>
+
         <p>
           22 Произведите функциональную симуляцию модуля{' '}
           <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_sch</span>. В качестве входных данных
@@ -358,6 +428,22 @@ function M11() {
           </i>
         </p>
         {/* input */}
+
+        <div className="row">
+          <div className="input-file">
+            <input
+              type="file"
+              //onChange={handleChangePhoto}
+              required="required"
+              id="upload__input__png1"
+              accept=".png"
+            />
+            <label htmlFor="upload__input__png1">Файл</label>
+          </div>
+        </div>
+        <div className="row">
+          <span id="output" className="main-text"></span>
+        </div>
 
         <h3>
           Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span> — КЦУ, описанное на
@@ -476,10 +562,44 @@ function M11() {
           называться <span style={{ textDecoration: 'underline' }}>exersize_1.v.</span>
         </p>
         {/* input */}
+
+        <div className="row">
+          <div className="input-file">
+            <input
+              type="file"
+              //onChange={handleChangePhoto}
+              required="required"
+              id="upload__input__v"
+              accept=".v"
+            />
+            <label htmlFor="upload__input__v">Файл</label>
+          </div>
+        </div>
+        <div className="row">
+          <span id="output" className="main-text"></span>
+        </div>
+
         <p>26 Выполните анализ и синтез проекта. Исправьте ошибки, если таковые имеются.</p>
         <p>27 Получите и изучите RTL-схему модуля.</p>
         <p>28 Сохраните RTL-схему в pdf.</p>
         {/* input */}
+
+        <div className="row">
+          <div className="input-file">
+            <input
+              type="file"
+              //onChange={handleChangePhoto}
+              required="required"
+              id="upload__input__pdf3"
+              accept=".pdf"
+            />
+            <label htmlFor="upload__input__pdf3">Файл</label>
+          </div>
+        </div>
+        <div className="row">
+          <span id="output" className="main-text"></span>
+        </div>
+
         <p>
           29 Произведите функциональную симуляцию разработанного модуля{' '}
           <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span>. В качестве входных данных
@@ -494,6 +614,23 @@ function M11() {
           разверните все шины.
         </p>
         {/* input */}
+
+        <div className="row">
+          <div className="input-file">
+            <input
+              type="file"
+              //onChange={handleChangePhoto}
+              required="required"
+              id="upload__input__png2"
+              accept=".png"
+            />
+            <label htmlFor="upload__input__png2">Файл</label>
+          </div>
+        </div>
+        <div className="row">
+          <span id="output" className="main-text"></span>
+        </div>
+
         <p>31 Сравните полученные результаты (временные диаграммы и схемы).</p>
       </Foldable>
       <FooterLab />
