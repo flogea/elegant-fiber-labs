@@ -248,24 +248,45 @@
 
     .foldable {
       margin-bottom: 20px;
+      cursor: pointer;
 
       .content-parent {
         height: 0px;
         overflow: hidden;
         transition: height ease 0.3s;
-      }
 
-      .toggle {
-        cursor: pointer;
+        // &::before {
+        //   content: '\02795';
+        //   font-size: 13px;
+        //   color: white;
+        //   float: left;
+        //   margin-left: 20px;
+        // }
 
-        // &::after {
-        //   margin: 0;
-        //   content: '»';
+        // & .active::after {
+        //   content: '\2796';
         // }
       }
 
+      .toggle {
+        display: flex;
+        flex-direction: row;
+        transition: 0.3s ease;
+        justify-content: flex-start;
+        align-items: center;
+
+        .foldableIcon {
+          transition: 0.4s ease;
+          flex: right;
+
+          &.active {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
       h2 {
-        margin: 0 0 10px 5%;
+        margin: 0 0 0 15px;
       }
     }
 

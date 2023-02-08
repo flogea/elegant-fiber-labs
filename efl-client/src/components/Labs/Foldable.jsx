@@ -2,6 +2,9 @@ import React from 'react';
 
 import '../../styles/Labs.scss';
 
+import { ReactComponent as ArrowRight } from '../../images/arrowR.svg';
+import { ReactComponent as ArrowDown } from '../../images/arrowD.svg';
+
 function Foldable(props) {
   const [isOpen, setIsOpen] = React.useState(true);
 
@@ -10,6 +13,8 @@ function Foldable(props) {
   return (
     <div className="foldable">
       <div className="toggle" onClick={() => setIsOpen(!isOpen)}>
+        <div className={isOpen ? 'foldableIcon' : 'foldableIcon active'}>{<ArrowRight />}</div>
+
         <h2>{props.header}</h2>
       </div>
       <div
