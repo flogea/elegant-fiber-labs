@@ -35,7 +35,7 @@ function FooterLab() {
     const reader = new FileReader();
     reader.onload = (function (theFile) {
       return function (e) {
-        const span = document.getElementById('output');
+        const span = document.getElementById('output__img');
         span.innerHTML = [
           '<img title="',
           escape(theFile.name),
@@ -60,52 +60,41 @@ function FooterLab() {
   };
 
   return (
-    <div>
+    <div className="footer">
       <h2>Подтверждение работы</h2>
-      <div className="row">
-        <div className="row">
-          <div className="input col">
-            <input
-              type="text"
-              name="quantity"
-              required="required"
-              onChange={handleChangeQuantity}
-            />
-            <span>Количество участников</span>
-            <i></i>
-          </div>
-        </div>
-        <div className="main-text">
-          Фотографии всех участников работы со стендом лабораторной работы
-        </div>
-        <div className="row">
-          <div className="input-file">
-            <input
-              type="file"
-              onChange={handleChangePhoto}
-              required="required"
-              name="avatar"
-              id="upload__input"
-              accept="image/*,.png,.jpg,.jpeg"
-            />
-            <label htmlFor="upload__input">File</label>
-            <i id="input__label"></i>
-          </div>
-          <div className="row">
-            <span id="output" className="main-text"></span>
-          </div>
-        </div>
-        <div className="main-text">Предъявите заполненную форму преподавателю.</div>
+
+      <div className="input__data">
+        <input type="text" name="quantity" required="required" onChange={handleChangeQuantity} />
+        <span>Количество участников</span>
+        <i></i>
       </div>
 
-      <div className="main-text">
-        <div className="row">
-          <div className="input col subm">
-            <input type="text" name="token" required="required" onChange={handleChangeSecret} />
-            <span>Код подтверждения</span>
-            <i></i>
-          </div>
-        </div>
+      <div className="info__text">
+        <h4>Фотографии всех участников работы со стендом лабораторной работы</h4>
+      </div>
+
+      <div className="input-file">
+        <input
+          type="file"
+          onChange={handleChangePhoto}
+          required="required"
+          name="avatar"
+          id="upload__input"
+          accept="image/*,.png,.jpg,.jpeg"
+        />
+        <label htmlFor="upload__input">File</label>
+        <i id="input__label"></i>
+      </div>
+      <span id="output__img" className=""></span>
+
+      <div className="info__text">
+        <h4>Предъявите заполненную форму преподавателю.</h4>
+      </div>
+
+      <div className="input__data subm">
+        <input type="text" name="token" required="required" onChange={handleChangeSecret} />
+        <span>Код подтверждения</span>
+        <i></i>
       </div>
     </div>
   );
