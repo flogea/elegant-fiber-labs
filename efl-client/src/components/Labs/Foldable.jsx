@@ -3,7 +3,6 @@ import React from 'react';
 import '../../styles/Labs.scss';
 
 import { ReactComponent as ArrowRight } from '../../images/arrowR.svg';
-import { ReactComponent as ArrowDown } from '../../images/arrowD.svg';
 
 function Foldable(props) {
   const [isOpen, setIsOpen] = React.useState(true);

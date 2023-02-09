@@ -26,10 +26,10 @@ function Performers() {
   };
 
   return (
-    <div>
+    <div className="performers">
       <h2>Исполнители</h2>
-      <div className="row perform">
-        <div className="input col s12 m6 l6">
+      <div className="perform__data">
+        <div className="input__data">
           <input
             type="text"
             name="performers"
@@ -40,7 +40,7 @@ function Performers() {
           <span htmlFor="performers">Фамилии И.О. исполнителей</span>
           <i></i>
         </div>
-        <div className="input col s12 m6 l6">
+        <div className="input__data">
           <input
             type="text"
             name="group"
@@ -51,7 +51,7 @@ function Performers() {
           <span htmlFor="group">Группа</span>
           <i></i>
         </div>
-        <div className="input col s12 m6 l6">
+        <div className="input__data">
           <input
             type="email"
             name="email"
