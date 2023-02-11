@@ -21,143 +21,139 @@ import pic8 from '../../images/M11/electric_scheme.png';
 import pic9 from '../../images/M11/diagramm1.png';
 import pic10 from '../../images/M11/diagramm2.png';
 
-function TableGenerate() {
-  const alphabet = [
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z',
-  ];
-  const values = [0, 1];
+// function TableGenerate() {
+//   const alphabet = [
+//     'c',
+//     'd',
+//     'e',
+//     'f',
+//     'g',
+//     'h',
+//     'i',
+//     'j',
+//     'k',
+//     'l',
+//     'm',
+//     'n',
+//     'p',
+//     'q',
+//     'r',
+//     's',
+//     't',
+//     'u',
+//     'v',
+//     'w',
+//     'x',
+//     'y',
+//     'z',
+//   ];
+//   const values = [0, 1];
 
-  let str = [];
-  const len = 2;
-  const len2 = 24;
+//   let str = [];
+//   const len = 2;
+//   const len2 = 24;
 
-  let rand = Math.floor(Math.random() * values.length);
+//   let rand = Math.floor(Math.random() * values.length);
 
-  let i = 0;
-  while (str.length < len) {
-    let pos = Math.floor(Math.random() * alphabet.length);
-    if (str.indexOf(alphabet[pos]) === -1) {
-      str[i] = alphabet[pos];
-      i++;
-    }
-  }
+//   let i = 0;
+//   while (str.length < len) {
+//     let pos = Math.floor(Math.random() * alphabet.length);
+//     if (str.indexOf(alphabet[pos]) === -1) {
+//       str[i] = alphabet[pos];
+//       i++;
+//     }
+//   }
 
-  for (let i = 0; i < len2; i++) {
-    let rand = Math.floor(Math.random() * values.length);
-    str[i + 2] = values[rand];
-  }
+//   for (let i = 0; i < len2; i++) {
+//     let rand = Math.floor(Math.random() * values.length);
+//     str[i + 2] = values[rand];
+//   }
 
-  console.log(str);
+//   console.log(str);
 
-  return (
-    <table className="iksweb">
-      <tbody>
-        <tr>
-          <td colSpan="3">Входы</td>
-          <td colSpan="3">Выходы</td>
-        </tr>
-        <tr>
-          <td>a</td>
-          <td>b[1]</td>
-          <td>b[0]</td>
-          <td>{str[0]}</td>
-          <td>{str[1]}[0]</td>
-          <td>{str[1]}[1]</td>
-        </tr>
-        {/* {str &&
-          str.map((name, index) => (
-            <tr></tr>
-          ))} */}
-        <tr>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-          <td>{str[2]}</td>
-          <td>{str[3]}</td>
-          <td>{str[4]}</td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>0</td>
-          <td>1</td>
-          <td>{str[5]}</td>
-          <td>{str[6]}</td>
-          <td>{str[7]}</td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>1</td>
-          <td>0</td>
-          <td>{str[8]}</td>
-          <td>{str[9]}</td>
-          <td>{str[10]}</td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>1</td>
-          <td>1</td>
-          <td>{str[11]}</td>
-          <td>{str[12]}</td>
-          <td>{str[13]}</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>0</td>
-          <td>0</td>
-          <td>{str[14]}</td>
-          <td>{str[15]}</td>
-          <td>{str[16]}</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>0</td>
-          <td>1</td>
-          <td>{str[17]}</td>
-          <td>{str[18]}</td>
-          <td>{str[19]}</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>0</td>
-          <td>{str[20]}</td>
-          <td>{str[21]}</td>
-          <td>{str[22]}</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>{str[23]}</td>
-          <td>{str[24]}</td>
-          <td>{str[25]}</td>
-        </tr>
-      </tbody>
-    </table>
-  );
-}
+//   return (
+//     <table className="iksweb">
+//       <tbody>
+//         <tr>
+//           <td colSpan="3">Входы</td>
+//           <td colSpan="3">Выходы</td>
+//         </tr>
+//         <tr>
+//           <td>a</td>
+//           <td>b[1]</td>
+//           <td>b[0]</td>
+//           <td>{str[0]}</td>
+//           <td>{str[1]}[0]</td>
+//           <td>{str[1]}[1]</td>
+//         </tr>
+//         <tr>
+//           <td>0</td>
+//           <td>0</td>
+//           <td>0</td>
+//           <td>{str[2]}</td>
+//           <td>{str[3]}</td>
+//           <td>{str[4]}</td>
+//         </tr>
+//         <tr>
+//           <td>0</td>
+//           <td>0</td>
+//           <td>1</td>
+//           <td>{str[5]}</td>
+//           <td>{str[6]}</td>
+//           <td>{str[7]}</td>
+//         </tr>
+//         <tr>
+//           <td>0</td>
+//           <td>1</td>
+//           <td>0</td>
+//           <td>{str[8]}</td>
+//           <td>{str[9]}</td>
+//           <td>{str[10]}</td>
+//         </tr>
+//         <tr>
+//           <td>0</td>
+//           <td>1</td>
+//           <td>1</td>
+//           <td>{str[11]}</td>
+//           <td>{str[12]}</td>
+//           <td>{str[13]}</td>
+//         </tr>
+//         <tr>
+//           <td>1</td>
+//           <td>0</td>
+//           <td>0</td>
+//           <td>{str[14]}</td>
+//           <td>{str[15]}</td>
+//           <td>{str[16]}</td>
+//         </tr>
+//         <tr>
+//           <td>1</td>
+//           <td>0</td>
+//           <td>1</td>
+//           <td>{str[17]}</td>
+//           <td>{str[18]}</td>
+//           <td>{str[19]}</td>
+//         </tr>
+//         <tr>
+//           <td>1</td>
+//           <td>1</td>
+//           <td>0</td>
+//           <td>{str[20]}</td>
+//           <td>{str[21]}</td>
+//           <td>{str[22]}</td>
+//         </tr>
+//         <tr>
+//           <td>1</td>
+//           <td>1</td>
+//           <td>1</td>
+//           <td>{str[23]}</td>
+//           <td>{str[24]}</td>
+//           <td>{str[25]}</td>
+//         </tr>
+//       </tbody>
+//     </table>
+//   );
+// }
 
 function M11() {
   const lab_name = 'M11';
@@ -174,6 +170,155 @@ function M11() {
   const [dataName5, setDataName5] = React.useState('');
   const [dataName6, setDataName6] = React.useState('');
   const [id, setId] = React.useState('');
+  const [table, setTable] = React.useState('');
+
+  function TableGenerate(e) {
+    e.preventDefault();
+    const alphabet = [
+      'c',
+      'd',
+      'e',
+      'f',
+      'g',
+      'h',
+      'i',
+      'j',
+      'k',
+      'l',
+      'm',
+      'n',
+      'p',
+      'q',
+      'r',
+      's',
+      't',
+      'u',
+      'v',
+      'w',
+      'x',
+      'y',
+      'z',
+    ];
+    const values = [0, 1];
+
+    let str = [];
+    const len = 2;
+    const len2 = 24;
+
+    let rand = Math.floor(Math.random() * values.length);
+
+    let i = 0;
+    while (str.length < len) {
+      let pos = Math.floor(Math.random() * alphabet.length);
+      if (str.indexOf(alphabet[pos]) === -1) {
+        str[i] = alphabet[pos];
+        i++;
+      }
+    }
+
+    for (let i = 0; i < len2; i++) {
+      let rand = Math.floor(Math.random() * values.length);
+      str[i + 2] = values[rand];
+    }
+
+    setTable(
+      <table className="iksweb">
+        <tbody>
+          <tr>
+            <td colSpan="3">Входы</td>
+            <td colSpan="3">Выходы</td>
+          </tr>
+          <tr>
+            <td>a</td>
+            <td>b[1]</td>
+            <td>b[0]</td>
+            <td>{str[0]}</td>
+            <td>{str[1]}[0]</td>
+            <td>{str[1]}[1]</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{str[2]}</td>
+            <td>{str[3]}</td>
+            <td>{str[4]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>{str[5]}</td>
+            <td>{str[6]}</td>
+            <td>{str[7]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>{str[8]}</td>
+            <td>{str[9]}</td>
+            <td>{str[10]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td>{str[11]}</td>
+            <td>{str[12]}</td>
+            <td>{str[13]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{str[14]}</td>
+            <td>{str[15]}</td>
+            <td>{str[16]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>{str[17]}</td>
+            <td>{str[18]}</td>
+            <td>{str[19]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td>{str[20]}</td>
+            <td>{str[21]}</td>
+            <td>{str[22]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>{str[23]}</td>
+            <td>{str[24]}</td>
+            <td>{str[25]}</td>
+          </tr>
+        </tbody>
+      </table>,
+    );
+  }
+
+  // const findData = async (event) => {
+  //   const currentId = event.target.value;
+  //   console.log(currentId);
+
+  //   await axios
+  //     .get('/api/labs/m11save', {
+  //       params: {
+  //         id: currentId,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     });
+  // };
 
   const saveHandler = async (event) => {
     event.preventDefault();
@@ -233,6 +378,11 @@ function M11() {
       <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
       <form onSubmit={saveHandler}>
         <Performers />
+        <div>
+          <h3>Прододжить работу</h3>
+          <input type="number" />
+          <button onClick={findData}>Продолжить</button>
+        </div>
         <div className="foldable__content">
           <Foldable header="Теоретические сведения">
             <p>
@@ -393,8 +543,12 @@ function M11() {
               15 Получите логические выражения для выходов из таблиц функционирования устройств
               заданного варианта. Для этого можно воспользоваться картами Карно.
             </p>
-            <button onClick={TableGenerate}>Сгенерировать</button>
-            <div></div>
+            <div className="row">
+              <button onClick={TableGenerate} className="generate__btn">
+                Сгенерировать
+              </button>
+            </div>
+            <div>{table}</div>
 
             <h3>
               Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_sch</span> — КЦУ, описанное
