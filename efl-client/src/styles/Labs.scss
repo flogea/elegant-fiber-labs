@@ -359,7 +359,7 @@
             background-position-x: 0;
           }
           100% {
-            background-position-x: 60vw;
+            background-position-x: 48vw;
           }
         }
       }
@@ -526,7 +526,7 @@
   }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 900px) and (max-width: 1200px) {
   .container {
     width: 75%;
 
@@ -537,7 +537,7 @@
             background-position-x: 0;
           }
           100% {
-            background-position-x: 75vw * 0.7;
+            background-position-x: 60vw;
           }
         }
       }
@@ -579,7 +579,7 @@
             background-position-x: 0;
           }
           100% {
-            background-position-x: 80vw;
+            background-position-x: 65vw;
           }
         }
       }
@@ -640,7 +640,7 @@
             background-position-x: 0;
           }
           100% {
-            background-position-x: 85vw;
+            background-position-x: 90vw;
           }
         }
       }
