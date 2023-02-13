@@ -11,6 +11,7 @@
   .container {
     width: 60%;
     margin: auto;
+    margin-bottom: 30px;
 
     // HEADER
 
@@ -496,6 +497,10 @@
 
         &.formula {
           width: 70%;
+
+          &.smaller {
+            width: 40%;
+          }
         }
       }
     }

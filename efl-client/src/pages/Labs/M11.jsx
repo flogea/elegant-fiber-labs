@@ -177,6 +177,7 @@ function M11() {
   const [array, setArray] = React.useState('');
   const [str, setStr] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isSended, setIsSended] = React.useState(null);
   const formRef = React.useRef();
 
   React.useEffect(() => {
@@ -453,11 +454,13 @@ function M11() {
         const newId = res.data.id_lab;
         setId(newId);
         setIsLoading(false);
+        setIsSended(true);
         console.log(`Success `, res.data);
       })
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
+        setIsSended(false);
       });
   };
 
@@ -491,10 +494,12 @@ function M11() {
         .then((res) => {
           console.log(res);
           setIsLoading(false);
+          setIsSended(true);
         });
     } catch (error) {
       console.log(error);
       setIsLoading(false);
+      setIsSended(false);
     }
   };
 
@@ -594,13 +599,13 @@ function M11() {
             </p>
             <div className="content-image">
               <img src={pic4} alt="" />
-              <img src={pic5} alt="" className="formula" />
+              <img src={pic5} alt="" className="formula smaller" />
             </div>
 
             <p>Аналогично опишем e.</p>
             <div className="content-image">
               <img src={pic6} alt="" />
-              <img src={pic7} alt="" className="formula" />
+              <img src={pic7} alt="" className="formula smaller" />
             </div>
 
             <p>По данным выражениям изобразим электрическую схему устройства</p>
@@ -976,6 +981,8 @@ function M11() {
 
         <div className="row">
           {isLoading ? <img src={preloader} className="preloader" /> : null}
+          {console.log(isSended)}
+          {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
           <div className="centering">
             <input type="submit" className="generate__btn" value="Сохранить" />
           </div>
@@ -987,6 +994,7 @@ function M11() {
       <FooterLab needPhoto={false} />
       <div className="row">
         {isLoading ? <img src={preloader} className="preloader" /> : null}
+        {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
         <div className="centering">
           <button
             className="wawes-effect wawes-light btn btn-blue"
