@@ -4,8 +4,9 @@ import '../../styles/Labs.scss';
 
 import { Context } from '../../Context';
 
-function FooterLab() {
+function FooterLab(props) {
   const { setPhoto, quantity, setQuantity, secretKey, setSecretKey } = React.useContext(Context);
+  const [prevPhoto, setPrevPhoto] = React.useState('');
 
   const handleChangeQuantity = (event) => {
     setQuantity({ ...quantity, [event.target.name]: event.target.value });
@@ -46,6 +47,8 @@ function FooterLab() {
       };
     })(file);
     reader.readAsDataURL(file);
+    //setPrevPhoto(file.result);
+    //console.log(file.result);
 
     const label = document.getElementById('input__label');
     label.innerHTML = file.name;
@@ -69,7 +72,7 @@ function FooterLab() {
         <i></i>
       </div>
 
-      <div className="info__text">
+      {props.needPhoto ? <><div className="info__text">
         <h4>Фотографии всех участников работы со стендом лабораторной работы</h4>
       </div>
 
@@ -82,10 +85,12 @@ function FooterLab() {
           id="upload__input"
           accept="image/*,.png,.jpg,.jpeg"
         />
-        <label htmlFor="upload__input">File</label>
+        <label htmlFor="upload__input">Файл</label>
         <i id="input__label"></i>
       </div>
-      <span id="output__img" className=""></span>
+      <span id="output__img" className="">
+        <img src={prevPhoto} />
+      </span></> : null}
 
       <div className="info__text">
         <h4>Предъявите заполненную форму преподавателю.</h4>

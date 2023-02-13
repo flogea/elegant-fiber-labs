@@ -20,6 +20,7 @@ import pic7 from '../../images/M11/formula4.png';
 import pic8 from '../../images/M11/electric_scheme.png';
 import pic9 from '../../images/M11/diagramm1.png';
 import pic10 from '../../images/M11/diagramm2.png';
+import preloader from '../../images/Infinity.gif';
 
 // function TableGenerate() {
 //   const alphabet = [
@@ -157,12 +158,13 @@ import pic10 from '../../images/M11/diagramm2.png';
 
 function M11() {
   const lab_name = 'M11';
-  const id_lab = new Date().getTime();
   const Subject = 'Вычислительная техника';
   const LabName = 'М11 QUARTUS II. СОЗДАНИЕ ПРОСТЕЙШИХ ЦИФРОВЫХ СХЕМ';
   const LabLink = 'ъыъ.рф/ьАуУ';
 
-  const { performers, photo, quantity, secretKey } = React.useContext(Context);
+  const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp } =
+    React.useContext(Context);
+  const [id_lab, setIdLab] = React.useState('');
   const [dataName1, setDataName1] = React.useState('');
   const [dataName2, setDataName2] = React.useState('');
   const [dataName3, setDataName3] = React.useState('');
@@ -171,6 +173,100 @@ function M11() {
   const [dataName6, setDataName6] = React.useState('');
   const [id, setId] = React.useState('');
   const [table, setTable] = React.useState('');
+  const [currentId, setCurrentId] = React.useState('');
+  const [array, setArray] = React.useState('');
+  const [str, setStr] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const formRef = React.useRef();
+
+  React.useEffect(() => {
+    setIdLab(new Date().getTime());
+  }, []);
+
+  React.useEffect(() => {
+    setTable(
+      <table className="iksweb">
+        <tbody>
+          <tr>
+            <td colSpan="3">Входы</td>
+            <td colSpan="3">Выходы</td>
+          </tr>
+          <tr>
+            <td>a</td>
+            <td>b[1]</td>
+            <td>b[0]</td>
+            <td>{str[0]}</td>
+            <td>{str[1]}[0]</td>
+            <td>{str[1]}[1]</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{str[2]}</td>
+            <td>{str[3]}</td>
+            <td>{str[4]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>{str[5]}</td>
+            <td>{str[6]}</td>
+            <td>{str[7]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>{str[8]}</td>
+            <td>{str[9]}</td>
+            <td>{str[10]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td>{str[11]}</td>
+            <td>{str[12]}</td>
+            <td>{str[13]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{str[14]}</td>
+            <td>{str[15]}</td>
+            <td>{str[16]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>{str[17]}</td>
+            <td>{str[18]}</td>
+            <td>{str[19]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td>{str[20]}</td>
+            <td>{str[21]}</td>
+            <td>{str[22]}</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>{str[23]}</td>
+            <td>{str[24]}</td>
+            <td>{str[25]}</td>
+          </tr>
+        </tbody>
+      </table>,
+    );
+  }, [str]);
 
   function TableGenerate(e) {
     e.preventDefault();
@@ -200,8 +296,6 @@ function M11() {
       'z',
     ];
     const values = [0, 1];
-
-    let str = [];
     const len = 2;
     const len2 = 24;
 
@@ -220,7 +314,7 @@ function M11() {
       let rand = Math.floor(Math.random() * values.length);
       str[i + 2] = values[rand];
     }
-
+    setArray(str);
     setTable(
       <table className="iksweb">
         <tbody>
@@ -305,27 +399,48 @@ function M11() {
     );
   }
 
-  // const findData = async (event) => {
-  //   const currentId = event.target.value;
-  //   console.log(currentId);
+  const findData = async (event) => {
+    event.preventDefault();
 
-  //   await axios
-  //     .get('/api/labs/m11save', {
-  //       params: {
-  //         id: currentId,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     });
-  // };
+    await axios.get('/api/labs/m11save/' + currentId).then((res) => {
+      const dataFromDB = res.data.result[0];
+      const dataTable = res.data.result[1];
+      const newDataTable = Object.values(dataTable).slice(0, 24);
+      newDataTable.unshift(dataTable.letterTwo);
+      newDataTable.unshift(dataTable.letterOne);
+      if (dataFromDB !== undefined) {
+        setPerformers({
+          ...performers,
+          performers: dataFromDB.performers,
+          group: dataFromDB.group,
+          email: dataFromDB.email,
+        });
+        setStr(newDataTable);
+        setDisabledInp(true);
+      } else if (dataTable !== undefined) {
+        setStr(newDataTable);
+        console.log(str);
+      }
+    });
+  };
 
   const saveHandler = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(event.target);
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('letterOne', array[0]);
+    formData.append('letterTwo', array[1]);
+
+    // for (let i = 1; i < array.length - 1; i++) {
+    //   formData.append(i, array[i + 1]);
+    // }
+
+    //const data = Object.fromEntries(array.slice(2).map((value, index) => [index, value]));
+
+    formData.append('data', array.slice(2));
 
     console.log(Array.from(formData));
     await axios
@@ -337,59 +452,94 @@ function M11() {
       .then((res) => {
         const newId = res.data.id_lab;
         setId(newId);
+        setIsLoading(false);
         console.log(`Success `, res.data);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   };
 
-  // const labHandler = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await axios
-  //       .post(
-  //         '/api/labs/m11',
-  //         {
-  //           token: secretKey.token,
-  //           performers: performers.performers,
-  //           group: performers.group,
-  //           email: performers.email,
-  //           lab_name,
-  //           id_lab,
-  //           quantity: quantity.quantity,
-  //           photo,
-  //         },
-  //         {
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           },
-  //         },
-  //       )
-  //       .then((res) => console.log(res));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  //};
+  const labHandler = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(formRef.current);
+
+    formData.append('lab_name', lab_name);
+    formData.append('id_lab', id_lab);
+    formData.append('letterOne', array[0]);
+    formData.append('letterTwo', array[1]);
+    formData.append('token', secretKey.token);
+    formData.append('photo', photo);
+    formData.append('quantity', quantity.quantity);
+    formData.append('data', array.slice(2));
+
+    // for (let i = 1; i < array.length - 1; i++) {
+    //   formData.append(i, array[i + 1]);
+    // }
+
+    console.log(Array.from(formData));
+
+    try {
+      await axios
+        .post('/api/labs/m11', formData, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="container">
       <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
-      <form onSubmit={saveHandler}>
+      <form onSubmit={saveHandler} ref={formRef}>
         <Performers />
-        <div>
-          <h3>Прододжить работу</h3>
-          <input type="number" />
-          <button onClick={findData}>Продолжить</button>
-        </div>
+
         <div className="foldable__content">
+          <Foldable header="Продолжить работу">
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                width: '80%',
+                margin: 'auto',
+              }}>
+              <input
+                type="text"
+                name="labId"
+                onChange={(e) => setCurrentId(e.target.value)}
+                style={{
+                  width: '100%',
+                  border: 'none',
+                  borderBottom: '2px solid black',
+                  padding: '5px',
+                  margin: '10px auto',
+                  outline: 'none',
+                  fontSize: '1rem',
+                }}
+                placeholder="ID"
+              />
+              <button onClick={findData} className="generate__btn">
+                Продолжить
+              </button>
+            </div>
+          </Foldable>
           <Foldable header="Теоретические сведения">
             <p>
               Комбинационные цифровые устройства (КЦУ) — цифровые устройства, уровни сигналов на
               каждом выходе которых в каждый момент времени зависят только от комбинаций значений
               уровней входных сигналов.
-            </p>{' '}
+            </p>
             <p>
               Описать работу КЦУ можно несколькими способами: таблицей [истинности,
               функционирования], аналитически (функцией), схематический (электронной схемой) и
@@ -534,7 +684,8 @@ function M11() {
           </Foldable>
           <Foldable header="Выполнение работы">
             <p>
-              13 Запустите Quartus II 15.0. Выполните первоначальную настройку<sup>2</sup>.
+              13 Запустите Quartus II 15.0. Выполните первоначальную настройку
+              <sup data-tooltip="">2</sup>.
             </p>
             <p>
               14 Создайте проект Lab_M11<sup>3</sup>.
@@ -824,13 +975,27 @@ function M11() {
         </div>
 
         <div className="row">
+          {isLoading ? <img src={preloader} className="preloader" /> : null}
           <div className="centering">
-            <input type="submit" className="" value="Сохранить" />
+            <input type="submit" className="generate__btn" value="Сохранить" />
           </div>
-          <div>ID (Сохраните, пожалуйста): {id}</div>
+          <div>
+            ID (Сохраните, пожалуйста): <b>{id}</b>
+          </div>
         </div>
       </form>
-      <FooterLab />
+      <FooterLab needPhoto={false} />
+      <div className="row">
+        {isLoading ? <img src={preloader} className="preloader" /> : null}
+        <div className="centering">
+          <button
+            className="wawes-effect wawes-light btn btn-blue"
+            onClick={labHandler}
+            id="subm_btn">
+            Отправить
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

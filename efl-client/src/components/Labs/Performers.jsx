@@ -5,7 +5,7 @@ import '../../styles/Labs.scss';
 import { Context } from '../../Context';
 
 function Performers() {
-  const { performers, setPerformers } = React.useContext(Context);
+  const { performers, setPerformers, disabledInp } = React.useContext(Context);
   const [errors, setErrors] = React.useState(null);
 
   const handleChangePerformer = (event) => {
@@ -13,7 +13,6 @@ function Performers() {
   };
 
   const checkEmail = (event) => {
-    console.log(errors);
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!event.target.value || regex.test(event.target.value) === false) {
@@ -36,8 +35,10 @@ function Performers() {
             className="validate"
             required="required"
             onChange={handleChangePerformer}
+            value={performers.performers}
+            disabled={disabledInp ? 'disabled' : false}
           />
-          <span htmlFor="performers">Фамилии И.О. исполнителей</span>
+          {disabledInp ? null : <span htmlFor="performers">Фамилии И.О. исполнителей</span>}
           <i></i>
         </div>
         <div className="input__data">
@@ -47,8 +48,10 @@ function Performers() {
             className="validate"
             required="required"
             onChange={handleChangePerformer}
+            value={performers.group}
+            disabled={disabledInp ? 'disabled' : false}
           />
-          <span htmlFor="group">Группа</span>
+          {disabledInp ? null : <span htmlFor="group">Группа</span>}
           <i></i>
         </div>
         <div className="input__data">
@@ -58,8 +61,10 @@ function Performers() {
             className="validate"
             required="required"
             onChange={checkEmail}
+            value={performers.email}
+            disabled={disabledInp ? 'disabled' : false}
           />
-          <span>E-mail ответственного исполнителя</span>
+          {disabledInp ? null : <span>E-mail ответственного исполнителя</span>}
           <i></i>
           <div className="errorInfo">{errors}</div>
         </div>
