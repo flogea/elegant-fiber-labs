@@ -5,13 +5,14 @@ import { Context } from './Context';
 
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import { F11, F12, F13, F14, F15, F21, F22, M11 } from './pages/Labs';
+import { F11, F12, F13, F14, F15, F21, F22, M11, N11 } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import F11m from './pages/Materials/F11m';
 
 function App() {
   const [activeItem, setActiveItem] = React.useState('Все');
   const [labData, setLabData] = React.useState();
+  const [disabledInp, setDisabledInp] = React.useState(false);
 
   const [performers, setPerformers] = React.useState({
     performers: '',
@@ -185,21 +186,15 @@ function App() {
           setLabData,
           isEmpty,
           setEmpty,
+          disabledInp,
+          setDisabledInp,
         }}>
         <Navbar />
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home mat={false} />} />
-            <Route path="/materials" element={<Home mat={true} />} />
-            <Route path="/f11" element={<F11 />} />
-            <Route path="/f12" element={<F12 />} />
-            <Route path="/f13" element={<F13 />} />
-            <Route path="/f14" element={<F14 />} />
-            <Route path="/f15" element={<F15 />} />
-            <Route path="/f21" element={<F21 />} />
-            <Route path="/f22" element={<F22 />} />
             <Route path="/m11" element={<M11 />} />
-            <Route path="/f11m" element={<F11m />} />
+            <Route path="/n11" element={<N11 />} />
           </Routes>
         </BrowserRouter>
       </Context.Provider>

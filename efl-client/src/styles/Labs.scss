@@ -20,14 +20,14 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      align-items: center;
+      //align-items: center;
 
       .lab-info {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
-        margin: auto;
+        //margin: auto;
 
         .subject {
         }
@@ -107,6 +107,7 @@
       align-items: center;
 
       .foldable {
+        width: 100%;
         margin-bottom: 20px;
         cursor: pointer;
         //box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
@@ -139,6 +140,64 @@
 
         h2 {
           margin: 0 0 0 15px;
+        }
+      }
+    }
+
+    .circled {
+      list-style: circle;
+    }
+
+    // TABLE
+
+    table.iksweb {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      height: auto;
+      text-align: center;
+
+      & td,
+      & th {
+        border: 1px solid #595959;
+        min-height: 35px;
+        padding: 3px;
+        width: 30px;
+        height: 35px;
+      }
+    }
+
+    table.iksweb th {
+      background: #347c99;
+      color: #fff;
+      font-weight: normal;
+    }
+
+    table.iksweb {
+      tr {
+        & td {
+          input {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+
+          textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            resize: vertical;
+          }
         }
       }
     }
@@ -232,6 +291,12 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+
+      .preloader {
+        width: 50px;
+        height: 50px;
+      }
 
       .errorInfo {
         color: red;
@@ -365,6 +430,20 @@
       }
     }
 
+    // CABLE EXAMPLE BLOCK
+
+    .cable__block {
+      border: 1px solid rgba(0, 0, 0, 3%);
+      border-radius: 20px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 3%);
+
+      h3 {
+        margin: auto;
+      }
+    }
+
     ul {
       li {
         list-style: initial;
@@ -421,27 +500,30 @@
       }
     }
 
-    table.iksweb {
-      width: 100%;
-      border-collapse: collapse;
-      border-spacing: 0;
-      height: auto;
-      text-align: center;
+    .add__remove {
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      font-size: 1.5rem;
+      background: transparent;
+      box-shadow: 0 0 10px 5px rgba(0, 0, 0, 3%);
+      transition: all 0.3s ease;
 
-      & td,
-      & th {
-        border: 1px solid #595959;
-        min-height: 35px;
-        padding: 3px;
-        width: 30px;
-        height: 35px;
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px 10px rgba(0, 0, 0, 3%);
       }
-    }
 
-    table.iksweb th {
-      background: #347c99;
-      color: #fff;
-      font-weight: normal;
+      &.add {
+        border: 2px solid rgba(0, 0, 0, 3%);
+        color: green;
+      }
+
+      &.remove {
+        border: 2px solid rgba(0, 0, 0, 3%);
+        color: red;
+      }
     }
 
     .footer {
