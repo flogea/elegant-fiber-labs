@@ -44,7 +44,7 @@ class m11_controller {
         lab_name,
         id_lab,
         quantity,
-        photo,
+        //photo,
         data,
         letterOne,
         letterTwo,
@@ -86,7 +86,7 @@ class m11_controller {
                     break;
                 }
 
-                formData[oneObj].mv(`${__dirname}/../Files/m11/${newFileName}`, (err) => {
+                formData[oneObj].mv(`${__dirname}/../Files/M11/${newFileName}`, (err) => {
                   if (err) {
                     console.log('error mv files', err);
                     res.status(500).json({ message: 'error mv files in m11' });
@@ -138,7 +138,7 @@ class m11_controller {
                 lab_name,
                 id_lab,
                 quantity,
-                photo,
+                //photo,
               });
               await summary.save();
               next();
@@ -168,7 +168,7 @@ class m11_controller {
 
               Summary.findOneAndUpdate(
                 { id_lab },
-                { performers, group, email, quantity, photo },
+                { performers, group, email, quantity },
                 (err) => {
                   if (err) {
                     console.log(err);
@@ -201,12 +201,12 @@ class m11_controller {
         lab_name,
         id_lab,
         quantity,
-        photo,
+        //photo,
         data,
         letterOne,
         letterTwo,
       } = req.body;
-      const photoName = res.locals.photoName;
+      //const photoName = res.locals.photoName;
       const formData = req.files;
       const dataArray = data.split(',');
 
@@ -251,7 +251,7 @@ class m11_controller {
           formData.file6.name,
       ];
 
-      fs.writeFile(`${id_lab}.txt`, `${newData}`, (err) => {
+      fs.writeFile(`${id_lab}_${lab_name}.txt`, `${newData}`, (err) => {
         if (err) throw err;
       });
 

@@ -16,10 +16,11 @@ function Performers() {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!event.target.value || regex.test(event.target.value) === false) {
-      setErrors('!');
-      return false;
+      setErrors(true);
+      //return false;
+    } else {
+      setErrors(null);
     }
-    setErrors(null);
     setPerformers({ ...performers, [event.target.name]: event.target.value });
     return true;
   };
@@ -54,7 +55,7 @@ function Performers() {
           {disabledInp ? null : <span htmlFor="group">Группа</span>}
           <i></i>
         </div>
-        <div className="input__data">
+        <div className="input__data" style={errors ? { background: '#ffe6e6' } : null}>
           <input
             type="email"
             name="email"
@@ -66,7 +67,7 @@ function Performers() {
           />
           {disabledInp ? null : <span>E-mail ответственного исполнителя</span>}
           <i></i>
-          <div className="errorInfo">{errors}</div>
+          {/* <div className="errorInfo">{errors}</div> */}
         </div>
       </div>
     </div>

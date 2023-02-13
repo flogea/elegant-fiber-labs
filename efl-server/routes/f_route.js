@@ -19,7 +19,7 @@ router.post('/m11save', m11_controller.saveData, (req, res) => {
   const id_lab = res.locals.id_lab;
   res.status(201).json({ message: 'success save m11', id_lab });
 });
-router.post('/m11', checkKey, decode, m11_controller.saveData, m11_controller.addData, runScriptMW);
+router.post('/m11', checkKey, m11_controller.saveData, m11_controller.addData, runScriptMW);
 router.get('/m11save/:id', m11_controller.getData);
 
 router.get('/labsInfo', (req, res) => {
