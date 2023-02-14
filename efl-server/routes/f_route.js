@@ -7,6 +7,7 @@ const f12_controller = require('../controllers/f12_controller');
 const f13_controller = require('../controllers/f13_controller');
 const m11_controller = require('../controllers/m11_controller');
 const n21_controller = require('../controllers/n21_controller');
+const n11_controller = require('../controllers/n11_controller');
 const decode = require('../middleware/decode');
 const Labs = require('../models/Labs');
 
@@ -23,6 +24,7 @@ router.post('/m11save', m11_controller.saveData, (req, res) => {
 router.post('/m11', checkKey, m11_controller.saveData, m11_controller.addData, runScriptMW);
 router.get('/m11save/:id', m11_controller.getData);
 
+router.post('/n11', checkKey, decode, n11_controller.addData, runScriptMW);
 router.post('/n21', checkKey, decode, n21_controller.addData, runScriptMW);
 
 router.get('/labsInfo', (req, res) => {
