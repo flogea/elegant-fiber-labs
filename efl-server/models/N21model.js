@@ -28,7 +28,6 @@ const schema = new Schema({
     num110: { type: Number },
     text111: { type: String },
     num111: { type: Number },
-    num11: { type: Number },
 
     numOfCable2: { type: Number },
     photo2: { type: String },
