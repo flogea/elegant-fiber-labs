@@ -1,8 +1,8 @@
 const child_process = require('child_process');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const lab_name = req.body.lab_name;
-  const script = child_process.exec(
+  const script = await child_process.exec(
     `./middleware/runScript_make_rep.sh ${lab_name}`,
     (error, stdout, stderr) => {
       if (error) {
@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
         return;
       }
       console.log(`stdout - ${stdout}`);
-      res.status(201).json({ message: 'success f11' });
     },
   );
+  res.status(201).json({ message: 'success f11' });
 };
