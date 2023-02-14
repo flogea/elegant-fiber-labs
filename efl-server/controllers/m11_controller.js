@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const M11model = require('../models/M11model');
 const Summary = require('../models/Summary');
@@ -13,15 +14,12 @@ class m11_controller {
           return result;
         })
         .catch((err) => res.status(500).json(err));
-      //console.log(m11Obj);
 
       const summaryObj = await Summary.find({ id_lab: id })
         .then((result) => {
           return result;
         })
         .catch((err) => res.status(500).json(err));
-
-      //console.log(typeof summaryObj);
 
       //const results = { ...summaryObj[0], ...m11Obj[0] };
       const result = summaryObj.concat(m11Obj);
@@ -37,18 +35,8 @@ class m11_controller {
 
   async saveData(req, res, next) {
     try {
-      const {
-        performers,
-        group,
-        email,
-        lab_name,
-        id_lab,
-        quantity,
-        //photo,
-        data,
-        letterOne,
-        letterTwo,
-      } = req.body;
+      const { performers, group, email, lab_name, id_lab, quantity, data, letterOne, letterTwo } =
+        req.body;
       const formData = req.files;
       const dataArray = data.split(',');
       res.locals.id_lab = id_lab;
@@ -86,7 +74,7 @@ class m11_controller {
                     break;
                 }
 
-                formData[oneObj].mv(`${__dirname}/../Files/M11/${newFileName}`, (err) => {
+                formData[oneObj].mv(path.join(__dirname, `/../Files/M11/${newFileName}`), (err) => {
                   if (err) {
                     console.log('error mv files', err);
                     res.status(500).json({ message: 'error mv files in m11' });
@@ -138,7 +126,6 @@ class m11_controller {
                 lab_name,
                 id_lab,
                 quantity,
-                //photo,
               });
               await summary.save();
               next();
@@ -192,21 +179,10 @@ class m11_controller {
     }
   }
 
-  async addData(req, res) {
+  async addData(req, res, next) {
     try {
-      const {
-        performers,
-        group,
-        email,
-        lab_name,
-        id_lab,
-        quantity,
-        //photo,
-        data,
-        letterOne,
-        letterTwo,
-      } = req.body;
-      //const photoName = res.locals.photoName;
+      const { performers, group, email, lab_name, id_lab, quantity, data, letterOne, letterTwo } =
+        req.body;
       const formData = req.files;
       const dataArray = data.split(',');
 
@@ -254,8 +230,8 @@ class m11_controller {
       fs.writeFile(`${id_lab}_${lab_name}.txt`, `${newData}`, (err) => {
         if (err) throw err;
       });
-
-      res.status(201).json({ message: 'success m11' });
+      next();
+      //res.status(201).json({ message: 'success m11' });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'error m11' });
