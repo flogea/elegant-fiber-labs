@@ -72,25 +72,27 @@ function FooterLab(props) {
         <i></i>
       </div>
 
-      {props.needPhoto ? <><div className="info__text">
-        <h4>Фотографии всех участников работы со стендом лабораторной работы</h4>
-      </div>
+      {props.needPhoto ? (
+        <>
+          <div className="info__text">
+            <h4>Фотографии всех участников работы со стендом лабораторной работы</h4>
+          </div>
 
-      <div className="input-file">
-        <input
-          type="file"
-          onChange={handleChangePhoto}
-          required="required"
-          name="avatar"
-          id="upload__input"
-          accept="image/*,.png,.jpg,.jpeg"
-        />
-        <label htmlFor="upload__input">Файл</label>
-        <i id="input__label"></i>
-      </div>
-      <span id="output__img" className="">
-        <img src={prevPhoto} />
-      </span></> : null}
+          <div className="input-file">
+            <input
+              type="file"
+              onChange={handleChangePhoto}
+              required="required"
+              name="avatar"
+              id="upload__input"
+              accept="image/*,.png,.jpg,.jpeg"
+            />
+            <label htmlFor="upload__input">Файл</label>
+            <i id="input__label"></i>
+          </div>
+          <span id="output__img" className=""></span>
+        </>
+      ) : null}
 
       <div className="info__text">
         <h4>Предъявите заполненную форму преподавателю.</h4>

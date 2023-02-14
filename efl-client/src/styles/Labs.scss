@@ -213,6 +213,7 @@
       align-items: center;
       text-align: justify;
       color: rgba(78, 81, 129, 0.6);
+      margin: 10px auto;
 
       label {
         position: relative;
@@ -514,6 +515,7 @@
       background: transparent;
       box-shadow: 0 0 10px 5px rgba(0, 0, 0, 3%);
       transition: all 0.3s ease;
+      margin: 5px;
 
       &:hover {
         transform: scale(1.2);
