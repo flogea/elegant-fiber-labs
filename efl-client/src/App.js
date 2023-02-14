@@ -5,7 +5,7 @@ import { Context } from './Context';
 
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import { F11, F12, F13, F14, F15, F21, F22, M11, N11 } from './pages/Labs';
+import { F11, F12, F13, F14, F15, F21, F22, M11, N11, N21 } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import F11m from './pages/Materials/F11m';
 
@@ -195,6 +195,7 @@ function App() {
             <Route exact path="/" element={<Home mat={false} />} />
             <Route path="/m11" element={<M11 />} />
             <Route path="/n11" element={<N11 />} />
+            <Route path="/n21" element={<N21 />} />
           </Routes>
         </BrowserRouter>
       </Context.Provider>
