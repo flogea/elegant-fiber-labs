@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const { format } = require('date-fns');
 
-const N21model = require('../models/N11model');
+const N11model = require('../models/N11model');
 const Summary = require('../models/Summary');
 
-class n21_controller {
+class n11_controller {
   async addData(req, res, next) {
     try {
       const { performers, group, email, lab_name, id_lab, quantity, photo, quantTables } = req.body;
