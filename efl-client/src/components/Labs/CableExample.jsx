@@ -8,7 +8,7 @@ function CableExample(props) {
         <h3>Образец кабеля </h3>
         <div className="input__data">
           <input
-            type="number"
+            type="text"
             name={`numOfCable${props.quantTable + 1}`}
             className="validate"
             required="required"
@@ -50,7 +50,7 @@ function CableExample(props) {
               </td>
             </tr>
             <tr>
-              <td class="text-align:center;" colspan="3">
+              <td style={{ textAlign: 'center' }} colSpan="3">
                 Сердечник
               </td>
             </tr>
@@ -105,7 +105,9 @@ function CableExample(props) {
               </td>
             </tr>
             <tr>
-              <td colspan="3">Оболочка сердечника</td>
+              <td style={{ textAlign: 'center' }} colSpan="3">
+                Оболочка сердечника
+              </td>
             </tr>
             <tr>
               <td>Поясная изоляция (материал, способ наложения)</td>
@@ -135,7 +137,9 @@ function CableExample(props) {
               </td>
             </tr>
             <tr>
-              <td colspan="3">Защитный покров</td>
+              <td style={{ textAlign: 'center' }} colSpan="3">
+                Защитный покров
+              </td>
             </tr>
             <tr>
               <td>Подушка (материал, тип)</td>
@@ -193,7 +197,7 @@ function CableExample(props) {
         <h3>Образец кабеля </h3>
         <div className="input__data">
           <input
-            type="number"
+            type="text"
             name={`numOfCable${props.quantTable + 1}`}
             className="validate"
             required="required"
@@ -235,7 +239,7 @@ function CableExample(props) {
               </td>
             </tr>
             <tr>
-              <td class="text-align:center;" colspan="3">
+              <td style={{ textAlign: 'center' }} colSpan="3">
                 Сердечник
               </td>
             </tr>
@@ -297,7 +301,9 @@ function CableExample(props) {
               </td>
             </tr>
             <tr>
-              <td colspan="3">Оболочка сердечника</td>
+              <td style={{ textAlign: 'center' }} colSpan="3">
+                Оболочка сердечника
+              </td>
             </tr>
             <tr>
               <td>Поясная изоляция (материал, способ наложения)</td>
@@ -318,7 +324,9 @@ function CableExample(props) {
               </td>
             </tr>
             <tr>
-              <td colspan="3">Защитный покров</td>
+              <td style={{ textAlign: 'center' }} colSpan="3">
+                Защитный покров
+              </td>
             </tr>
             <tr>
               <td>Броня (материал, тип)</td>

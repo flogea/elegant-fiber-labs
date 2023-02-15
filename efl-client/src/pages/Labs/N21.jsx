@@ -12,6 +12,12 @@ import n21Qr from '../../images/qr/n21.png';
 import Foldable from '../../components/Labs/Foldable';
 import preloader from '../../images/Infinity.gif';
 import CableExample from '../../components/Labs/CableExample';
+import oks097 from '../../images/oks097.png';
+import sechenie3 from '../../images/sechenie3.png';
+import oks078 from '../../images/oks078.png';
+import sechenie4 from '../../images/sechenie4.png';
+import oks098 from '../../images/oks098.png';
+import sechenie5 from '../../images/sechenie5.png';
 
 function N21() {
   const lab_name = 'N21';
@@ -25,6 +31,8 @@ function N21() {
   const [quantTables, setQuantTables] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
+  const [visibleAdd, setVisibleAdd] = React.useState(true);
+  const [visibleRemove, setVisibleRemove] = React.useState(null);
 
   const formRef = React.useRef();
 
@@ -259,43 +267,208 @@ function N21() {
               </ul>
             </ol>
           </Foldable>
+          <Foldable header="Примеры описания оптических кабелей">
+            <div className="row">
+              <img name="oks097" src={oks097} alt="" />
+              <label htmlFor="oks097">Исследуемый образец кабеля – ОКС-097</label>
+            </div>
+            <h4>Маркировка ДОС-П-08У(1х8) – 1 кН.</h4>
+            <ol>
+              <li>
+                Сердечник{' '}
+                <ul>
+                  <li>
+                    Оптические волокна – одномодовое волокно SMF 9/125, 8 волокон, защищены
+                    акрилатным первичным покрытием;
+                  </li>
+                  <li>Вторичное покрытие – свободное трубчатое, оптический модуль, ⌀2;</li>
+                  <li>Гидрофобный заполнитель – компаунд;</li>
+                  <li>
+                    Образование сердечника – одномодульный характер образования, 1 модуль по 8
+                    оптических волокон;
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Оболочка сердечника{' '}
+                <ul>
+                  <li>Поясная изоляция отсутствует;</li>
+                  <li>Оболочка сердечника отсутствует;</li>
+                </ul>
+              </li>
+              <li>
+                Защитный покров{' '}
+                <ul>
+                  <li>Броня – повив круглой стальной проволоки, ⌀7;</li>
+                  <li>Внешняя оболочка – пластмассовая трубка, ⌀9;</li>
+                </ul>
+              </li>
+              <li>
+                Силовые элементы{' '}
+                <ul>
+                  <li>Центральный силовой элемент – оптический модуль;</li>
+                  <li>Распределенные силовые элементы отсутствуют;</li>
+                  <li>Выносные силовые элементы отсутствуют.</li>
+                </ul>
+              </li>
+            </ol>
+            <div className="row">
+              <img name="sechenie3" src={sechenie3} alt="" />
+              <label htmlFor="sechenie3">Поперечное сечение кабеля</label>
+            </div>
+            <hr />
+
+            <div className="row">
+              <img name="oks078" src={oks078} alt="" />
+              <label htmlFor="oks078">Исследуемый образец кабеля – ОКС-078</label>
+            </div>
+            <h4>Маркировка ДПОм-П-08У(1х8) – 1,5 кН.</h4>
+            <ol>
+              <li>
+                Сердечник{' '}
+                <ul>
+                  <li>
+                    Оптические волокна – одномодовое волокно SMF 9/125, 8 волокон, защищены
+                    акрилатным первичным покрытием;
+                  </li>
+                  <li>Вторичное покрытие – свободное трубчатое, оптический модуль, ⌀3;</li>
+                  <li>Гидрофобный заполнитель – компаунд;</li>
+                  <li>
+                    Образование сердечника – одномодульный характер образования, 1 модуль по 8
+                    оптических волокон;
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Оболочка сердечника{' '}
+                <ul>
+                  <li>Поясная изоляция отсутствует;</li>
+                  <li>Оболочка сердечника – пластмассовая трубка ⌀7;</li>
+                </ul>
+              </li>
+              <li>
+                Защитный покров{' '}
+                <ul>
+                  <li>Броня отсутствует;</li>
+                  <li>Внешняя оболочка – полиэтиленовая трубка, ⌀9, нанесена поверх ВСЭ;</li>
+                </ul>
+              </li>
+              <li>
+                Силовые элементы{' '}
+                <ul>
+                  <li>Центральный силовой элемент – оптический модуль;</li>
+                  <li>Распределенные силовые элементы отсутствуют;</li>
+                  <li>Выносной силовой элемент – многопроволочный стальной трос ⌀3.</li>
+                </ul>
+              </li>
+            </ol>
+            <div className="row">
+              <img name="sechenie4" src={sechenie4} alt="" />
+              <label htmlFor="sechenie4">Поперечное сечение кабеля</label>
+            </div>
+            <hr />
+
+            <div className="row">
+              <img name="oks098" src={oks098} alt="" />
+              <label htmlFor="oks098">Исследуемый образец кабеля – ОКС-098</label>
+            </div>
+            <h4>Маркировка ДПТа-П-32У(4х8) – 2 кН.</h4>
+            <ol>
+              <li>
+                Сердечник{' '}
+                <ul>
+                  <li>Оптические волокна – одномодовое волокно SMF 9/125, 32 волокна;</li>
+                  <li>Вторичное покрытие – свободное трубчатое, оптический модуль, ⌀2;</li>
+                  <li>Гидрофобный заполнитель – компаунд;</li>
+                  <li>
+                    Образование сердечника – повивный характер образования, 4 модуля по 8 оптических
+                    волокон, два корделя;
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Оболочка сердечника{' '}
+                <ul>
+                  <li>Поясная изоляция отсутствует;</li>
+                  <li>Оболочка сердечника – пластмассовая трубка ⌀12;</li>
+                </ul>
+              </li>
+              <li>
+                Защитный покров{' '}
+                <ul>
+                  <li>Броня отсутствует;</li>
+                  <li>Внешняя оболочка отсутствует;</li>
+                </ul>
+              </li>
+              <li>
+                Силовые элементы{' '}
+                <ul>
+                  <li>Центральный силовой элемент – стеклопластиковый пруток, ⌀2;</li>
+                  <li>
+                    Распределенные силовые элементы – кордели в повиве сердечника, ⌀2, повив
+                    арамидных нитей ⌀7;
+                  </li>
+                  <li>Выносной силовой элемент отсутствует.</li>
+                </ul>
+              </li>
+            </ol>
+            <div className="row">
+              <img name="sechenie5" src={sechenie5} alt="" />
+              <label htmlFor="sechenie5">Поперечное сечение кабеля</label>
+            </div>
+          </Foldable>
         </div>
 
-        <h3>Выполнение работы</h3>
-        <p>1 Получите у преподавателя несколько образцов электрических кабелей.</p>
-        <p>2 Рассмотрите кабели по следующим параметрам</p>
-        {/* <CableExample n21={true} quantTable={quantTables.length} key={quantTables.length} /> */}
-        {quantTables}
-        <div className="row">
-          <div className="col">
-            <button
-              className="add__remove add"
-              onClick={(e) => {
-                e.preventDefault();
-                if (quantTables.length < 4) {
-                  setQuantTables(
-                    quantTables.concat(
-                      <CableExample
-                        n21={true}
-                        quantTable={quantTables.length}
-                        key={quantTables.length}
-                      />,
-                    ),
-                  );
-                  console.log(quantTables);
-                }
-              }}>
-              +
-            </button>
-            <button
-              className="add__remove remove"
-              onClick={(e) => {
-                e.preventDefault();
-                setQuantTables(quantTables.slice(0, -1));
-                console.log(quantTables);
-              }}>
-              -
-            </button>
+        <div className="completing">
+          <div className="left-text">
+            <h3>Выполнение работы</h3>
+            <p>1 Получите у преподавателя несколько образцов оптических кабелей.</p>
+            <p>2 Рассмотрите кабели по следующим параметрам</p>
+          </div>
+          {quantTables}
+          <div className="row">
+            <div className="col">
+              {visibleAdd && (
+                <button
+                  className="add__remove add"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setVisibleRemove(true);
+                    if (quantTables.length < 4) {
+                      setQuantTables(
+                        quantTables.concat(
+                          <CableExample
+                            n21={true}
+                            quantTable={quantTables.length}
+                            key={quantTables.length}
+                          />,
+                        ),
+                      );
+                      if (quantTables.length === 3) {
+                        setVisibleAdd(null);
+                      }
+                      console.log(quantTables);
+                    }
+                  }}>
+                  +
+                </button>
+              )}
+              {visibleRemove && (
+                <button
+                  className="add__remove remove"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setVisibleAdd(true);
+                    setQuantTables(quantTables.slice(0, -1));
+                    console.log(quantTables);
+                    if (quantTables.length === 1) {
+                      setVisibleRemove(null);
+                    }
+                  }}>
+                  -
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </form>
