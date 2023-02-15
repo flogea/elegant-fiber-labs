@@ -100,6 +100,10 @@ const schema = new Schema({
     text411: { type: String },
     num411: { type: Number },
   },
+  photo1: { type: String },
+  photo2: { type: String },
+  photo3: { type: String },
+  photo4: { type: String },
 });
 
 module.exports = model('N21model', schema);
