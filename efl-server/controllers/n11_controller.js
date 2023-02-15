@@ -12,10 +12,6 @@ class n11_controller {
       const formData = req.files;
       const photoName = res.locals.photoName;
 
-      console.log(quantTables);
-
-      return 0;
-
       const reducedData = req.body;
       delete reducedData.performers;
       delete reducedData.group;
@@ -57,23 +53,67 @@ class n11_controller {
         });
       }
 
-      const n11 = new N11model({
-        id_lab,
-        quantTables,
-        data: reducedData,
-      });
-      await n11.save();
+      await N11model.find({ id_lab }).then(async (result) => {
+        if (result.length === 0) {
+          try {
+            const n11 = new N11model({
+              id_lab,
+              quantTables,
+              data: reducedData,
+              photo1: formData.photo1 === undefined ? null : formData.photo1.name,
+              photo2: formData.photo2 === undefined ? null : formData.photo2.name,
+              photo3: formData.photo3 === undefined ? null : formData.photo3.name,
+              photo4: formData.photo4 === undefined ? null : formData.photo4.name,
+            });
+            await n11.save();
 
-      const summary = new Summary({
-        performers,
-        group,
-        email,
-        lab_name,
-        id_lab,
-        photo: photoName,
-        quantity,
+            const summary = new Summary({
+              performers,
+              group,
+              email,
+              lab_name,
+              id_lab,
+              photo: photoName,
+              quantity,
+            });
+            await summary.save();
+          } catch (error) {
+            console.log('error save n11', error.message);
+            res.status(500).json({ message: 'error save n11' });
+          }
+        } else {
+          try {
+            N11model.findOneAndUpdate(
+              { id_lab },
+              {
+                quantTables,
+                data: reducedData,
+                photo1: formData.photo1 === undefined ? null : formData.photo1.name,
+                photo2: formData.photo2 === undefined ? null : formData.photo2.name,
+                photo3: formData.photo3 === undefined ? null : formData.photo3.name,
+                photo4: formData.photo4 === undefined ? null : formData.photo4.name,
+              },
+              (err) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).json({ message: 'error update n11' });
+                }
+              },
+            );
+
+            Summary.findOneAndUpdate({ id_lab }, { performers, group, email, quantity }, (err) => {
+              if (err) {
+                console.log(err);
+                res.status(500).json({ message: 'error update summary' });
+              }
+            });
+            next();
+          } catch (error) {
+            console.log(err);
+            res.status(500).json({ message: 'error update' });
+          }
+        }
       });
-      await summary.save();
 
       // Запись в текстовый файл
       let str = '';
@@ -100,14 +140,21 @@ class n11_controller {
           '\n' +
           quantTables +
           '\n' +
-          str,
+          str +
+          (formData.photo1 === undefined ? null : formData.photo1.name) +
+          '\n' +
+          (formData.photo2 === undefined ? null : formData.photo2.name) +
+          '\n' +
+          (formData.photo3 === undefined ? null : formData.photo3.name) +
+          '\n' +
+          (formData.photo4 === undefined ? null : formData.photo4.name),
       ];
 
       fs.writeFile(`${id_lab}.txt`, `${data}`, (err) => {
         if (err) throw err;
       });
 
-      res.status(201).json({ message: 'success n11' });
+      next();
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'error n11' });

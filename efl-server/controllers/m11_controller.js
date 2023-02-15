@@ -110,12 +110,12 @@ class m11_controller {
                 22: dataArray[21],
                 23: dataArray[22],
                 24: dataArray[23],
-                file1: formData.file1.name,
-                file2: formData.file2.name,
-                file3: formData.file3.name,
-                file4: formData.file4.name,
-                file5: formData.file5.name,
-                file6: formData.file6.name,
+                file1: formData.file1 === undefined ? null : formData.file1.name,
+                file2: formData.file2 === undefined ? null : formData.file2.name,
+                file3: formData.file3 === undefined ? null : formData.file3.name,
+                file4: formData.file4 === undefined ? null : formData.file4.name,
+                file5: formData.file5 === undefined ? null : formData.file5.name,
+                file6: formData.file6 === undefined ? null : formData.file6.name,
               });
               await m11.save();
 
@@ -138,12 +138,12 @@ class m11_controller {
               M11model.findOneAndUpdate(
                 { id_lab },
                 {
-                  file1: formData.file1.name,
-                  file2: formData.file2.name,
-                  file3: formData.file3.name,
-                  file4: formData.file4.name,
-                  file5: formData.file5.name,
-                  file6: formData.file6.name,
+                  file1: formData.file1 === undefined ? null : formData.file1.name,
+                  file2: formData.file2 === undefined ? null : formData.file2.name,
+                  file3: formData.file3 === undefined ? null : formData.file3.name,
+                  file4: formData.file4 === undefined ? null : formData.file4.name,
+                  file5: formData.file5 === undefined ? null : formData.file5.name,
+                  file6: formData.file6 === undefined ? null : formData.file6.name,
                 },
                 (err) => {
                   if (err) {
@@ -171,8 +171,8 @@ class m11_controller {
           }
         })
         .catch((err) => res.status(500).json(err));
+
       next();
-      //res.status(201).json({ message: 'success save m11', id_lab });
     } catch (err) {
       console.log(err.message);
       res.status(500).json({ message: 'error m11' });
@@ -214,24 +214,24 @@ class m11_controller {
           '\n' +
           letterTwo +
           '\n' +
-          formData.file1.name +
+          (formData.file1 === undefined ? null : formData.file1.name) +
           '\n' +
-          formData.file2.name +
+          (formData.file2 === undefined ? null : formData.file2.name) +
           '\n' +
-          formData.file3.name +
+          (formData.file3 === undefined ? null : formData.file3.name) +
           '\n' +
-          formData.file4.name +
+          (formData.file4 === undefined ? null : formData.file4.name) +
           '\n' +
-          formData.file5.name +
+          (formData.file5 === undefined ? null : formData.file5.name) +
           '\n' +
-          formData.file6.name,
+          (formData.file6 === undefined ? null : formData.file6.name),
       ];
 
       fs.writeFile(`${id_lab}_${lab_name}.txt`, `${newData}`, (err) => {
         if (err) throw err;
       });
+
       next();
-      //res.status(201).json({ message: 'success m11' });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'error m11' });
