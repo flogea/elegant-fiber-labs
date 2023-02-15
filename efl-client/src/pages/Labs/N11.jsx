@@ -10,6 +10,10 @@ import n11Qr from '../../images/qr/n11.png';
 import Foldable from '../../components/Labs/Foldable';
 import CableExample from '../../components/Labs/CableExample';
 import preloader from '../../images/Infinity.gif';
+import eks097 from '../../images/eks097.png';
+import sechenie from '../../images/sechenie.png';
+import eks078 from '../../images/eks078.png';
+import sechenie2 from '../../images/sechenie2.png';
 
 import '../../styles/Labs.scss';
 
@@ -25,12 +29,20 @@ function N11() {
   const [quantTables, setQuantTables] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
+  const [visibleAdd, setVisibleAdd] = React.useState(true);
+  const [visibleRemove, setVisibleRemove] = React.useState(null);
 
   const formRef = React.useRef();
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
   }, []);
+
+  // const clearHandler = (event) => {
+  //   event.preventDefault();
+  //   console.log(formRef.current);
+  //   formRef.current.reset();
+  // };
 
   const labHandler = async (event) => {
     event.preventDefault();
@@ -363,42 +375,130 @@ function N11() {
               жил кабелей для СКС должен быть от 0,5 до 0,65 мм, кабелей
             </p>
           </Foldable>
+          <Foldable header="Примеры описания электрических кабелей">
+            <div className="row">
+              <img name="cable097" src={eks097} alt="" />
+              <label htmlFor="cable097">Исследуемый образец кабеля – ЭКС-097</label>
+            </div>
+            <h4>Маркировка SF/UTP 24 AWG</h4>
+            <ol>
+              <li>
+                Сердечник{' '}
+                <ul>
+                  <li>Токопроводящие жилы – медные проводники, ⌀0,64;</li>
+                  <li>Изоляция жил – сплошная, ⌀1,5;</li>
+                  <li>Группообразование – витая пара, однородная скрутка, шаг 14 мм;</li>
+                  <li>Гидрофобный заполнитель отсутствует;</li>
+                </ul>
+              </li>
+              <li>
+                Оболочка сердечника{' '}
+                <ul>
+                  <li>Поясная изоляция полиэтиленовая пленка, наложенная спирально;</li>
+                  <li>
+                    Электромагнитный экран: спирально наложенный алюминиевый лист, алюминиевая
+                    оплетка, индивидуальный экран отсутствует;
+                  </li>
+                  <li>Оболочка: полиэтиленовый шланг ⌀10;</li>
+                </ul>
+              </li>
+              <li>Защитный покров отсутствует.</li>
+              <li>Силовые элементы отсутствуют.</li>
+            </ol>
+            <div className="row">
+              <img name="sechenie" src={sechenie} alt="" />
+              <label htmlFor="sechenie">Поперечное сечение кабеля</label>
+            </div>
+            <hr />
+
+            <div className="row">
+              <img name="eks078" src={eks078} alt="" />
+              <label htmlFor="eks078">Исследуемый образец кабеля – ЭКС-078</label>
+            </div>
+            <h4>Маркировка U/UTP …</h4>
+            <ol>
+              <li>
+                Сердечник{' '}
+                <ul>
+                  <li>Токопроводящие жилы – медные проводники, ⌀0,64;</li>
+                  <li>Изоляция жил – сплошная, ⌀1,5;</li>
+                  <li>Группообразование – витая пара, однородная скрутка, шаг 14 мм;</li>
+                  <li>Гидрофобный заполнитель отсутствует;</li>
+                </ul>
+              </li>
+              <li>
+                Оболочка сердечника{' '}
+                <ul>
+                  <li>Поясная изоляция полиэтиленовая пленка, наложенная спирально;</li>
+                  <li>Электромагнитный экран отсутствует;</li>
+                  <li>Оболочка: полиэтиленовый шланг ⌀12;</li>
+                </ul>
+              </li>
+              <li>Защитный покров отсутствует.</li>
+              <li>
+                Силовые элементы{' '}
+                <ul>
+                  <li>Центральный силовые элементы отсутствуют;</li>
+                  <li>Выносные силовые элементы – многожильный стальной трос ⌀1,25.</li>
+                </ul>
+              </li>
+            </ol>
+            <div className="row">
+              <img name="sechenie2" src={sechenie2} alt="" />
+              <label htmlFor="sechenie2">Поперечное сечение кабеля</label>
+            </div>
+          </Foldable>
         </div>
-        <h3>Выполнение работы</h3>
-        <p>1 Получите у преподавателя несколько образцов электрических кабелей.</p>
-        <p>2 Рассмотрите кабели по следующим параметрам</p>
-        {/* <CableExample n21={false} /> */}
-        {quantTables}
-        <div className="row">
-          <div className="col">
-            <button
-              className="add__remove add"
-              onClick={(e) => {
-                e.preventDefault();
-                if (quantTables.length < 4) {
-                  setQuantTables(
-                    quantTables.concat(
-                      <CableExample
-                        n21={false}
-                        quantTable={quantTables.length}
-                        key={quantTables.length}
-                      />,
-                    ),
-                  );
-                  console.log(quantTables);
-                }
-              }}>
-              +
-            </button>
-            <button
-              className="add__remove remove"
-              onClick={(e) => {
-                e.preventDefault();
-                setQuantTables(quantTables.slice(0, -1));
-                console.log(quantTables);
-              }}>
-              -
-            </button>
+
+        <div className="completing">
+          <div className="left-text">
+            <h3>Выполнение работы</h3>
+            <p>1 Получите у преподавателя несколько образцов электрических кабелей.</p>
+            <p>2 Рассмотрите кабели по следующим параметрам</p>
+          </div>
+          {/* <CableExample n21={false} /> */}
+          {quantTables}
+          <div className="row">
+            <div className="col">
+              {visibleAdd && (
+                <button
+                  className="add__remove add"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setVisibleRemove(true);
+                    if (quantTables.length < 4) {
+                      setQuantTables(
+                        quantTables.concat(
+                          <CableExample
+                            n21={false}
+                            quantTable={quantTables.length}
+                            key={quantTables.length}
+                          />,
+                        ),
+                      );
+                      if (quantTables.length === 3) {
+                        setVisibleAdd(null);
+                      }
+                    }
+                  }}>
+                  +
+                </button>
+              )}
+              {visibleRemove && (
+                <button
+                  className="add__remove remove"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setVisibleAdd(true);
+                    setQuantTables(quantTables.slice(0, -1));
+                    if (quantTables.length === 1) {
+                      setVisibleRemove(null);
+                    }
+                  }}>
+                  -
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </form>
@@ -413,6 +513,7 @@ function N11() {
             id="subm_btn">
             Отправить
           </button>
+          {/* <button onClick={clearHandler}>Clear</button> */}
         </div>
       </div>
     </div>

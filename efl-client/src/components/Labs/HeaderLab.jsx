@@ -6,9 +6,9 @@ function Header({ Qr, Subject, LabName, LabLink }) {
   return (
     <div className="header">
       {/* QR */}
-      <div className="qr">
+      {/* <div className="qr">
         <img src={Qr} />
-      </div>
+      </div> */}
 
       {/* INFO */}
       <div className="lab-info">
@@ -18,9 +18,9 @@ function Header({ Qr, Subject, LabName, LabLink }) {
         <h1 id="labname" className="title">
           {LabName}
         </h1>
-        <a href={'http://' + LabLink} className="lab__link">
+        {/* <a href={'http://' + LabLink} className="lab__link">
           {LabLink}
-        </a>
+        </a> */}
       </div>
     </div>
   );
