@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = (req, res, next) => {
   try {
+    const { lab_name } = req.body;
     const base64 = req.body.photo;
     const base64Data = base64.replace(/^data:([A-Za-z-+/]+);base64,/, '');
     let buff = new Buffer.from(base64Data, 'base64');
@@ -10,10 +11,10 @@ module.exports = (req, res, next) => {
     const ext = base64.split('/')[1].split(';')[0];
     const photoName = id + '_photo.' + ext;
     // for windows
-    const mypath = __dirname + '\\..\\images\\F11\\' + photoName;
+    //const mypath = __dirname + '\\..\\images\\F11\\' + photoName;
 
     // for linux
-    //const mypath = path.join(__dirname + '/../images/F11/' + photoName);
+    const mypath = path.join(__dirname + `/../Files/${lab_name}/` + photoName);
 
     fs.writeFileSync(mypath, buff);
     res.locals.photoName = photoName;
