@@ -45,6 +45,7 @@ function M11() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const formRef = React.useRef();
+  const [isBtnExist, setisBtnExist] = React.useState(true);
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
@@ -182,6 +183,7 @@ function M11() {
       str[i + 2] = values[rand];
     }
     setArray(str);
+    setisBtnExist(null);
     setTable(
       <table className="iksweb">
         <tbody>
@@ -566,9 +568,11 @@ function M11() {
               заданного варианта. Для этого можно воспользоваться картами Карно.
             </p>
             <div className="row">
-              <button onClick={TableGenerate} className="generate__btn">
-                Сгенерировать
-              </button>
+              {isBtnExist && (
+                <button onClick={TableGenerate} className="generate__btn">
+                  Сгенерировать
+                </button>
+              )}
             </div>
             <div>{table}</div>
 
