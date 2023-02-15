@@ -116,6 +116,10 @@ const schema = new Schema({
     text413: { type: String },
     num413: { type: Number },
   },
+  photo1: { type: String },
+  photo2: { type: String },
+  photo3: { type: String },
+  photo4: { type: String },
 });
 
 module.exports = model('N11model', schema);
