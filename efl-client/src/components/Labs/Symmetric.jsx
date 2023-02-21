@@ -8,7 +8,8 @@ function Symmetric(props) {
 
   return (
     <div className="cable__block">
-      <CableExample />
+      symmetric
+      <CableExample quantTable={props.quantTable} />
       <table className="iksweb">
         <tbody>
           <tr>
@@ -32,19 +33,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="conductors" id="sym_radio1" />
+                  <input type="radio" name="conductors" id="sym_radio1" value="Однопроволочные" />
                   <label htmlFor="sym_radio1">Однопроволочные</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="conductors" id="sym_radio2" />
+                  <input type="radio" name="conductors" id="sym_radio2" value="Многопроволочные" />
                   <label htmlFor="sym_radio2">Многопроволочные</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="conductors" id="sym_radio3" />
+                  <input type="radio" name="conductors" id="sym_radio3" value="Биметаллические" />
                   <label htmlFor="sym_radio3">Биметаллические</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="conductors" id="sym_radio4" />
+                  <input type="radio" name="conductors" id="sym_radio4" value="Другое" />
                   <label htmlFor="sym_radio4">Другое</label>
                 </div>
               </div>
@@ -58,23 +59,23 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="insulation" id="sym_radio5" />
+                  <input type="radio" name="insulation" id="sym_radio5" value="Сплошная" />
                   <label htmlFor="sym_radio5">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="insulation" id="sym_radio6" />
+                  <input type="radio" name="insulation" id="sym_radio6" value="Пористая" />
                   <label htmlFor="sym_radio6">Пористая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="insulation" id="sym_radio7" />
+                  <input type="radio" name="insulation" id="sym_radio7" value="Кордельная" />
                   <label htmlFor="sym_radio7">Кордельная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="insulation" id="sym_radio8" />
+                  <input type="radio" name="insulation" id="sym_radio8" value="Трубчатая" />
                   <label htmlFor="sym_radio8">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="insulation" id="sym_radio9" />
+                  <input type="radio" name="insulation" id="sym_radio9" value="Другое" />
                   <label htmlFor="sym_radio9">Другое</label>
                 </div>
               </div>
@@ -88,19 +89,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="shell" id="sym_radio10" />
+                  <input type="radio" name="shell" id="sym_radio10" value="Отсутствует" />
                   <label htmlFor="sym_radio10">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="shell" id="sym_radio11" />
+                  <input type="radio" name="shell" id="sym_radio11" value="Сплошная" />
                   <label htmlFor="sym_radio11">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="shell" id="sym_radio12" />
+                  <input type="radio" name="shell" id="sym_radio12" value="Трубчатая" />
                   <label htmlFor="sym_radio12">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="shell" id="sym_radio13" />
+                  <input type="radio" name="shell" id="sym_radio13" value="Другое" />
                   <label htmlFor="sym_radio13">Другое</label>
                 </div>
               </div>
@@ -114,23 +115,23 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="screen" id="sym_radio14" />
+                  <input type="radio" name="screen" id="sym_radio14" value="Отсутствует" />
                   <label htmlFor="sym_radio14">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="screen" id="sym_radio15" />
+                  <input type="radio" name="screen" id="sym_radio15" value="Фольга" />
                   <label htmlFor="sym_radio15">Фольга</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="screen" id="sym_radio16" />
+                  <input type="radio" name="screen" id="sym_radio16" value="Оплетка" />
                   <label htmlFor="sym_radio16">Оплетка</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="screen" id="sym_radio17" />
+                  <input type="radio" name="screen" id="sym_radio17" value="Фольга + оплетка" />
                   <label htmlFor="sym_radio17">Фольга + оплетка</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="screen" id="sym_radio18" />
+                  <input type="radio" name="screen" id="sym_radio18" value="Другое" />
                   <label htmlFor="sym_radio18">Другое</label>
                 </div>
               </div>
@@ -144,19 +145,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="tw(f)isting" id="sym_radio19" />
+                  <input type="radio" name="tw(f)isting" id="sym_radio19" value="Парная" />
                   <label htmlFor="sym_radio19">Парная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="tw(f)isting" id="sym_radio20" />
+                  <input type="radio" name="tw(f)isting" id="sym_radio20" value="Четверочная" />
                   <label htmlFor="sym_radio20">Четверочная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="tw(f)isting" id="sym_radio21" />
+                  <input type="radio" name="tw(f)isting" id="sym_radio21" value="Без скрутки" />
                   <label htmlFor="sym_radio21">Без скрутки</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="tw(f)isting" id="sym_radio22" />
+                  <input type="radio" name="tw(f)isting" id="sym_radio22" value="Другое" />
                   <label htmlFor="sym_radio22">Другое</label>
                 </div>
               </div>
@@ -170,15 +171,15 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="core" id="sym_radio23" />
+                  <input type="radio" name="core" id="sym_radio23" value="Пучковый" />
                   <label htmlFor="sym_radio23">Пучковый</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="core" id="sym_radio24" />
+                  <input type="radio" name="core" id="sym_radio24" value="Повивный" />
                   <label htmlFor="sym_radio24">Повивный</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="core" id="sym_radio25" />
+                  <input type="radio" name="core" id="sym_radio25" value="Другое" />
                   <label htmlFor="sym_radio25">Другое</label>
                 </div>
               </div>
@@ -192,19 +193,24 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="aggregate" id="sym_radio26" />
+                  <input type="radio" name="aggregate" id="sym_radio26" value="Отсутствует" />
                   <label htmlFor="sym_radio26">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="aggregate" id="sym_radio27" />
+                  <input type="radio" name="aggregate" id="sym_radio27" value="Разделитель пар" />
                   <label htmlFor="sym_radio27">Разделитель пар</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="aggregate" id="sym_radio28" />
+                  <input
+                    type="radio"
+                    name="aggregate"
+                    id="sym_radio28"
+                    value="Заполнитель в виде пластмассовых нитей"
+                  />
                   <label htmlFor="sym_radio28">Заполнитель в виде пластмассовых нитей</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="aggregate" id="sym_radio29" />
+                  <input type="radio" name="aggregate" id="sym_radio29" value="Другое" />
                   <label htmlFor="sym_radio29">Другое</label>
                 </div>
               </div>
@@ -218,11 +224,11 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="gidro" id="sym_radio30" />
+                  <input type="radio" name="gidro" id="sym_radio30" value="Отсутствует" />
                   <label htmlFor="sym_radio30">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="gidro" id="sym_radio31" />
+                  <input type="radio" name="gidro" id="sym_radio31" value="Другое" />
                   <label htmlFor="sym_radio31">Другое</label>
                 </div>
               </div>
@@ -241,19 +247,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="zonal" id="sym_radio32" />
+                  <input type="radio" name="zonal" id="sym_radio32" value="Отсутствует" />
                   <label htmlFor="sym_radio32">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="zonal" id="sym_radio33" />
+                  <input type="radio" name="zonal" id="sym_radio33" value="Трубчатая" />
                   <label htmlFor="sym_radio33">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="zonal" id="sym_radio34" />
+                  <input type="radio" name="zonal" id="sym_radio34" value="Сплошная" />
                   <label htmlFor="sym_radio34">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="zonal" id="sym_radio35" />
+                  <input type="radio" name="zonal" id="sym_radio35" value="Другое" />
                   <label htmlFor="sym_radio35">Другое</label>
                 </div>
               </div>
@@ -267,23 +273,23 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="gscreen" id="sym_radio36" />
+                  <input type="radio" name="gscreen" id="sym_radio36" value="Отсутствует" />
                   <label htmlFor="sym_radio36">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="gscreen" id="sym_radio37" />
+                  <input type="radio" name="gscreen" id="sym_radio37" value="Фольга" />
                   <label htmlFor="sym_radio37">Фольга</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="gscreen" id="sym_radio38" />
+                  <input type="radio" name="gscreen" id="sym_radio38" value="Оплетка" />
                   <label htmlFor="sym_radio38">Оплетка</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="gscreen" id="sym_radio39" />
+                  <input type="radio" name="gscreen" id="sym_radio39" value="Фольга + оплетка" />
                   <label htmlFor="sym_radio39">Фольга + оплетка</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="gscreen" id="sym_radio40" />
+                  <input type="radio" name="gscreen" id="sym_radio40" value="Другое" />
                   <label htmlFor="sym_radio40">Другое</label>
                 </div>
               </div>
@@ -297,19 +303,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="cshell" id="sym_radio41" />
+                  <input type="radio" name="cshell" id="sym_radio41" value="Отсутствует" />
                   <label htmlFor="sym_radio41">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="cshell" id="sym_radio42" />
+                  <input type="radio" name="cshell" id="sym_radio42" value="Сплошная" />
                   <label htmlFor="sym_radio42">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="cshell" id="sym_radio43" />
+                  <input type="radio" name="cshell" id="sym_radio43" value="Трубчатая" />
                   <label htmlFor="sym_radio43">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="cshell" id="sym_radio44" />
+                  <input type="radio" name="cshell" id="sym_radio44" value="Другое" />
                   <label htmlFor="sym_radio44">Другое</label>
                 </div>
               </div>
@@ -328,19 +334,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="pillow" id="sym_radio45" />
+                  <input type="radio" name="pillow" id="sym_radio45" value="Отсутствует" />
                   <label htmlFor="sym_radio45">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="pillow" id="sym_radio46" />
+                  <input type="radio" name="pillow" id="sym_radio46" value="Сплошная" />
                   <label htmlFor="sym_radio46">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="pillow" id="sym_radio47" />
+                  <input type="radio" name="pillow" id="sym_radio47" value="Трубчатая" />
                   <label htmlFor="sym_radio47">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="pillow" id="sym_radio48" />
+                  <input type="radio" name="pillow" id="sym_radio48" value="Другое" />
                   <label htmlFor="sym_radio48">Другое</label>
                 </div>
               </div>
@@ -354,23 +360,23 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="armor" id="sym_radio49" />
+                  <input type="radio" name="armor" id="sym_radio49" value="Отсутствует" />
                   <label htmlFor="sym_radio49">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="armor" id="sym_radio50" />
+                  <input type="radio" name="armor" id="sym_radio50" value="Сплошная" />
                   <label htmlFor="sym_radio50">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="armor" id="sym_radio51" />
+                  <input type="radio" name="armor" id="sym_radio51" value="Трубчатая" />
                   <label htmlFor="sym_radio51">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="armor" id="sym_radio52" />
+                  <input type="radio" name="armor" id="sym_radio52" value="Сетчатая" />
                   <label htmlFor="sym_radio52">Сетчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="armor" id="sym_radio53" />
+                  <input type="radio" name="armor" id="sym_radio53" value="Другое" />
                   <label htmlFor="sym_radio53">Другое</label>
                 </div>
               </div>
@@ -384,15 +390,15 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="armorc" id="sym_radio54" />
+                  <input type="radio" name="armorc" id="sym_radio54" value="Отсутствует" />
                   <label htmlFor="sym_radio54">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="armorc" id="sym_radio55" />
+                  <input type="radio" name="armorc" id="sym_radio55" value="Сплошной" />
                   <label htmlFor="sym_radio55">Сплошной</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="armorc" id="sym_radio56" />
+                  <input type="radio" name="armorc" id="sym_radio56" value="Другое" />
                   <label htmlFor="sym_radio56">Другое</label>
                 </div>
               </div>
@@ -406,19 +412,19 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="external" id="sym_radio57" />
+                  <input type="radio" name="external" id="sym_radio57" value="Отсутствует" />
                   <label htmlFor="sym_radio57">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="external" id="sym_radio58" />
+                  <input type="radio" name="external" id="sym_radio58" value="Сплошная" />
                   <label htmlFor="sym_radio58">Сплошная</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="external" id="sym_radio59" />
+                  <input type="radio" name="external" id="sym_radio59" value="Трубчатая" />
                   <label htmlFor="sym_radio59">Трубчатая</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="external" id="sym_radio60" />
+                  <input type="radio" name="external" id="sym_radio60" value="Другое" />
                   <label htmlFor="sym_radio60">Другое</label>
                 </div>
               </div>
@@ -437,11 +443,11 @@ function Symmetric(props) {
             <td>
               <div className="radios">
                 <div className="radio__label">
-                  <input type="radio" name="remote" id="sym_radio61" />
+                  <input type="radio" name="remote" id="sym_radio61" value="Отсутствует" />
                   <label htmlFor="sym_radio61">Отсутствует</label>
                 </div>
                 <div className="radio__label">
-                  <input type="radio" name="remote" id="sym_radio62" />
+                  <input type="radio" name="remote" id="sym_radio62" value="Другое" />
                   <label htmlFor="sym_radio62">Другое</label>
                 </div>
               </div>

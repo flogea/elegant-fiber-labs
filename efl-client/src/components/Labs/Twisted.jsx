@@ -8,7 +8,8 @@ function Twisted(props) {
 
   return (
     <div className="cable__block">
-      <CableExample />
+      twistwd
+      <CableExample quantTable={props.quantTable} />
       <table className="iksweb">
         <tbody>
           <tr>

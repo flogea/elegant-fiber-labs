@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 import { Context } from '../../Context';
@@ -16,6 +16,9 @@ import eks078 from '../../images/eks078.png';
 import sechenie2 from '../../images/sechenie2.png';
 
 import '../../styles/Labs.scss';
+import Symmetric from '../../components/Labs/Symmetric';
+import Coaxial from '../../components/Labs/Coaxial';
+import Twisted from '../../components/Labs/Twisted';
 
 function N11() {
   const lab_name = 'N11';
@@ -29,19 +32,116 @@ function N11() {
   const [quantTables, setQuantTables] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
-  const [visibleAdd, setVisibleAdd] = React.useState(true);
+  const [visibleAdd, setVisibleAdd] = React.useState(false);
   const [visibleRemove, setVisibleRemove] = React.useState(null);
+  const [clicked, setClicked] = React.useState(0);
+  const [symmetrical, setSymmetrical] = React.useState(null);
+  const [coaxial, setCoaxial] = React.useState(null);
+  const [twisted, setTwisted] = React.useState(null);
 
   const formRef = React.useRef();
+
+  // React.useEffect(() => {
+  //   const type = JSON.parse(localStorage.getItem('type'));
+  //   if (type) {
+  //     switch (type) {
+  //       case 'Симметричный':
+  //         setSymmetrical(true);
+  //         setVisibleAdd(true);
+  //         break;
+
+  //       case 'Коаксиальный':
+  //         setCoaxial(true);
+  //         setVisibleAdd(true);
+  //         break;
+
+  //       case 'Витая пара':
+  //         setTwisted(true);
+  //         setVisibleAdd(true);
+  //         break;
+  //     }
+  //   }
+
+  //   const data = localStorage.getItem('quantTables');
+  //   if (data) {
+  //     //formRef.current.value = JSON.parse(data);
+  //     setQuantTables(JSON.parse(data));
+  //   }
+  // }, []);
+
+  // React.useEffect(() => {
+  //   localStorage.setItem(testRef.current.name, testRef.current.value);
+  //   console.log(testRef.current.name, testRef.current.value);
+  //   console.log('up');
+  // });
+
+  React.useEffect(() => {
+    for (var oneObj in formRef.current) {
+      try {
+        const dataType = formRef.current[oneObj].type;
+        formRef.current[oneObj].value = JSON.parse(
+          localStorage.getItem(formRef.current[oneObj].name),
+        );
+        //console.log(formRef.current[oneObj].value, formRef.current[oneObj].name);
+
+        // if (
+        //   dataType === 'text' ||
+        //   dataType === 'email' ||
+        //   dataType === 'number' ||
+        //   dataType === 'textarea'
+        // ) {
+        //   formRef.current[oneObj].value = JSON.parse(
+        //     localStorage.getItem(formRef.current[oneObj].name),
+        //   );
+        //   console.log(
+        //     formRef.current[oneObj].value,
+        //     JSON.parse(localStorage.getItem(formRef.current[oneObj].name)),
+        //   );
+        // }
+      } catch (error) {}
+    }
+  }, []);
+
+  // for (var oneObj in formRef.current) {
+  //   try {
+  //     const dataType = formRef.current[oneObj].type;
+  //     if (
+  //       dataType == 'text' ||
+  //       dataType == 'email' ||
+  //       dataType == 'number' ||
+  //       dataType == 'textarea'
+  //     ) {
+  //       localStorage.setItem(formRef.current[oneObj].name, formRef.current[oneObj].value);
+  //     }
+  //   } catch (error) {}
+  // }
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
   }, []);
 
-  // const clearHandler = (event) => {
-  //   event.preventDefault();
-  //   console.log(formRef.current);
-  //   formRef.current.reset();
+  // React.useEffect(() => {
+  //   const data = localStorage.getItem('quantTables');
+  //   if (data) {
+  //     setQuantTables(Object.entries(JSON.parse(data)));
+  //   }
+  // }, []);
+
+  // const addTable = () => {
+  //   setQuantTables(
+  //     quantTables.concat(
+  //       <CableExample n21={false} quantTable={quantTables.length} key={quantTables.length} />,
+  //     ),
+  //   );
+  // };
+
+  // const render = async () => {
+  //   const num = localStorage.getItem('quantTables');
+  //   console.log(num);
+  //   for (let i = 0; i < num; i++) {
+  //     await addTable();
+  //     console.log(i);
+  //   }
   // };
 
   const labHandler = async (event) => {
@@ -58,23 +158,23 @@ function N11() {
 
     console.log(Array.from(formData));
 
-    try {
-      await axios
-        .post('/api/labs/n11', formData, {
-          headers: {
-            'Content-type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          setIsLoading(false);
-          setIsSended(true);
-        });
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-      setIsSended(false);
-    }
+    // try {
+    //   await axios
+    //     .post('/api/labs/n11', formData, {
+    //       headers: {
+    //         'Content-type': 'multipart/form-data',
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       setIsLoading(false);
+    //       setIsSended(true);
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    //   setIsLoading(false);
+    //   setIsSended(false);
+    // }
   };
 
   return (
@@ -455,9 +555,73 @@ function N11() {
             <h3>Выполнение работы</h3>
             <p>1 Получите у преподавателя несколько образцов электрических кабелей.</p>
             <p>2 Рассмотрите кабели по следующим параметрам</p>
+            <p>Тип кабеля: </p>
+            <div className="radios">
+              <div className="radio__label">
+                <input
+                  type="radio"
+                  name="typeof_cable"
+                  id="type1"
+                  value="Симметричный"
+                  checked={symmetrical}
+                  onChange={(e) => {
+                    setSymmetrical(true);
+                    setCoaxial(null);
+                    setTwisted(null);
+                    setVisibleAdd(true);
+                    localStorage.setItem('type', JSON.stringify(e.target.value));
+                  }}
+                />
+                <label htmlFor="type1">Симметричный</label>
+              </div>
+              <div className="radio__label">
+                <input
+                  type="radio"
+                  name="typeof_cable"
+                  id="type2"
+                  value="Коаксиальный"
+                  checked={coaxial}
+                  onChange={(e) => {
+                    setCoaxial(true);
+                    setSymmetrical(null);
+                    setTwisted(null);
+                    setVisibleAdd(true);
+                    localStorage.setItem('type', JSON.stringify(e.target.value));
+                  }}
+                />
+                <label htmlFor="type2">Коаксиальный</label>
+              </div>
+              <div className="radio__label">
+                <input
+                  type="radio"
+                  name="typeof_cable"
+                  id="type3"
+                  value="Витая пара"
+                  checked={twisted}
+                  onChange={(e) => {
+                    setTwisted(true);
+                    setCoaxial(null);
+                    setSymmetrical(null);
+                    setVisibleAdd(true);
+                    localStorage.setItem('type', JSON.stringify(e.target.value));
+                  }}
+                />
+                <label htmlFor="type3">Витая пара</label>
+              </div>
+            </div>
           </div>
-          {/* <CableExample n21={false} /> */}
-          {quantTables}
+
+          {quantTables &&
+            Object.values(quantTables).map((value, key) =>
+              //<CableExample n21={false} quantTable={key} key={key} />,
+              symmetrical && symmetrical ? (
+                <Symmetric key={key} quantTable={key} />
+              ) : coaxial && coaxial ? (
+                <Coaxial key={key} quantTable={key} />
+              ) : twisted && twisted ? (
+                <Twisted key={key} quantTable={key} />
+              ) : null,
+            )}
           <div className="row">
             <div className="col">
               {visibleAdd && (
@@ -466,19 +630,14 @@ function N11() {
                   onClick={(e) => {
                     e.preventDefault();
                     setVisibleRemove(true);
+                    // setClicked(clicked + 1);
                     if (quantTables.length < 4) {
-                      setQuantTables(
-                        quantTables.concat(
-                          <CableExample
-                            n21={false}
-                            quantTable={quantTables.length}
-                            key={quantTables.length}
-                          />,
-                        ),
-                      );
+                      setQuantTables([...quantTables, quantTables[quantTables.length - 1] + 1]);
+                      localStorage.setItem('quantTables', JSON.stringify(quantTables));
                       if (quantTables.length === 3) {
                         setVisibleAdd(null);
                       }
+                      console.log(quantTables[quantTables.length]);
                     }
                   }}>
                   +
@@ -490,7 +649,11 @@ function N11() {
                   onClick={(e) => {
                     e.preventDefault();
                     setVisibleAdd(true);
+                    // setClicked(clicked - 1);
                     setQuantTables(quantTables.slice(0, -1));
+                    //setQuantTables(quantTables.filter(() => quantTables[-1]));
+                    localStorage.setItem('quantTables', JSON.stringify(quantTables));
+
                     if (quantTables.length === 1) {
                       setVisibleRemove(null);
                     }
