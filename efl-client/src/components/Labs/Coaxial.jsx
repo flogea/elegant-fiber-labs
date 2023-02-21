@@ -8,7 +8,8 @@ function Coaxial(props) {
 
   return (
     <div className="cable__block">
-      <CableExample />
+      coaxial
+      <CableExample quantTable={props.quantTable} />
       <table className="iksweb">
         <tbody>
           <tr>
