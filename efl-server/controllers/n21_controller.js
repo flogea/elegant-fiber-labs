@@ -11,8 +11,7 @@ class n21_controller {
       const { performers, group, email, lab_name, id_lab, quantity, photo, quantTables } = req.body;
       const formData = req.files;
       const photoName = res.locals.photoName;
-
-      console.log(quantTables);
+      res.locals.lab_name = lab_name;
 
       const reducedData = req.body;
       delete reducedData.performers;
@@ -126,6 +125,10 @@ class n21_controller {
         str += value + '\n';
       }
 
+      for (let i = Object.entries(reducedData).length; i < 108; i++) {
+        str += null + '\n';
+      }
+
       let timeId = new Date();
       const data = [
         id_lab +
@@ -140,6 +143,8 @@ class n21_controller {
           '\n' +
           quantity +
           '\n' +
+          photoName +
+          '\n' +
           quantTables +
           '\n' +
           str +
@@ -152,7 +157,7 @@ class n21_controller {
           (formData.photo4 === undefined ? null : formData.photo4.name),
       ];
 
-      fs.writeFile(`${id_lab}.txt`, `${data}`, (err) => {
+      fs.writeFile(`${id_lab}_${lab_name}.txt`, `${data}`, (err) => {
         if (err) throw err;
       });
 

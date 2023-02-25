@@ -6,5 +6,6 @@ export { default as F15 } from './F15';
 export { default as F21 } from './F21';
 export { default as F22 } from './F22';
 export { default as M11 } from './M11';
+export { default as M12 } from './M12';
 export { default as N11 } from './N11';
 export { default as N21 } from './N21';

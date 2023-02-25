@@ -28,12 +28,12 @@ const schema = new Schema({
   22: { type: Number, required: true },
   23: { type: Number, required: true },
   24: { type: Number, required: true },
-  file1: { type: String, required: true, unique: true },
-  file2: { type: String, required: true, unique: true },
-  file3: { type: String, required: true, unique: true },
-  file4: { type: String, required: true, unique: true },
-  file5: { type: String, required: true, unique: true },
-  file6: { type: String, required: true, unique: true },
+  file1: { type: String },
+  file2: { type: String },
+  file3: { type: String },
+  file4: { type: String },
+  file5: { type: String },
+  file6: { type: String },
 });
 
 module.exports = model('M11model', schema);

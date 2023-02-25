@@ -26,9 +26,21 @@ import { styles } from '../../styles/Labs.scss';
 
 function TabComponent({ array }) {
   const { table1, setTable1 } = React.useContext(Context);
+  const [errors, setErrors] = React.useState(null);
 
   const handleChangeTable1 = (event) => {
     setTable1({ ...table1, [event.target.name]: event.target.value });
+  };
+
+  const isEmpty = (event) => {
+    console.log(errors);
+    if (!event.target.value) {
+      setErrors('!');
+      return false;
+    }
+    setErrors(null);
+    setTable1({ ...table1, [event.target.name]: event.target.value });
+    return true;
   };
 
   return (
@@ -36,10 +48,7 @@ function TabComponent({ array }) {
       {array &&
         array.map((name, index) => (
           <div key={`${name}_${index}`} className="col s12 m6 l6">
-            <label>
-              {name}
-              {name.isDirty && name.isEmpty && console.log('error')}
-            </label>
+            <label>{name}</label>
             <input
               key={`${name}_${index}`}
               value={name.value}
@@ -47,7 +56,7 @@ function TabComponent({ array }) {
               step="any"
               name={name}
               className="input-table"
-              onChange={handleChangeTable1}
+              onBlur={isEmpty}
               //onBlur={(e) => name.onBlur(e)}
               inputMode="numeric"
               required="required"
