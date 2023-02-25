@@ -5,9 +5,9 @@ import '../styles/Home.scss';
 import SubjectCard from './SubjectCard';
 import { Context } from '../Context';
 
-const CardLab = () => {
+const CardLab = ({ mat }) => {
   const { activeItem, labData } = React.useContext(Context);
-  console.log(activeItem);
+  console.log(mat);
   return (
     <div className="subjBlock">
       <div className="inline">
@@ -21,7 +21,7 @@ const CardLab = () => {
                     bigName={name.name}
                     subject={name.discipline}
                     title={name.title}
-                    path={name.path}
+                    path={mat && mat ? name.path_m : name.path}
                     cardStyle={name.cardStyle}
                     key={`${name}_${index}`}
                   />
@@ -32,7 +32,7 @@ const CardLab = () => {
                   bigName={name.name}
                   subject={name.discipline}
                   title={name.title}
-                  path={name.path}
+                  path={mat && mat ? name.path_m : name.path}
                   cardStyle={name.cardStyle}
                   key={`${name}_${index}`}
                 />

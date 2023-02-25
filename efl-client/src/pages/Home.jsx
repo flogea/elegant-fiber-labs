@@ -7,8 +7,9 @@ import Categories from '../components/Categories';
 import { Context } from '../Context';
 import CardLab from '../components/CardLab';
 
-function Home() {
-  const { activeItem, setLabData } = React.useContext(Context);
+function Home({ mat }) {
+  //console.log(mat);
+  const { setLabData } = React.useContext(Context);
 
   React.useEffect(() => {
     axios.get('/api/labs/labsInfo').then((resp) => {
@@ -32,7 +33,7 @@ function Home() {
           'Информационные технологии в редакционно-издательской деятельности',
         ]}
       />
-      <CardLab activeItem={activeItem} />
+      {mat && mat ? <CardLab mat={true} /> : <CardLab mat={false} />}
     </>
   );
 }

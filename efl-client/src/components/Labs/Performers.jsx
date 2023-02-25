@@ -12,6 +12,26 @@ function Performers() {
     setPerformers({ ...performers, [event.target.name]: event.target.value });
   };
 
+  // React.useCallback(() => {
+  //   for (var obj in performers) {
+  //     if (performers[obj] !== '') {
+  //       console.log(obj);
+  //       var data = localStorage.getItem(obj);
+  //       //setPerformers({ ...performers, [obj]: data });
+  //       obj.value = data;
+  //     }
+  //   }
+  // }, []);
+
+  React.useEffect(() => {
+    for (var obj in performers) {
+      if (performers[obj] !== '') {
+        console.log(obj);
+        localStorage.setItem(obj, JSON.stringify(performers[obj]));
+      }
+    }
+  });
+
   const checkEmail = (event) => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;

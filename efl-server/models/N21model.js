@@ -4,7 +4,7 @@ const schema = new Schema({
   id_lab: { type: String, required: true, unique: true },
   quantTables: { type: Number, required: true },
   data: {
-    numOfCable1: { type: Number },
+    numOfCable1: { type: String },
     photo1: { type: String },
     text11: { type: String },
     num11: { type: Number },
@@ -29,7 +29,7 @@ const schema = new Schema({
     text111: { type: String },
     num111: { type: Number },
 
-    numOfCable2: { type: Number },
+    numOfCable2: { type: String },
     photo2: { type: String },
     text22: { type: String },
     num22: { type: Number },
@@ -52,7 +52,7 @@ const schema = new Schema({
     text211: { type: String },
     num211: { type: Number },
 
-    numOfCable3: { type: Number },
+    numOfCable3: { type: String },
     photo3: { type: String },
     num31: { type: Number },
     text32: { type: String },
@@ -76,7 +76,7 @@ const schema = new Schema({
     text311: { type: String },
     num311: { type: Number },
 
-    numOfCable4: { type: Number },
+    numOfCable4: { type: String },
     photo4: { type: String },
     num41: { type: Number },
     text42: { type: String },

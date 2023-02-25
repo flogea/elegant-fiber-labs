@@ -296,7 +296,7 @@ function M11() {
   const saveHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    const formData = new FormData(event.target);
+    const formData = new FormData(formRef.current);
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
@@ -374,7 +374,7 @@ function M11() {
   return (
     <div className="container">
       <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
-      <form onSubmit={saveHandler} ref={formRef}>
+      <form ref={formRef}>
         <Performers />
 
         <div className="foldable__content">
@@ -848,19 +848,18 @@ function M11() {
             <p>31 Сравните полученные результаты (временные диаграммы и схемы).</p>
           </Foldable>
         </div>
-
-        <div className="row">
-          {isLoading ? <img src={preloader} className="preloader" /> : null}
-          {console.log(isSended)}
-          {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
-          <div className="centering">
-            <input type="submit" className="generate__btn" value="Сохранить" />
-          </div>
-          <div>
-            ID (Сохраните, пожалуйста): <b>{id}</b>
-          </div>
-        </div>
       </form>
+      <div className="row">
+        {isLoading ? <img src={preloader} className="preloader" /> : null}
+        {console.log(isSended)}
+        {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
+        <div className="centering">
+          <input type="submit" onClick={saveHandler} className="generate__btn" value="Сохранить" />
+        </div>
+        <div>
+          ID (Сохраните, пожалуйста): <b>{id}</b>
+        </div>
+      </div>
       <FooterLab needPhoto={false} />
       <div className="row">
         {isLoading ? <img src={preloader} className="preloader" /> : null}
