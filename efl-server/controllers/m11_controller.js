@@ -35,11 +35,22 @@ class m11_controller {
 
   async saveData(req, res, next) {
     try {
-      const { performers, group, email, lab_name, quantity, data, letterOne, letterTwo, labId } =
-        req.body;
-      var { id_lab } = req.body;
+      const {
+        performers,
+        group,
+        email,
+        id_lab,
+        lab_name,
+        quantity,
+        data,
+        letterOne,
+        letterTwo,
+        labId,
+      } = req.body;
       const formData = req.files;
       const dataArray = data.split(',');
+
+      console.log(id_lab, labId);
 
       for (var oneObj in formData) {
         let newFileName;
@@ -77,117 +88,131 @@ class m11_controller {
           }
         });
       }
-      console.log(labId);
-      if (labId !== '') {
-        id_lab = labId;
-      }
-      console.log(labId);
-      await M11model.find({ id_lab })
-        .then(async (result) => {
-          console.log(result);
-          if (result.length === 0) {
-            try {
-              const m11 = new M11model({
-                id_lab,
-                letterOne,
-                letterTwo,
-                1: dataArray[0],
-                2: dataArray[1],
-                3: dataArray[2],
-                4: dataArray[3],
-                5: dataArray[4],
-                6: dataArray[5],
-                7: dataArray[6],
-                8: dataArray[7],
-                9: dataArray[8],
-                10: dataArray[9],
-                11: dataArray[10],
-                12: dataArray[11],
-                13: dataArray[12],
-                14: dataArray[13],
-                15: dataArray[14],
-                16: dataArray[15],
-                17: dataArray[16],
-                18: dataArray[17],
-                19: dataArray[18],
-                20: dataArray[19],
-                21: dataArray[20],
-                22: dataArray[21],
-                23: dataArray[22],
-                24: dataArray[23],
-                file1: formData.file1 === undefined ? null : formData.file1.name,
-                file2: formData.file2 === undefined ? null : formData.file2.name,
-                file3: formData.file3 === undefined ? null : formData.file3.name,
-                file4: formData.file4 === undefined ? null : formData.file4.name,
-                file5: formData.file5 === undefined ? null : formData.file5.name,
-                file6: formData.file6 === undefined ? null : formData.file6.name,
-              });
-              await m11.save();
 
-              const summary = new Summary({
-                performers,
-                group,
-                email,
-                lab_name,
-                id_lab,
-                quantity,
-              });
-              await summary.save();
-              res.locals.id_lab = id_lab;
-              next();
-            } catch (error) {
-              console.log(err.message);
-              res.status(500).json({ message: 'error m11' });
-            }
-          } else {
+      if (labId) {
+        console.log('here');
+        M11model.findOne({ id_lab: labId })
+          .then(async (result) => {
+            //console.log('m11 result labId', result);
+
             try {
               res.locals.data = result;
               await M11model.findOneAndUpdate(
-                ({ id_lab },
+                { id_lab: labId },
                 {
-                  file1: formData.file1 === undefined ? null : formData.file1.name,
-                  file2: formData.file2 === undefined ? null : formData.file2.name,
-                  file3: formData.file3 === undefined ? null : formData.file3.name,
-                  file4: formData.file4 === undefined ? null : formData.file4.name,
-                  file5: formData.file5 === undefined ? null : formData.file5.name,
-                  file6: formData.file6 === undefined ? null : formData.file6.name,
+                  file1: formData.file1 === undefined ? result.file1 : formData.file1.name,
+                  file2: formData.file2 === undefined ? result.file2 : formData.file2.name,
+                  file3: formData.file3 === undefined ? result.file3 : formData.file3.name,
+                  file4: formData.file4 === undefined ? result.file4 : formData.file4.name,
+                  file5: formData.file5 === undefined ? result.file5 : formData.file5.name,
+                  file6: formData.file6 === undefined ? result.file6 : formData.file6.name,
                 },
                 {
                   new: true,
-                }),
+                },
                 (err, doc) => {
                   if (err) {
                     console.log(err);
                     res.status(500).json({ message: 'error update m11' });
+                  } else {
+                    console.log(doc);
                   }
-                  return doc;
                 },
-              );
+              ).clone();
 
-              await Summary.findOneAndUpdate(
-                ({ id_lab },
-                { performers, group, email, quantity },
-                {
-                  new: true,
-                }),
-                (err, doc) => {
-                  if (err) {
-                    console.log(err);
-                    res.status(500).json({ message: 'error update summary' });
-                  }
-                  return doc;
-                },
-              );
               res.locals.id_lab = labId;
-              next();
             } catch (error) {
-              console.log(err);
-              res.status(500).json({ message: 'error update' });
+              console.log(error);
+              res.status(500).json({ message: 'error update m11' });
             }
+          })
+          .catch((err) => res.status(500).json(err));
+
+        Summary.findOne({ id_lab: labId }).then(async (result) => {
+          try {
+            await Summary.findOneAndUpdate(
+              { id_lab: labId },
+              {
+                performers: performers === undefined ? result.performers : performers,
+                group: group === undefined ? result.group : group,
+                email: email === undefined ? result.email : email,
+                quantity: quantity === undefined ? result.quantity : quantity,
+              },
+              {
+                new: true,
+              },
+              (err, doc) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).json({ message: 'error update summary' });
+                } else {
+                  console.log(doc);
+                }
+              },
+            ).clone;
+          } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: 'error update summary' });
           }
-          //next();
-        })
-        .catch((err) => res.status(500).json(err));
+        });
+        next();
+      } else {
+        console.log(id_lab);
+        try {
+          const m11 = new M11model({
+            id_lab,
+            letterOne,
+            letterTwo,
+            1: dataArray[0],
+            2: dataArray[1],
+            3: dataArray[2],
+            4: dataArray[3],
+            5: dataArray[4],
+            6: dataArray[5],
+            7: dataArray[6],
+            8: dataArray[7],
+            9: dataArray[8],
+            10: dataArray[9],
+            11: dataArray[10],
+            12: dataArray[11],
+            13: dataArray[12],
+            14: dataArray[13],
+            15: dataArray[14],
+            16: dataArray[15],
+            17: dataArray[16],
+            18: dataArray[17],
+            19: dataArray[18],
+            20: dataArray[19],
+            21: dataArray[20],
+            22: dataArray[21],
+            23: dataArray[22],
+            24: dataArray[23],
+            file1: formData.file1 === undefined ? null : formData.file1.name,
+            file2: formData.file2 === undefined ? null : formData.file2.name,
+            file3: formData.file3 === undefined ? null : formData.file3.name,
+            file4: formData.file4 === undefined ? null : formData.file4.name,
+            file5: formData.file5 === undefined ? null : formData.file5.name,
+            file6: formData.file6 === undefined ? null : formData.file6.name,
+          });
+          await m11.save();
+
+          const summary = new Summary({
+            performers,
+            group,
+            email,
+            lab_name,
+            id_lab,
+            quantity,
+          });
+          await summary.save();
+          res.locals.id_lab = id_lab;
+          next();
+        } catch (error) {
+          console.log(err.message);
+          res.status(500).json({ message: 'error m11' });
+        }
+        next();
+      }
     } catch (err) {
       console.log(err.message);
       res.status(500).json({ message: 'error m11' });
