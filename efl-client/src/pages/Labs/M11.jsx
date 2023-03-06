@@ -40,12 +40,13 @@ function M11() {
   const [id, setId] = React.useState('');
   const [table, setTable] = React.useState('');
   const [currentId, setCurrentId] = React.useState('');
-  const [array, setArray] = React.useState('');
+  const [array, setArray] = React.useState([]);
   const [str, setStr] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const formRef = React.useRef();
   const [isBtnExist, setisBtnExist] = React.useState(true);
+  const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
@@ -184,6 +185,7 @@ function M11() {
     }
     setArray(str);
     setisBtnExist(null);
+    setisBtnEnterExist(false);
     setTable(
       <table className="iksweb">
         <tbody>
@@ -268,6 +270,155 @@ function M11() {
     );
   }
 
+  function handleChangeTable(event) {
+    setArray((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  }
+
+  function enterTable(e) {
+    e.preventDefault();
+    setisBtnExist(false);
+    setisBtnEnterExist(false);
+
+    setTable(
+      <table className="iksweb">
+        <tbody>
+          <tr>
+            <td colSpan="3">Входы</td>
+            <td colSpan="3">Выходы</td>
+          </tr>
+          <tr>
+            <td>a</td>
+            <td>b[1]</td>
+            <td>b[0]</td>
+            <td>
+              <input type="text" name="0" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="text" style={{ width: '80%' }} name="1" onChange={handleChangeTable} />
+              [0]
+            </td>
+            <td>
+              <input type="text" style={{ width: '80%' }} />
+              [1]
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>
+              <input type="number" name="2" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="3" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="4" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>
+              <input type="number" name="5" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="6" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="7" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>
+              <input type="number" name="8" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="9" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="10" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td>
+              <input type="number" name="11" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="12" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="13" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>
+              <input type="number" name="14" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="15" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="16" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>
+              <input type="number" name="17" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="18" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="19" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td>
+              <input type="number" name="20" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="21" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="22" onChange={handleChangeTable} />
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>
+              <input type="number" name="23" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="24" onChange={handleChangeTable} />
+            </td>
+            <td>
+              <input type="number" name="25" onChange={handleChangeTable} />
+            </td>
+          </tr>
+        </tbody>
+      </table>,
+    );
+  }
+
   const findData = async (event) => {
     event.preventDefault();
 
@@ -303,13 +454,11 @@ function M11() {
     formData.append('letterOne', array[0]);
     formData.append('letterTwo', array[1]);
 
-    // for (let i = 1; i < array.length - 1; i++) {
-    //   formData.append(i, array[i + 1]);
-    // }
+    for (let i = 0; i < Object.values(array).length; i++) {
+      formData.delete(`${i}`);
+    }
 
-    //const data = Object.fromEntries(array.slice(2).map((value, index) => [index, value]));
-
-    formData.append('data', array.slice(2));
+    formData.append('data', Object.values(array).slice(2));
 
     console.log(Array.from(formData));
     await axios
@@ -328,7 +477,7 @@ function M11() {
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
-        setIsSended(false);
+        setIsSended('error');
       });
   };
 
@@ -336,19 +485,24 @@ function M11() {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(formRef.current);
+    try {
+      formData.append('lab_name', lab_name);
+      formData.append('id_lab', id_lab);
+      formData.append('letterOne', array[0]);
+      formData.append('letterTwo', array[1]);
+      formData.append('token', secretKey.token);
+      formData.append('photo', photo);
+      formData.append('quantity', quantity.quantity);
 
-    formData.append('lab_name', lab_name);
-    formData.append('id_lab', id_lab);
-    formData.append('letterOne', array[0]);
-    formData.append('letterTwo', array[1]);
-    formData.append('token', secretKey.token);
-    formData.append('photo', photo);
-    formData.append('quantity', quantity.quantity);
-    formData.append('data', array.slice(2));
-
-    // for (let i = 1; i < array.length - 1; i++) {
-    //   formData.append(i, array[i + 1]);
-    // }
+      for (let i = 0; i < Object.values(array).length; i++) {
+        formData.delete(`${i}`);
+      }
+      formData.append('data', Object.values(array).slice(2));
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsSended('error');
+    }
 
     console.log(Array.from(formData));
 
@@ -367,7 +521,7 @@ function M11() {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      setIsSended(false);
+      setIsSended('error');
     }
   };
 
@@ -574,10 +728,15 @@ function M11() {
               3 Получите логические выражения для выходов из таблиц функционирования устройств
               заданного варианта. Для этого можно воспользоваться картами Карно.
             </p>
-            <div className="row">
+            <div className="centeredInRow">
               {isBtnExist && (
                 <button onClick={TableGenerate} className="generate__btn">
                   Сгенерировать
+                </button>
+              )}
+              {isBtnEnterExist && (
+                <button className="generate__btn hands" onClick={enterTable}>
+                  Ввести вручную
                 </button>
               )}
             </div>
@@ -863,26 +1022,32 @@ function M11() {
         </div>
       </form>
       <div className="row">
-        {isLoading ? <img src={preloader} className="preloader" /> : null}
-        {console.log(isSended)}
-        {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
         <div className="centering">
-          <input type="submit" onClick={saveHandler} className="generate__btn" value="Сохранить" />
+          <input
+            type="submit"
+            onClick={saveHandler}
+            className="generate__btn"
+            value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
+          />
         </div>
         <div>
-          ID (Сохраните, пожалуйста): <b>{id}</b>
+          {isLoading ? <img src={preloader} className="preloader" /> : null}
+          {isSended === true && (
+            <>
+              ID (Сохраните, пожалуйста): <b>{id}</b>
+            </>
+          )}
         </div>
       </div>
       <FooterLab needPhoto={false} />
       <div className="row">
         {isLoading ? <img src={preloader} className="preloader" /> : null}
-        {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
         <div className="centering">
           <button
             className="wawes-effect wawes-light btn btn-blue"
             onClick={labHandler}
             id="subm_btn">
-            Отправить
+            {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
           </button>
         </div>
       </div>

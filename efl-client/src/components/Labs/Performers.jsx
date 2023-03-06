@@ -26,7 +26,6 @@ function Performers() {
   React.useEffect(() => {
     for (var obj in performers) {
       if (performers[obj] !== '') {
-        console.log(obj);
         localStorage.setItem(obj, JSON.stringify(performers[obj]));
       }
     }

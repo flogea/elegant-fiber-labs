@@ -305,6 +305,13 @@
       box-shadow: 0 3px 15px -3px rgb(160, 160, 160), 0 3px 5px -3px white inset;
     }
 
+    .centeredInRow {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
     .row {
       width: 100%;
       display: flex;
