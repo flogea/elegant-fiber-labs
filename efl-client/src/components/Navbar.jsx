@@ -23,9 +23,9 @@ function Navbar() {
           <a href="/" className="brand-logo">
             <img src={textedLogo} alt="Logo" />
           </a>
-          {/* <a href="/" data-target="mobile-demo" className="sidenav-trigger">
-            <i className="material-icons">menu</i>
-          </a> */}
+          <a href="/" data-target="mobile-demo" className="sidenav-trigger">
+            <img src={logo} alt="Logo" />
+          </a>
         </div>
         <label className="switch">
           <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
