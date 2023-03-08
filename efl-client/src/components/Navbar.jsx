@@ -4,10 +4,20 @@ import '../styles/Home.scss';
 
 import logo from '../images/logo.svg';
 import textedLogo from '../images/logo_with_text.svg';
+import { Context } from '../Context';
 
 function Navbar() {
+  const { darkMode, setDarkMode } = React.useContext(Context);
+  React.useEffect(() => {
+    setDarkMode(Boolean(JSON.parse(localStorage.getItem('darkMode'))));
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
+
   return (
-    <div className="container">
+    <div className="">
       <nav>
         <div className="logo">
           <a href="/" className="brand-logo">
@@ -17,6 +27,10 @@ function Navbar() {
             <i className="material-icons">menu</i>
           </a> */}
         </div>
+        <label className="switch">
+          <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+          <span className="slider round"></span>
+        </label>
       </nav>
 
       {/* <div className="navlist">

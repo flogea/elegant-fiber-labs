@@ -5,8 +5,19 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f5f5f5;
+
+  &.dark {
+    background: #1c1c1e;
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    background: #fff;
+  }
 }

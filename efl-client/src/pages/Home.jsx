@@ -6,10 +6,11 @@ import '../styles/Home.scss';
 import Categories from '../components/Categories';
 import { Context } from '../Context';
 import CardLab from '../components/CardLab';
+import ParticlesBG from '../components/ParticlesBG';
 
-function Home({ mat }) {
+function Home() {
   //console.log(mat);
-  const { setLabData } = React.useContext(Context);
+  const { setLabData, darkMode } = React.useContext(Context);
 
   React.useEffect(() => {
     axios.get('/api/labs/labsInfo').then((resp) => {
@@ -19,7 +20,7 @@ function Home({ mat }) {
 
   return (
     <>
-      <div className="greeting"></div>
+      {darkMode ? <ParticlesBG /> : null}
       <Categories
         items={[
           'Физические основы фотоники и оптической связи',
@@ -33,7 +34,7 @@ function Home({ mat }) {
           'Информационные технологии в редакционно-издательской деятельности',
         ]}
       />
-      {mat && mat ? <CardLab mat={true} /> : <CardLab mat={false} />}
+      <CardLab />
     </>
   );
 }

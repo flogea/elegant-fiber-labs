@@ -5,14 +5,14 @@ import '../styles/Home.scss';
 import { Context } from '../Context';
 
 function Categories({ items, onClickItem }) {
-  const { activeItem, setActiveItem } = React.useContext(Context);
+  const { activeItem, setActiveItem, darkMode } = React.useContext(Context);
 
   const onSelectItem = (index) => {
     setActiveItem(index);
   };
 
   return (
-    <div className="categories">
+    <div className={darkMode ? 'categories dark' : 'categories'}>
       <select onChange={(e) => onSelectItem(e.target.value ? e.target.value : 'Все')}>
         <option
           className={activeItem === 'Все' ? 'active' : ''}

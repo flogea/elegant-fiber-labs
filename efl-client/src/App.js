@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 import { Context } from './Context';
 
@@ -8,8 +9,16 @@ import Navbar from './components/Navbar';
 import { F11, F12, F13, F14, F15, F21, F22, M11, M12, N11, N21, PromtM } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import F11m from './pages/Materials/F11m';
+import ParticlesBG from './components/ParticlesBG';
 
 function App() {
+  const [darkMode, setDarkMode] = React.useState(false);
+  React.useEffect(() => {
+    console.log(darkMode);
+    darkMode ? document.body.classList.add('dark') : document.body.classList.remove('dark');
+    console.log(document.body.classList);
+  }, [darkMode]);
+
   const [activeItem, setActiveItem] = React.useState('Все');
   const [labData, setLabData] = React.useState();
   const [disabledInp, setDisabledInp] = React.useState(false);
@@ -188,6 +197,8 @@ function App() {
           setEmpty,
           disabledInp,
           setDisabledInp,
+          darkMode,
+          setDarkMode,
         }}>
         <Navbar />
         <BrowserRouter>

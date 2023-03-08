@@ -5,11 +5,10 @@ import '../styles/Home.scss';
 import SubjectCard from './SubjectCard';
 import { Context } from '../Context';
 
-const CardLab = ({ mat }) => {
-  const { activeItem, labData } = React.useContext(Context);
-  console.log(mat);
+const CardLab = () => {
+  const { activeItem, labData, darkMode } = React.useContext(Context);
   return (
-    <div className="subjBlock">
+    <div className={darkMode ? 'subjBlock dark' : 'subjBlock'}>
       <div className="inline">
         <div className="wrap">
           {activeItem !== 'Все'
@@ -21,7 +20,7 @@ const CardLab = ({ mat }) => {
                     bigName={name.name}
                     subject={name.discipline}
                     title={name.title}
-                    path={mat && mat ? name.path_m : name.path}
+                    path={name.path}
                     cardStyle={name.cardStyle}
                     key={`${name}_${index}`}
                   />
@@ -32,7 +31,7 @@ const CardLab = ({ mat }) => {
                   bigName={name.name}
                   subject={name.discipline}
                   title={name.title}
-                  path={mat && mat ? name.path_m : name.path}
+                  path={name.path}
                   cardStyle={name.cardStyle}
                   key={`${name}_${index}`}
                 />

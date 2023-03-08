@@ -21,6 +21,7 @@ import pic8 from '../../images/M11/electric_scheme.png';
 import pic9 from '../../images/M11/diagramm1.png';
 import pic10 from '../../images/M11/diagramm2.png';
 import preloader from '../../images/Infinity.gif';
+import ParticlesBG from '../../components/ParticlesBG';
 
 function M11() {
   const lab_name = 'M11';
@@ -28,7 +29,7 @@ function M11() {
   const LabName = 'М11 QUARTUS II. СОЗДАНИЕ ПРОСТЕЙШИХ ЦИФРОВЫХ СХЕМ';
   const LabLink = 'ъыъ.рф/ьАуУ';
 
-  const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp } =
+  const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp, darkMode } =
     React.useContext(Context);
   const [id_lab, setIdLab] = React.useState('');
   const [dataName1, setDataName1] = React.useState('');
@@ -291,14 +292,20 @@ function M11() {
             <td>b[1]</td>
             <td>b[0]</td>
             <td>
-              <input type="text" name="0" onChange={handleChangeTable} />
+              <input type="text" name="0" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="text" style={{ width: '80%' }} name="1" onChange={handleChangeTable} />
+              <input
+                type="text"
+                style={{ width: '80%' }}
+                name="1"
+                onChange={handleChangeTable}
+                maxlength="1"
+              />
               [0]
             </td>
             <td>
-              <input type="text" style={{ width: '80%' }} />
+              <input type="text" style={{ width: '80%' }} maxlength="1" />
               [1]
             </td>
           </tr>
@@ -307,13 +314,13 @@ function M11() {
             <td>0</td>
             <td>0</td>
             <td>
-              <input type="number" name="2" onChange={handleChangeTable} />
+              <input type="number" name="2" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="3" onChange={handleChangeTable} />
+              <input type="number" name="3" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="4" onChange={handleChangeTable} />
+              <input type="number" name="4" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
           <tr>
@@ -321,41 +328,41 @@ function M11() {
             <td>0</td>
             <td>1</td>
             <td>
-              <input type="number" name="5" onChange={handleChangeTable} />
+              <input type="number" name="5" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="6" onChange={handleChangeTable} />
+              <input type="number" name="6" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="7" onChange={handleChangeTable} />
-            </td>
-          </tr>
-          <tr>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>
-              <input type="number" name="8" onChange={handleChangeTable} />
-            </td>
-            <td>
-              <input type="number" name="9" onChange={handleChangeTable} />
-            </td>
-            <td>
-              <input type="number" name="10" onChange={handleChangeTable} />
+              <input type="number" name="7" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
           <tr>
             <td>0</td>
             <td>1</td>
+            <td>0</td>
+            <td>
+              <input type="number" name="8" onChange={handleChangeTable} maxlength="1" />
+            </td>
+            <td>
+              <input type="number" name="9" onChange={handleChangeTable} maxlength="1" />
+            </td>
+            <td>
+              <input type="number" name="10" onChange={handleChangeTable} maxlength="1" />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
             <td>1</td>
             <td>
-              <input type="number" name="11" onChange={handleChangeTable} />
+              <input type="number" name="11" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="12" onChange={handleChangeTable} />
+              <input type="number" name="12" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="13" onChange={handleChangeTable} />
+              <input type="number" name="13" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
           <tr>
@@ -363,13 +370,13 @@ function M11() {
             <td>0</td>
             <td>0</td>
             <td>
-              <input type="number" name="14" onChange={handleChangeTable} />
+              <input type="number" name="14" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="15" onChange={handleChangeTable} />
+              <input type="number" name="15" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="16" onChange={handleChangeTable} />
+              <input type="number" name="16" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
           <tr>
@@ -377,13 +384,13 @@ function M11() {
             <td>0</td>
             <td>1</td>
             <td>
-              <input type="number" name="17" onChange={handleChangeTable} />
+              <input type="number" name="17" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="18" onChange={handleChangeTable} />
+              <input type="number" name="18" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="19" onChange={handleChangeTable} />
+              <input type="number" name="19" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
           <tr>
@@ -391,13 +398,13 @@ function M11() {
             <td>1</td>
             <td>0</td>
             <td>
-              <input type="number" name="20" onChange={handleChangeTable} />
+              <input type="number" name="20" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="21" onChange={handleChangeTable} />
+              <input type="number" name="21" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="22" onChange={handleChangeTable} />
+              <input type="number" name="22" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
           <tr>
@@ -405,13 +412,13 @@ function M11() {
             <td>1</td>
             <td>1</td>
             <td>
-              <input type="number" name="23" onChange={handleChangeTable} />
+              <input type="number" name="23" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="24" onChange={handleChangeTable} />
+              <input type="number" name="24" onChange={handleChangeTable} maxlength="1" />
             </td>
             <td>
-              <input type="number" name="25" onChange={handleChangeTable} />
+              <input type="number" name="25" onChange={handleChangeTable} maxlength="1" />
             </td>
           </tr>
         </tbody>
@@ -526,532 +533,527 @@ function M11() {
   };
 
   return (
-    <div className="container">
-      <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
-      <form ref={formRef}>
-        <Performers />
+    <>
+      {darkMode ? <ParticlesBG /> : null}
+      <div className={darkMode ? 'container dark' : 'container'}>
+        <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
+        <form ref={formRef}>
+          <Performers />
 
-        <div className="foldable__content">
-          <Foldable header="Продолжить работу">
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                width: '80%',
-                margin: 'auto',
-              }}>
-              <input
-                type="text"
-                name="labId"
-                onChange={(e) => setCurrentId(e.target.value)}
+          <div className="foldable__content">
+            <Foldable header="Продолжить работу">
+              <div
                 style={{
-                  width: '100%',
-                  border: 'none',
-                  borderBottom: '2px solid black',
-                  padding: '5px',
-                  margin: '10px auto',
-                  outline: 'none',
-                  fontSize: '1rem',
-                }}
-                placeholder="ID"
-              />
-              <button onClick={findData} className="generate__btn">
-                Продолжить
-              </button>
-            </div>
-          </Foldable>
-          <Foldable header="Теоретические сведения">
-            <p>
-              Комбинационные цифровые устройства (КЦУ) — цифровые устройства, уровни сигналов на
-              каждом выходе которых в каждый момент времени зависят только от комбинаций значений
-              уровней входных сигналов.
-            </p>
-            <p>
-              Описать работу КЦУ можно несколькими способами: таблицей [истинности,
-              функционирования], аналитически (функцией), схематический (электронной схемой) и
-              графически (осциллограммами).
-            </p>
-            <p>
-              Существует методы перехода от одного способа к другому. Например, по табличному
-              способу легко составить графическое описание и наоборот. Переход же к аналитическому
-              описанию может вызвать затруднения. Обратившись к предмету изучения{' '}
-              <i>дискретной математики</i>, можно вспомнить про методы минимизации функций. Одним из
-              таких способов стал метод карт Карно, который будет продемонстрирован ниже.
-            </p>
-          </Foldable>
-          <Foldable header="Синтез КЦУ по его таблице функционирования">
-            <p>
-              Синтез любого КЦУ производится согласно техническому заданию путем записи таблицы
-              функционирования и, если это необходимо, составления по таблице системы логических
-              уравнений в канонической форме. Сам же синтез сводится к разработке схемы КЦУ на
-              логических элементах.
-            </p>
-            <p>
-              Пусть синтезируемое КЦУ представлено в виде таблице. У синтезируемого устройства
-              имеется три входных сигнала (a, b, c), два выходных (d, e).
-            </p>
-            <div className="content-image">
-              <img src={pic1} alt="" />
-            </div>
-
-            <p>
-              Следующим этапом синтеза КЦУ будет являться нахождение аналитических выражений
-              (зависимостей) выходных сигналов от входных.
-            </p>
-            <p>
-              Самым простым способом найти аналитическую зависимость является "сбор" по единицам или
-              нулям, то есть нахождение совершенных конъюнктивной (СКНФ) или дизъюнктивной
-              нормальных форм (СДНФ).
-            </p>
-            <div className="content-image">
-              <img src={pic2} alt="" className="formula" />
-              <img src={pic3} alt="" className="formula" />
-            </div>
-
-            <p>
-              Однако, есть способы минимизировать данные функции. Минимизация логических функций
-              является одной из типовых задач при изучении вычислительной техники. При составлении
-              электрических схем минимизация позволяет упростить их, используя в ряде случаев более
-              простые логические элементы.
-            </p>
-            <p>
-              Для определения выражений можно воспользоваться картами Карно. Карта Карно для сигнала
-              d
-            </p>
-            <div className="content-image">
-              <img src={pic4} alt="" />
-              <img src={pic5} alt="" className="formula smaller" />
-            </div>
-
-            <p>Аналогично опишем e.</p>
-            <div className="content-image">
-              <img src={pic6} alt="" />
-              <img src={pic7} alt="" className="formula smaller" />
-            </div>
-
-            <p>По данным выражениям изобразим электрическую схему устройства</p>
-            <div className="content-image">
-              <img src={pic8} alt="" />
-            </div>
-
-            <p>
-              Опишем работу КЦУ в виде временных зависимостей уровней на выводах. Оказалось, что
-              данный способ описания поведения устройств является наиболее наглядным.
-            </p>
-            <p>
-              Для рассмотренного выше примера цифрового устройства будет справедлива такая временная
-              диаграмма с последовательным перебором входных сигналов:
-            </p>
-            <div className="content-image">
-              <img src={pic9} alt="" />
-            </div>
-
-            <p>
-              Справедлива также и временная диаграмма, в которой значения входных сигналов
-              перебираются не последовательно, так как вспоминая определение КЦУ, при определенной
-              комбинации значений входных сигналов значения выходных сигналов тоже будут однозначно
-              определены:
-            </p>
-            <div className="content-image">
-              <img src={pic10} alt="" />
-            </div>
-          </Foldable>
-          <Foldable header="Язык описания аппаратуры — Verilog Hardware Description Language">
-            <p>
-              Язык Verilog — это язык текстового описания аппаратуры. Он используется для
-              проектирования, моделирования, верификации цифровых микросхем.
-            </p>
-            <p>
-              Язык Verilog был разработан в 1984-1985 году Филом Морби (Phil Moorby) во время его
-              работы в компании Gateway Design Automation. Тогда же появился первый Верилог
-              симулятор: Verilog-XL. Позже компанию Gateway купила Cadence Design Systems и в 1990-м
-              сделала Verilog HDL публичным достоянием. В 1995-м году язык стал стандартом
-              IEEE-1364-1995, IEEE Standard Hardware Description Language Based on the Verilog(R)
-              Hardware Description Language.
-            </p>
-            <p>
-              Синтаксис Verilog очень похож на синтаксис языка С, что должно упростить
-              первоначальное освоение Verilog. Также Verilog имеет схожий препроцессор, а также
-              конструкции &#171;if&#187;, &#171;while&#187;, &#171;for&#187; подобны с языком C.
-            </p>
-            <p>
-              Помимо Verilog HDL существуют и другие языки описания аппаратуры: VHDL (Very high
-              speed integrated circuit HDL), AHDL (Altera HDL), SystemVerilog. В настоящее время
-              наиболее популярным является Verilog HDL.
-            </p>
-            <p>
-              Две основные цели HDL – логическая симуляция и синтез. Во время симуляции на входы
-              модуля подаются некоторые воздействия и проверяются выходы, чтобы убедиться, что
-              модуль функционирует корректно. Во время синтеза текстовое описание модуля
-              преобразуется в логические элементы.
-            </p>
-
-            <h4>Синтез</h4>
-            <p>
-              Логический синтез преобразует код на HDL в нетлист, описывающий цифровую аппаратуру
-              (т.е. логические элементы и соединяющие их проводники). Логический синтезатор может
-              выполнять оптимизацию для сокращения количества необходимых элементов. Нетлист может
-              быть текстовым файлом или нарисован в виде схемы, чтобы было легче визуализировать
-              систему.
-            </p>
-
-            <h4>Симуляция</h4>
-            <p>
-              Люди регулярно совершают ошибки. Ошибки в цифровой аппаратуре называют багами. Ясно,
-              что устранение багов в цифровой системе очень важно, особенно когда от правильной
-              работы аппаратуры зависят чьи-то жизни. Тестирование системы в лаборатории весьма
-              трудоемко. Исследовать причины ошибок в лаборатории может быть очень сложно, так как
-              наблюдать можно только сигналы, подключенные к контактам чипа, а то, что происходит
-              внутри чипа, напрямую наблюдать невозможно. Исправление ошибок уже после того, как
-              система была выпущена, может быть очень дорого. Например, исправление одной ошибки в
-              новейших интегральных микросхемах стоит больше миллиона долларов и занимает несколько
-              месяцев.
-            </p>
-          </Foldable>
-        </div>
-
-        <div className="completing">
-          <div className="left-text">
-            <h3>Выполнение работы</h3>
-            <p>
-              1 Запустите Quartus II 15.0. Выполните первоначальную настройку
-              <a href="/promtm" style={{ textDecoration: 'none' }}>
-                <sup data-tooltip="">1</sup>
-              </a>
-              .
-            </p>
-            <p>
-              2 Создайте проект Lab_M11<sup>2</sup>.
-            </p>
-            <p>
-              3 Получите логические выражения для выходов из таблиц функционирования устройств
-              заданного варианта. Для этого можно воспользоваться картами Карно.
-            </p>
-            <div className="centeredInRow">
-              {isBtnExist && (
-                <button onClick={TableGenerate} className="generate__btn">
-                  Сгенерировать
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  width: '80%',
+                  margin: 'auto',
+                }}>
+                <input
+                  type="text"
+                  name="labId"
+                  onChange={(e) => setCurrentId(e.target.value)}
+                  placeholder="ID"
+                />
+                <button onClick={findData} className="generate__btn">
+                  Продолжить
                 </button>
-              )}
-              {isBtnEnterExist && (
-                <button className="generate__btn hands" onClick={enterTable}>
-                  Ввести вручную
-                </button>
-              )}
-            </div>
-            <div>{table}</div>
+              </div>
+            </Foldable>
+            <Foldable header="Теоретические сведения">
+              <p>
+                Комбинационные цифровые устройства (КЦУ) — цифровые устройства, уровни сигналов на
+                каждом выходе которых в каждый момент времени зависят только от комбинаций значений
+                уровней входных сигналов.
+              </p>
+              <p>
+                Описать работу КЦУ можно несколькими способами: таблицей [истинности,
+                функционирования], аналитически (функцией), схематический (электронной схемой) и
+                графически (осциллограммами).
+              </p>
+              <p>
+                Существует методы перехода от одного способа к другому. Например, по табличному
+                способу легко составить графическое описание и наоборот. Переход же к аналитическому
+                описанию может вызвать затруднения. Обратившись к предмету изучения{' '}
+                <i>дискретной математики</i>, можно вспомнить про методы минимизации функций. Одним
+                из таких способов стал метод карт Карно, который будет продемонстрирован ниже.
+              </p>
+            </Foldable>
+            <Foldable header="Синтез КЦУ по его таблице функционирования">
+              <p>
+                Синтез любого КЦУ производится согласно техническому заданию путем записи таблицы
+                функционирования и, если это необходимо, составления по таблице системы логических
+                уравнений в канонической форме. Сам же синтез сводится к разработке схемы КЦУ на
+                логических элементах.
+              </p>
+              <p>
+                Пусть синтезируемое КЦУ представлено в виде таблице. У синтезируемого устройства
+                имеется три входных сигнала (a, b, c), два выходных (d, e).
+              </p>
+              <div className="content-image">
+                <img src={pic1} alt="" />
+              </div>
 
-            <h3>
-              Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_sch</span> — КЦУ, описанное
-              схемой
-            </h3>
-            <p>
-              4 Создайте новый файл типа Block Diagram Schematic File. Сохраните его под именем
-              <span style={{ fontFamily: 'Ubuntu Mono' }}> lab11_sch.bdf</span>. Сделайте файл
-              старшим в иерархии<sup>3</sup>.
-            </p>
-            <p>5 Соберите логическую схему устройства в созданном файле. Сохраните файл.</p>
-            <p>
-              6 Выполните анализ и синтез проекта (Ctrl + K). Исправьте ошибки, если таковые имеются
-              <sup>4</sup>.
-            </p>
-            <p>
-              7 Сохраните разработанную логическую схему в pdf<sup>5</sup>.
-            </p>
-            {/* input */}
+              <p>
+                Следующим этапом синтеза КЦУ будет являться нахождение аналитических выражений
+                (зависимостей) выходных сигналов от входных.
+              </p>
+              <p>
+                Самым простым способом найти аналитическую зависимость является "сбор" по единицам
+                или нулям, то есть нахождение совершенных конъюнктивной (СКНФ) или дизъюнктивной
+                нормальных форм (СДНФ).
+              </p>
+              <div className="content-image">
+                <img src={pic2} alt="" className="formula" />
+                <img src={pic3} alt="" className="formula" />
+              </div>
 
-            <div className="input-file">
-              <input
-                type="file"
-                onChange={(e) => setDataName1(e.target.files[0])}
-                name="file1"
-                required="required"
-                id="upload__input__pdf1"
-                accept=".pdf"
-              />
-              <label htmlFor="upload__input__pdf1">Файл</label>
-            </div>
-            <span id="output__data1" className="output__span">
-              {dataName1.name}
-            </span>
+              <p>
+                Однако, есть способы минимизировать данные функции. Минимизация логических функций
+                является одной из типовых задач при изучении вычислительной техники. При составлении
+                электрических схем минимизация позволяет упростить их, используя в ряде случаев
+                более простые логические элементы.
+              </p>
+              <p>
+                Для определения выражений можно воспользоваться картами Карно. Карта Карно для
+                сигнала d
+              </p>
+              <div className="content-image">
+                <img src={pic4} alt="" />
+                <img src={pic5} alt="" className="formula smaller" />
+              </div>
 
-            <p>
-              8 Получите и изучите RTL-схему модуля<sup>6</sup>.
-            </p>
-            <p>
-              9 Сохраните RTL-схему в pdf<sup>7</sup>.
-            </p>
-            {/* input */}
+              <p>Аналогично опишем e.</p>
+              <div className="content-image">
+                <img src={pic6} alt="" />
+                <img src={pic7} alt="" className="formula smaller" />
+              </div>
 
-            <div className="input-file">
-              <input
-                type="file"
-                name="file2"
-                onChange={(e) => setDataName2(e.target.files[0])}
-                required="required"
-                id="upload__input__pdf2"
-                accept=".pdf"
-              />
-              <label htmlFor="upload__input__pdf2">Файл</label>
-            </div>
-            <span id="output__data2" className="output__span">
-              {dataName2.name}
-            </span>
+              <p>По данным выражениям изобразим электрическую схему устройства</p>
+              <div className="content-image">
+                <img src={pic8} alt="" />
+              </div>
 
-            <p>
-              10 Произведите функциональную симуляцию модуля{' '}
-              <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_sch</span>. В качестве входных
-              данных используйте
-            </p>
-            <ul>
-              <li>a — счетчик, начальное значение 0, период 80 нс.</li>
-              <li>b[1:0] — счетчик, начальное значение 0, период 20 нс.</li>
-            </ul>
-            <p>
-              Сохраните результат симуляции в виде скриншота промежутка от 0 до 320 нс, при этом
-              разверните все шины.{' '}
-              <i>
-                Пример<sup>8</sup>:
-              </i>
-            </p>
-            {/* input */}
+              <p>
+                Опишем работу КЦУ в виде временных зависимостей уровней на выводах. Оказалось, что
+                данный способ описания поведения устройств является наиболее наглядным.
+              </p>
+              <p>
+                Для рассмотренного выше примера цифрового устройства будет справедлива такая
+                временная диаграмма с последовательным перебором входных сигналов:
+              </p>
+              <div className="content-image">
+                <img src={pic9} alt="" />
+              </div>
 
-            <div className="input-file">
-              <input
-                type="file"
-                name="file3"
-                onChange={(e) => setDataName3(e.target.files[0])}
-                required="required"
-                id="upload__input__png1"
-                accept=".png"
-              />
-              <label htmlFor="upload__input__png1">Файл</label>
-            </div>
-            <span id="output__data3" className="output__span">
-              {dataName3.name}
-            </span>
+              <p>
+                Справедлива также и временная диаграмма, в которой значения входных сигналов
+                перебираются не последовательно, так как вспоминая определение КЦУ, при определенной
+                комбинации значений входных сигналов значения выходных сигналов тоже будут
+                однозначно определены:
+              </p>
+              <div className="content-image">
+                <img src={pic10} alt="" />
+              </div>
+            </Foldable>
+            <Foldable header="Язык описания аппаратуры — Verilog Hardware Description Language">
+              <p>
+                Язык Verilog — это язык текстового описания аппаратуры. Он используется для
+                проектирования, моделирования, верификации цифровых микросхем.
+              </p>
+              <p>
+                Язык Verilog был разработан в 1984-1985 году Филом Морби (Phil Moorby) во время его
+                работы в компании Gateway Design Automation. Тогда же появился первый Верилог
+                симулятор: Verilog-XL. Позже компанию Gateway купила Cadence Design Systems и в
+                1990-м сделала Verilog HDL публичным достоянием. В 1995-м году язык стал стандартом
+                IEEE-1364-1995, IEEE Standard Hardware Description Language Based on the Verilog(R)
+                Hardware Description Language.
+              </p>
+              <p>
+                Синтаксис Verilog очень похож на синтаксис языка С, что должно упростить
+                первоначальное освоение Verilog. Также Verilog имеет схожий препроцессор, а также
+                конструкции &#171;if&#187;, &#171;while&#187;, &#171;for&#187; подобны с языком C.
+              </p>
+              <p>
+                Помимо Verilog HDL существуют и другие языки описания аппаратуры: VHDL (Very high
+                speed integrated circuit HDL), AHDL (Altera HDL), SystemVerilog. В настоящее время
+                наиболее популярным является Verilog HDL.
+              </p>
+              <p>
+                Две основные цели HDL – логическая симуляция и синтез. Во время симуляции на входы
+                модуля подаются некоторые воздействия и проверяются выходы, чтобы убедиться, что
+                модуль функционирует корректно. Во время синтеза текстовое описание модуля
+                преобразуется в логические элементы.
+              </p>
 
-            <h3>
-              Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span> — КЦУ, описанное
-              на Verilog HDL
-            </h3>
-            <p>
-              11 Создайте новый файл типа Verilog HDL File. Сохраните его под именем{' '}
-              <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl.v</span>. Сделайте файл старшим
-              в иерархии.
-            </p>
-            <p>
-              12 Опишите проектируемый модуль{' '}
-              <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span> на Verilog HDL, дополнив
-              код:
-            </p>
-            <pre
-              className="hljs"
-              style={{
-                display: 'block',
-                padding: '0.5em',
-                background: 'rgb(0, 0, 0)',
-                color: 'rgb(170, 170, 170)',
-                overflowX: 'hidden',
-                textIndent: '0',
-                maxWidth: '80%',
-                margin: 'auto',
-              }}>
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                module
-              </span>{' '}
-              lab11_hdl ( <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                {'\t'}input
-              </span>{' '}
-              a, <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                {'\t'}input
-              </span>{' '}
-              [
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                1
+              <h4>Синтез</h4>
+              <p>
+                Логический синтез преобразует код на HDL в нетлист, описывающий цифровую аппаратуру
+                (т.е. логические элементы и соединяющие их проводники). Логический синтезатор может
+                выполнять оптимизацию для сокращения количества необходимых элементов. Нетлист может
+                быть текстовым файлом или нарисован в виде схемы, чтобы было легче визуализировать
+                систему.
+              </p>
+
+              <h4>Симуляция</h4>
+              <p>
+                Люди регулярно совершают ошибки. Ошибки в цифровой аппаратуре называют багами. Ясно,
+                что устранение багов в цифровой системе очень важно, особенно когда от правильной
+                работы аппаратуры зависят чьи-то жизни. Тестирование системы в лаборатории весьма
+                трудоемко. Исследовать причины ошибок в лаборатории может быть очень сложно, так как
+                наблюдать можно только сигналы, подключенные к контактам чипа, а то, что происходит
+                внутри чипа, напрямую наблюдать невозможно. Исправление ошибок уже после того, как
+                система была выпущена, может быть очень дорого. Например, исправление одной ошибки в
+                новейших интегральных микросхемах стоит больше миллиона долларов и занимает
+                несколько месяцев.
+              </p>
+            </Foldable>
+          </div>
+
+          <div className="completing">
+            <div className="left-text">
+              <h3>Выполнение работы</h3>
+              <p>
+                1 Запустите Quartus II 15.0. Выполните первоначальную настройку
+                <a href="/promtm" style={{ textDecoration: 'none' }}>
+                  <sup data-tooltip="">1</sup>
+                </a>
+                .
+              </p>
+              <p>
+                2 Создайте проект Lab_M11<sup>2</sup>.
+              </p>
+              <p>
+                3 Получите логические выражения для выходов из таблиц функционирования устройств
+                заданного варианта. Для этого можно воспользоваться картами Карно.
+              </p>
+              <div className="centeredInRow">
+                {isBtnExist && (
+                  <button onClick={TableGenerate} className="generate__btn">
+                    Сгенерировать
+                  </button>
+                )}
+                {isBtnEnterExist && (
+                  <button className="generate__btn hands" onClick={enterTable}>
+                    Ввести вручную
+                  </button>
+                )}
+              </div>
+              <div>{table}</div>
+
+              <h3>
+                Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_sch</span> — КЦУ, описанное
+                схемой
+              </h3>
+              <p>
+                4 Создайте новый файл типа Block Diagram Schematic File. Сохраните его под именем
+                <span style={{ fontFamily: 'Ubuntu Mono' }}> lab11_sch.bdf</span>. Сделайте файл
+                старшим в иерархии<sup>3</sup>.
+              </p>
+              <p>5 Соберите логическую схему устройства в созданном файле. Сохраните файл.</p>
+              <p>
+                6 Выполните анализ и синтез проекта (Ctrl + K). Исправьте ошибки, если таковые
+                имеются
+                <sup>4</sup>.
+              </p>
+              <p>
+                7 Сохраните разработанную логическую схему в pdf<sup>5</sup>.
+              </p>
+              {/* input */}
+
+              <div className="input-file">
+                <input
+                  type="file"
+                  onChange={(e) => setDataName1(e.target.files[0])}
+                  name="file1"
+                  required="required"
+                  id="upload__input__pdf1"
+                  accept=".pdf"
+                />
+                <label htmlFor="upload__input__pdf1">Файл</label>
+              </div>
+              <span id="output__data1" className="output__span">
+                {dataName1.name}
               </span>
-              :
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                0
+
+              <p>
+                8 Получите и изучите RTL-схему модуля<sup>6</sup>.
+              </p>
+              <p>
+                9 Сохраните RTL-схему в pdf<sup>7</sup>.
+              </p>
+              {/* input */}
+
+              <div className="input-file">
+                <input
+                  type="file"
+                  name="file2"
+                  onChange={(e) => setDataName2(e.target.files[0])}
+                  required="required"
+                  id="upload__input__pdf2"
+                  accept=".pdf"
+                />
+                <label htmlFor="upload__input__pdf2">Файл</label>
+              </div>
+              <span id="output__data2" className="output__span">
+                {dataName2.name}
               </span>
-              ] b, <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                {'\t'}output
-              </span>{' '}
-              c, <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                {'\t'}output
-              </span>{' '}
-              [
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                1
+
+              <p>
+                10 Произведите функциональную симуляцию модуля{' '}
+                <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_sch</span>. В качестве входных
+                данных используйте
+              </p>
+              <ul>
+                <li>a — счетчик, начальное значение 0, период 80 нс.</li>
+                <li>b[1:0] — счетчик, начальное значение 0, период 20 нс.</li>
+              </ul>
+              <p>
+                Сохраните результат симуляции в виде скриншота промежутка от 0 до 320 нс, при этом
+                разверните все шины.{' '}
+                <i>
+                  Пример<sup>8</sup>:
+                </i>
+              </p>
+              {/* input */}
+
+              <div className="input-file">
+                <input
+                  type="file"
+                  name="file3"
+                  onChange={(e) => setDataName3(e.target.files[0])}
+                  required="required"
+                  id="upload__input__png1"
+                  accept=".png"
+                />
+                <label htmlFor="upload__input__png1">Файл</label>
+              </div>
+              <span id="output__data3" className="output__span">
+                {dataName3.name}
               </span>
-              :
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                0
-              </span>
-              ] d <br />
-              );
-              <br /> <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                assign
-              </span>{' '}
-              c = (a &amp; !b[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                0
-              </span>
-              ]) | (!a &amp; b[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                1
-              </span>
-              ]); <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                assign
-              </span>{' '}
-              d[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                0
-              </span>
-              ] = b[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                0
-              </span>
-              ] &amp; !a &amp; b[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                1
-              </span>
-              ];
-              <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                assign
-              </span>{' '}
-              d[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                1
-              </span>
-              ] = !b[
-              <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
-                0
-              </span>
-              ] | !a;
-              <br />
-              <br />
-              <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
-                endmodule
+
+              <h3>
+                Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span> — КЦУ, описанное
+                на Verilog HDL
+              </h3>
+              <p>
+                11 Создайте новый файл типа Verilog HDL File. Сохраните его под именем{' '}
+                <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl.v</span>. Сделайте файл
+                старшим в иерархии.
+              </p>
+              <p>
+                12 Опишите проектируемый модуль{' '}
+                <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span> на Verilog HDL,
+                дополнив код:
+              </p>
+              <pre
+                className="hljs"
+                style={{
+                  display: 'block',
+                  padding: '0.5em',
+                  background: 'rgb(0, 0, 0)',
+                  color: 'rgb(170, 170, 170)',
+                  overflowX: 'hidden',
+                  textIndent: '0',
+                  maxWidth: '80%',
+                  margin: 'auto',
+                }}>
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  module
+                </span>{' '}
+                lab11_hdl ( <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}input
+                </span>{' '}
+                a, <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}input
+                </span>{' '}
+                [
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                :
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  0
+                </span>
+                ] b, <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}output
+                </span>{' '}
+                c, <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}output
+                </span>{' '}
+                [
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                :
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  0
+                </span>
+                ] d <br />
+                );
+                <br /> <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  assign
+                </span>{' '}
+                c = (a &amp; !b[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  0
+                </span>
+                ]) | (!a &amp; b[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                ]); <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  assign
+                </span>{' '}
+                d[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  0
+                </span>
+                ] = b[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  0
+                </span>
+                ] &amp; !a &amp; b[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                ];
+                <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  assign
+                </span>{' '}
+                d[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                ] = !b[
+                <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  0
+                </span>
+                ] | !a;
                 <br />
                 <br />
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  endmodule
+                  <br />
+                  <br />
+                </span>
+              </pre>
+              <p style={{ color: '#ff5712', fontWeight: '600', textAlign: 'center' }}>
+                NB! Название файла должно соответствовать названию модуля! Например, если модуль
+                называется <span style={{ textDecoration: 'underline' }}>exersize_1</span>, то файл
+                будет называться <span style={{ textDecoration: 'underline' }}>exersize_1.v.</span>
+              </p>
+              {/* input */}
+
+              <div className="input-file">
+                <input
+                  type="file"
+                  name="file4"
+                  onChange={(e) => setDataName4(e.target.files[0])}
+                  required="required"
+                  id="upload__input__v"
+                  accept=".v"
+                />
+                <label htmlFor="upload__input__v">Файл</label>
+              </div>
+              <span id="output__data4" className="output__span">
+                {dataName4.name}
               </span>
-            </pre>
-            <p style={{ color: 'red', fontWeight: '600' }}>
-              NB! Название файла должно соответствовать названию модуля! Например, если модуль
-              называется <span style={{ textDecoration: 'underline' }}>exersize_1</span>, то файл
-              будет называться <span style={{ textDecoration: 'underline' }}>exersize_1.v.</span>
-            </p>
-            {/* input */}
 
-            <div className="input-file">
-              <input
-                type="file"
-                name="file4"
-                onChange={(e) => setDataName4(e.target.files[0])}
-                required="required"
-                id="upload__input__v"
-                accept=".v"
-              />
-              <label htmlFor="upload__input__v">Файл</label>
+              <p>13 Выполните анализ и синтез проекта. Исправьте ошибки, если таковые имеются.</p>
+              <p>14 Получите и изучите RTL-схему модуля.</p>
+              <p>15 Сохраните RTL-схему в pdf.</p>
+              {/* input */}
+
+              <div className="input-file">
+                <input
+                  type="file"
+                  name="file5"
+                  onChange={(e) => setDataName5(e.target.files[0])}
+                  required="required"
+                  id="upload__input__pdf3"
+                  accept=".pdf"
+                />
+                <label htmlFor="upload__input__pdf3">Файл</label>
+              </div>
+              <span id="output__data5" className="output__span">
+                {dataName5.name}
+              </span>
+
+              <p>
+                16 Произведите функциональную симуляцию разработанного модуля{' '}
+                <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span>. В качестве входных
+                данных используйте{' '}
+              </p>
+              <ul>
+                <li>a — счетчик, начальное значение 0, период 80 нс.</li>
+                <li>b[1:0] — счетчик, начальное значение 0, период 20 нс.</li>
+              </ul>
+              <p>
+                17 Сохраните результат симуляции в виде скриншота промежутка от 0 до 320 нс, при
+                этом разверните все шины.
+              </p>
+              {/* input */}
+
+              <div className="input-file">
+                <input
+                  type="file"
+                  name="file6"
+                  onChange={(e) => setDataName6(e.target.files[0])}
+                  required="required"
+                  id="upload__input__png2"
+                  accept=".png"
+                />
+                <label htmlFor="upload__input__png2">Файл</label>
+              </div>
+              <span id="output__data6" className="output__span">
+                {dataName6.name}
+              </span>
+
+              <p>18 Сравните полученные результаты (временные диаграммы и схемы).</p>
             </div>
-            <span id="output__data4" className="output__span">
-              {dataName4.name}
-            </span>
-
-            <p>13 Выполните анализ и синтез проекта. Исправьте ошибки, если таковые имеются.</p>
-            <p>14 Получите и изучите RTL-схему модуля.</p>
-            <p>15 Сохраните RTL-схему в pdf.</p>
-            {/* input */}
-
-            <div className="input-file">
-              <input
-                type="file"
-                name="file5"
-                onChange={(e) => setDataName5(e.target.files[0])}
-                required="required"
-                id="upload__input__pdf3"
-                accept=".pdf"
-              />
-              <label htmlFor="upload__input__pdf3">Файл</label>
-            </div>
-            <span id="output__data5" className="output__span">
-              {dataName5.name}
-            </span>
-
-            <p>
-              16 Произведите функциональную симуляцию разработанного модуля{' '}
-              <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span>. В качестве входных
-              данных используйте{' '}
-            </p>
-            <ul>
-              <li>a — счетчик, начальное значение 0, период 80 нс.</li>
-              <li>b[1:0] — счетчик, начальное значение 0, период 20 нс.</li>
-            </ul>
-            <p>
-              17 Сохраните результат симуляции в виде скриншота промежутка от 0 до 320 нс, при этом
-              разверните все шины.
-            </p>
-            {/* input */}
-
-            <div className="input-file">
-              <input
-                type="file"
-                name="file6"
-                onChange={(e) => setDataName6(e.target.files[0])}
-                required="required"
-                id="upload__input__png2"
-                accept=".png"
-              />
-              <label htmlFor="upload__input__png2">Файл</label>
-            </div>
-            <span id="output__data6" className="output__span">
-              {dataName6.name}
-            </span>
-
-            <p>18 Сравните полученные результаты (временные диаграммы и схемы).</p>
+          </div>
+        </form>
+        <div className="row">
+          <div className="centering">
+            <button
+              type="submit"
+              onClick={saveHandler}
+              className="generate__btn"
+              value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}>
+              <span class="text">
+                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
+              </span>
+            </button>
+          </div>
+          <div>
+            {isLoading ? <img src={preloader} className="preloader" /> : null}
+            {isSended === true && (
+              <>
+                ID (Сохраните, пожалуйста): <b>{id}</b>
+              </>
+            )}
           </div>
         </div>
-      </form>
-      <div className="row">
-        <div className="centering">
-          <input
-            type="submit"
-            onClick={saveHandler}
-            className="generate__btn"
-            value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
-          />
-        </div>
-        <div>
+        <FooterLab needPhoto={false} />
+        <div className="row">
           {isLoading ? <img src={preloader} className="preloader" /> : null}
-          {isSended === true && (
-            <>
-              ID (Сохраните, пожалуйста): <b>{id}</b>
-            </>
-          )}
+          <div className="centering">
+            <button className="button-85" onClick={labHandler} id="subm_btn">
+              {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
+            </button>
+          </div>
         </div>
       </div>
-      <FooterLab needPhoto={false} />
-      <div className="row">
-        {isLoading ? <img src={preloader} className="preloader" /> : null}
-        <div className="centering">
-          <button
-            className="wawes-effect wawes-light btn btn-blue"
-            onClick={labHandler}
-            id="subm_btn">
-            {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
-          </button>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
