@@ -50,6 +50,7 @@ class m11_controller {
       } = req.body;
       const formData = req.files;
       const dataArray = data.split(',');
+      console.log(formData);
 
       // RENAME FILES AND WRITE DATA TO FILE
       if (formData !== null) {
@@ -101,12 +102,42 @@ class m11_controller {
               await M11model.findOneAndUpdate(
                 { id_lab: labId },
                 {
-                  file1: formData.file1 === undefined ? result.file1 : formData.file1.name,
-                  file2: formData.file2 === undefined ? result.file2 : formData.file2.name,
-                  file3: formData.file3 === undefined ? result.file3 : formData.file3.name,
-                  file4: formData.file4 === undefined ? result.file4 : formData.file4.name,
-                  file5: formData.file5 === undefined ? result.file5 : formData.file5.name,
-                  file6: formData.file6 === undefined ? result.file6 : formData.file6.name,
+                  file1:
+                    formData === null
+                      ? null
+                      : formData.file1 === undefined
+                      ? result.file1
+                      : formData.file1.name,
+                  file2:
+                    formData === null
+                      ? null
+                      : formData.file2 === undefined
+                      ? result.file2
+                      : formData.file2.name,
+                  file3:
+                    formData === null
+                      ? null
+                      : formData.file3 === undefined
+                      ? result.file3
+                      : formData.file3.name,
+                  file4:
+                    formData === null
+                      ? null
+                      : formData.file4 === undefined
+                      ? result.file4
+                      : formData.file4.name,
+                  file5:
+                    formData === null
+                      ? null
+                      : formData.file5 === undefined
+                      ? result.file5
+                      : formData.file5.name,
+                  file6:
+                    formData === null
+                      ? null
+                      : formData.file6 === undefined
+                      ? result.file6
+                      : formData.file6.name,
                 },
                 {
                   new: true,
