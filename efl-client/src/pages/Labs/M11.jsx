@@ -32,12 +32,14 @@ function M11() {
   const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp, darkMode } =
     React.useContext(Context);
   const [id_lab, setIdLab] = React.useState('');
-  const [dataName1, setDataName1] = React.useState('');
-  const [dataName2, setDataName2] = React.useState('');
-  const [dataName3, setDataName3] = React.useState('');
-  const [dataName4, setDataName4] = React.useState('');
-  const [dataName5, setDataName5] = React.useState('');
-  const [dataName6, setDataName6] = React.useState('');
+  const [dataName, setDataName] = React.useState({
+    file1: '',
+    file2: '',
+    file3: '',
+    file4: '',
+    file5: '',
+    file6: '',
+  });
   const [id, setId] = React.useState('');
   const [table, setTable] = React.useState('');
   const [currentId, setCurrentId] = React.useState('');
@@ -435,6 +437,7 @@ function M11() {
       const newDataTable = Object.values(dataTable).slice(0, 24);
       newDataTable.unshift(dataTable.letterTwo);
       newDataTable.unshift(dataTable.letterOne);
+
       if (dataFromDB !== undefined) {
         setPerformers({
           ...performers,
@@ -442,8 +445,20 @@ function M11() {
           group: dataFromDB.group,
           email: dataFromDB.email,
         });
+
+        setDataName({
+          file1: dataTable.file1,
+          file2: dataTable.file2,
+          file3: dataTable.file3,
+          file4: dataTable.file4,
+          file5: dataTable.file5,
+          file6: dataTable.file6,
+        });
+
         setStr(newDataTable);
         setDisabledInp(true);
+        setisBtnExist(null);
+        setisBtnEnterExist(null);
       } else if (dataTable !== undefined) {
         setStr(newDataTable);
         console.log(str);
@@ -765,7 +780,7 @@ function M11() {
               <div className="input-file">
                 <input
                   type="file"
-                  onChange={(e) => setDataName1(e.target.files[0])}
+                  onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
                   name="file1"
                   required="required"
                   id="upload__input__pdf1"
@@ -774,7 +789,7 @@ function M11() {
                 <label htmlFor="upload__input__pdf1">Файл</label>
               </div>
               <span id="output__data1" className="output__span">
-                {dataName1.name}
+                {dataName.file1}
               </span>
 
               <p>
@@ -789,7 +804,7 @@ function M11() {
                 <input
                   type="file"
                   name="file2"
-                  onChange={(e) => setDataName2(e.target.files[0])}
+                  onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
                   required="required"
                   id="upload__input__pdf2"
                   accept=".pdf"
@@ -797,7 +812,7 @@ function M11() {
                 <label htmlFor="upload__input__pdf2">Файл</label>
               </div>
               <span id="output__data2" className="output__span">
-                {dataName2.name}
+                {dataName.file2}
               </span>
 
               <p>
@@ -822,7 +837,7 @@ function M11() {
                 <input
                   type="file"
                   name="file3"
-                  onChange={(e) => setDataName3(e.target.files[0])}
+                  onChange={(e) => setDataName({ ...dataName, file3: e.target.files[0].name })}
                   required="required"
                   id="upload__input__png1"
                   accept=".png"
@@ -830,7 +845,7 @@ function M11() {
                 <label htmlFor="upload__input__png1">Файл</label>
               </div>
               <span id="output__data3" className="output__span">
-                {dataName3.name}
+                {dataName.file3}
               </span>
 
               <h3>
@@ -857,7 +872,6 @@ function M11() {
                   overflowX: 'hidden',
                   textIndent: '0',
                   maxWidth: '80%',
-                  margin: 'auto',
                 }}>
                 <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
                   module
@@ -957,7 +971,7 @@ function M11() {
                 <input
                   type="file"
                   name="file4"
-                  onChange={(e) => setDataName4(e.target.files[0])}
+                  onChange={(e) => setDataName({ ...dataName, file4: e.target.files[0].name })}
                   required="required"
                   id="upload__input__v"
                   accept=".v"
@@ -965,7 +979,7 @@ function M11() {
                 <label htmlFor="upload__input__v">Файл</label>
               </div>
               <span id="output__data4" className="output__span">
-                {dataName4.name}
+                {dataName.file4}
               </span>
 
               <p>13 Выполните анализ и синтез проекта. Исправьте ошибки, если таковые имеются.</p>
@@ -977,7 +991,7 @@ function M11() {
                 <input
                   type="file"
                   name="file5"
-                  onChange={(e) => setDataName5(e.target.files[0])}
+                  onChange={(e) => setDataName({ ...dataName, file5: e.target.files[0].name })}
                   required="required"
                   id="upload__input__pdf3"
                   accept=".pdf"
@@ -985,7 +999,7 @@ function M11() {
                 <label htmlFor="upload__input__pdf3">Файл</label>
               </div>
               <span id="output__data5" className="output__span">
-                {dataName5.name}
+                {dataName.file5}
               </span>
 
               <p>
@@ -1007,7 +1021,7 @@ function M11() {
                 <input
                   type="file"
                   name="file6"
-                  onChange={(e) => setDataName6(e.target.files[0])}
+                  onChange={(e) => setDataName({ ...dataName, file6: e.target.files[0].name })}
                   required="required"
                   id="upload__input__png2"
                   accept=".png"
@@ -1015,7 +1029,7 @@ function M11() {
                 <label htmlFor="upload__input__png2">Файл</label>
               </div>
               <span id="output__data6" className="output__span">
-                {dataName6.name}
+                {dataName.file6}
               </span>
 
               <p>18 Сравните полученные результаты (временные диаграммы и схемы).</p>
@@ -1029,7 +1043,7 @@ function M11() {
               onClick={saveHandler}
               className="generate__btn"
               value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}>
-              <span class="text">
+              <span classNam="text">
                 {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
               </span>
             </button>
@@ -1047,7 +1061,22 @@ function M11() {
         <div className="row">
           {isLoading ? <img src={preloader} className="preloader" /> : null}
           <div className="centering">
-            <button className="button-85" onClick={labHandler} id="subm_btn">
+            <button
+              className="button-85"
+              onClick={labHandler}
+              id="subm_btn"
+              disabled={
+                !(
+                  dataName.file1 &&
+                  dataName.file2 &&
+                  dataName.file3 &&
+                  dataName.file4 &&
+                  dataName.file5 &&
+                  dataName.file6
+                )
+                  ? 'disabled'
+                  : null
+              }>
               {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
             </button>
           </div>

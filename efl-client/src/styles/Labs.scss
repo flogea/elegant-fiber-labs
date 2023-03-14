@@ -33,6 +33,18 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
         }
       }
 
+      .completing {
+        .left-text {
+          .iksweb {
+            td {
+              input {
+                color: $textInDarkMode;
+              }
+            }
+          }
+        }
+      }
+
       .input-file {
         color: $textInDarkMode;
         label {
@@ -83,6 +95,14 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
         background: #111111;
         color: $textInDarkMode;
 
+        &:disabled {
+          color: gray;
+
+          &:before {
+            background: linear-gradient(45deg, #a30000, #ad4e00);
+          }
+        }
+
         &:after {
           background: #222;
         }
@@ -105,6 +125,13 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       -webkit-user-select: none;
       touch-action: manipulation;
 
+      &:disabled {
+        cursor: auto;
+        &:before {
+          animation: unset;
+        }
+      }
+
       &:before {
         content: '';
         background: linear-gradient(
@@ -123,7 +150,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
         top: -2px;
         left: -2px;
         background-size: 400%;
-        z-index: -1;
+        z-index: -100;
         filter: blur(5px);
         -webkit-filter: blur(5px);
         width: calc(100% + 4px);
@@ -443,6 +470,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
             outline: none;
             font-size: 1rem;
             background: transparent;
+            -moz-appearance: textfield;
 
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
@@ -691,7 +719,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       color: white;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.42, 0.97, 0.52, 1.49);
-      margin: 10px auto;
+      margin: 10px 5px;
 
       &:hover {
         transform: scale(1.05);
@@ -793,7 +821,6 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     }
 
     // MAIN INPUTS
-
     .input__data {
       position: relative;
       width: 100%;
@@ -890,6 +917,10 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
       .left-text {
         padding: 0 10px;
+
+        pre {
+          margin: 10px auto;
+        }
       }
     }
 
@@ -1157,8 +1188,12 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
 @media screen and (max-width: 600px) {
   .container {
-    width: 90%;
-    padding: 0;
+    width: 100%;
+    padding: 20px;
+
+    &.dark {
+      background: transparent;
+    }
 
     .header {
       width: 100%;
@@ -1179,6 +1214,15 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
     .foldable__content {
       width: 100%;
+    }
+
+    .completing {
+      width: 100%;
+      .left-text {
+        pre {
+          max-width: none;
+        }
+      }
     }
 
     .footer {

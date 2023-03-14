@@ -16,16 +16,16 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/labs', require('./routes/f_route'));
 
 // for windows
-app.use(express.static(path.join(__dirname, '\\..\\efl-client\\build')));
-app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: path.join(__dirname, '\\..\\efl-client\\build') });
-});
+// app.use(express.static(path.join(__dirname, '\\..\\efl-client\\build')));
+// app.get('*', (req, res) => {
+//   res.sendFile('index.html', { root: path.join(__dirname, '\\..\\efl-client\\build') });
+// });
 
 // for linux server
-// app.use(express.static(path.join(__dirname, './../../build')));
-// app.get('*', (req, res) => {
-//   res.sendFile('index.html', { root: path.join(__dirname, './../../build') });
-// });
+app.use(express.static(path.join(__dirname, './../../build')));
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: path.join(__dirname, './../../build') });
+});
 
 async function start() {
   try {

@@ -393,6 +393,7 @@ class m11_controller {
               const { performers, group, email, lab_name, quantity, data, letterOne, letterTwo } =
                 req.body;
               const formData = req.files;
+              res.locals.lab_name = lab_name;
               console.log(formData);
               const dataArray = data.split(',');
 
@@ -478,6 +479,7 @@ class m11_controller {
               const { letterOne, letterTwo, file1, file2, file3, file4, file5, file6 } = m11Obj[0];
               const { quantity } = req.body;
               console.log(m11Obj);
+              res.locals.lab_name = lab_name;
 
               console.log(file1, file2, file3, file4, file5, file6);
 
