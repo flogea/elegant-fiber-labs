@@ -558,6 +558,7 @@ function M11() {
           <div className="foldable__content">
             <Foldable header="Продолжить работу">
               <div
+                className="input__data"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -1062,7 +1063,7 @@ function M11() {
           {isLoading ? <img src={preloader} className="preloader" /> : null}
           <div className="centering">
             <button
-              className="button-85"
+              className="send__button"
               onClick={labHandler}
               id="subm_btn"
               disabled={

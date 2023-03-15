@@ -14,9 +14,7 @@ import ParticlesBG from './components/ParticlesBG';
 function App() {
   const [darkMode, setDarkMode] = React.useState(false);
   React.useEffect(() => {
-    console.log(darkMode);
     darkMode ? document.body.classList.add('dark') : document.body.classList.remove('dark');
-    console.log(document.body.classList);
   }, [darkMode]);
 
   const [activeItem, setActiveItem] = React.useState('Все');

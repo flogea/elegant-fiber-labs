@@ -5,7 +5,6 @@ import { loadFull } from 'tsparticles';
 
 function ParticlesBG() {
   const particlesInit = useCallback(async (engine) => {
-    console.log(engine);
     await loadFull(engine);
   }, []);
 
