@@ -1,6 +1,13 @@
 import React from 'react';
 
 function M12AdditionalBlock() {
+  const [dataName, setDataName] = React.useState({
+    file1png: '',
+    file2png: '',
+    file3png: '',
+    file4png: '',
+  });
+
   return (
     <div>
       <>
@@ -28,64 +35,64 @@ function M12AdditionalBlock() {
         </p>
         <p>15 Сделайте несколько фотографий при различных входных сигналах.</p>
 
-        <div className="input-file">
+        <div className="input-file png">
           <input
             type="file"
-            name="file2"
-            // onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
+            name="file1png"
+            onChange={(e) => setDataName({ ...dataName, file1png: e.target.files[0].name })}
             required="required"
-            id="upload__input__pdf2"
-            accept=".pdf"
+            id="upload__input__png11"
+            accept=".png"
           />
-          <label htmlFor="upload__input__pdf2">Файл</label>
+          <label htmlFor="upload__input__png11">Файл</label>
         </div>
-        <span id="output__data2" className="output__span">
-          {/* {dataName.file2} */}
+        <span id="output__data1png" className="output__span">
+          {dataName.file1png}
         </span>
 
-        <div className="input-file">
+        <div className="input-file png">
           <input
             type="file"
-            name="file2"
-            // onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
+            name="file2png"
+            onChange={(e) => setDataName({ ...dataName, file2png: e.target.files[0].name })}
             required="required"
-            id="upload__input__pdf2"
-            accept=".pdf"
+            id="upload__input__png12"
+            accept=".png"
           />
-          <label htmlFor="upload__input__pdf2">Файл</label>
+          <label htmlFor="upload__input__png12">Файл</label>
         </div>
-        <span id="output__data2" className="output__span">
-          {/* {dataName.file2} */}
+        <span id="output__data2png" className="output__span">
+          {dataName.file2png}
         </span>
 
-        <div className="input-file">
+        <div className="input-file png">
           <input
             type="file"
-            name="file2"
-            // onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
+            name="file3png"
+            onChange={(e) => setDataName({ ...dataName, file3png: e.target.files[0].name })}
             required="required"
-            id="upload__input__pdf2"
-            accept=".pdf"
+            id="upload__input__png3"
+            accept=".png"
           />
-          <label htmlFor="upload__input__pdf2">Файл</label>
+          <label htmlFor="upload__input__png3">Файл</label>
         </div>
-        <span id="output__data2" className="output__span">
-          {/* {dataName.file2} */}
+        <span id="output__data3png" className="output__span">
+          {dataName.file3png}
         </span>
 
-        <div className="input-file">
+        <div className="input-file png">
           <input
             type="file"
-            name="file2"
-            // onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
+            name="file4png"
+            onChange={(e) => setDataName({ ...dataName, file4png: e.target.files[0].name })}
             required="required"
-            id="upload__input__pdf2"
-            accept=".pdf"
+            id="upload__input__png4"
+            accept=".png"
           />
-          <label htmlFor="upload__input__pdf2">Файл</label>
+          <label htmlFor="upload__input__png4">Файл</label>
         </div>
-        <span id="output__data2" className="output__span">
-          {/* {dataName.file2} */}
+        <span id="output__data4png" className="output__span">
+          {dataName.file4png}
         </span>
       </>
     </div>

@@ -294,20 +294,27 @@ function M11() {
             <td>b[1]</td>
             <td>b[0]</td>
             <td>
-              <input type="text" name="0" onChange={handleChangeTable} maxlength="1" />
-            </td>
-            <td>
               <input
                 type="text"
-                style={{ width: '80%' }}
+                name="0"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td style={{ textAlign: 'right' }}>
+              <input
+                type="text"
+                style={{ width: '50%' }}
                 name="1"
                 onChange={handleChangeTable}
                 maxlength="1"
+                required="required"
               />
               [0]
             </td>
-            <td>
-              <input type="text" style={{ width: '80%' }} maxlength="1" />
+            <td style={{ textAlign: 'right' }}>
+              <input type="text" style={{ width: '50%' }} maxlength="1" required="required" />
               [1]
             </td>
           </tr>
@@ -316,55 +323,127 @@ function M11() {
             <td>0</td>
             <td>0</td>
             <td>
-              <input type="number" name="2" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="2"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="3" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="3"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="4" onChange={handleChangeTable} maxlength="1" />
-            </td>
-          </tr>
-          <tr>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td>
-              <input type="number" name="5" onChange={handleChangeTable} maxlength="1" />
-            </td>
-            <td>
-              <input type="number" name="6" onChange={handleChangeTable} maxlength="1" />
-            </td>
-            <td>
-              <input type="number" name="7" onChange={handleChangeTable} maxlength="1" />
-            </td>
-          </tr>
-          <tr>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>
-              <input type="number" name="8" onChange={handleChangeTable} maxlength="1" />
-            </td>
-            <td>
-              <input type="number" name="9" onChange={handleChangeTable} maxlength="1" />
-            </td>
-            <td>
-              <input type="number" name="10" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="4"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
           </tr>
           <tr>
             <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>
+              <input
+                type="number"
+                name="5"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                name="6"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                name="7"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>
+              <input
+                type="number"
+                name="8"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                name="9"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                name="10"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
             <td>1</td>
             <td>1</td>
             <td>
-              <input type="number" name="11" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="11"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="12" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="12"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="13" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="13"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
           </tr>
           <tr>
@@ -372,13 +451,31 @@ function M11() {
             <td>0</td>
             <td>0</td>
             <td>
-              <input type="number" name="14" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="14"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="15" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="15"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="16" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="16"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
           </tr>
           <tr>
@@ -386,13 +483,31 @@ function M11() {
             <td>0</td>
             <td>1</td>
             <td>
-              <input type="number" name="17" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="17"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="18" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="18"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="19" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="19"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
           </tr>
           <tr>
@@ -400,13 +515,31 @@ function M11() {
             <td>1</td>
             <td>0</td>
             <td>
-              <input type="number" name="20" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="20"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="21" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="21"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="22" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="22"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
           </tr>
           <tr>
@@ -414,13 +547,31 @@ function M11() {
             <td>1</td>
             <td>1</td>
             <td>
-              <input type="number" name="23" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="23"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="24" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="24"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
             <td>
-              <input type="number" name="25" onChange={handleChangeTable} maxlength="1" />
+              <input
+                type="number"
+                name="25"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
             </td>
           </tr>
         </tbody>
@@ -504,7 +655,7 @@ function M11() {
   };
 
   const labHandler = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(formRef.current);
     try {
@@ -778,7 +929,7 @@ function M11() {
               </p>
               {/* input */}
 
-              <div className="input-file">
+              <div className="input-file pdf">
                 <input
                   type="file"
                   onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
@@ -787,7 +938,7 @@ function M11() {
                   id="upload__input__pdf1"
                   accept=".pdf"
                 />
-                <label htmlFor="upload__input__pdf1">Файл</label>
+                <label htmlFor="upload__input__pdf1"></label>
               </div>
               <span id="output__data1" className="output__span">
                 {dataName.file1}
@@ -801,7 +952,7 @@ function M11() {
               </p>
               {/* input */}
 
-              <div className="input-file">
+              <div className="input-file pdf">
                 <input
                   type="file"
                   name="file2"
@@ -810,7 +961,7 @@ function M11() {
                   id="upload__input__pdf2"
                   accept=".pdf"
                 />
-                <label htmlFor="upload__input__pdf2">Файл</label>
+                <label htmlFor="upload__input__pdf2"></label>
               </div>
               <span id="output__data2" className="output__span">
                 {dataName.file2}
@@ -834,7 +985,7 @@ function M11() {
               </p>
               {/* input */}
 
-              <div className="input-file">
+              <div className="input-file png">
                 <input
                   type="file"
                   name="file3"
@@ -843,7 +994,7 @@ function M11() {
                   id="upload__input__png1"
                   accept=".png"
                 />
-                <label htmlFor="upload__input__png1">Файл</label>
+                <label htmlFor="upload__input__png1"></label>
               </div>
               <span id="output__data3" className="output__span">
                 {dataName.file3}
@@ -968,7 +1119,7 @@ function M11() {
               </p>
               {/* input */}
 
-              <div className="input-file">
+              <div className="input-file verilog">
                 <input
                   type="file"
                   name="file4"
@@ -977,7 +1128,7 @@ function M11() {
                   id="upload__input__v"
                   accept=".v"
                 />
-                <label htmlFor="upload__input__v">Файл</label>
+                <label htmlFor="upload__input__v"></label>
               </div>
               <span id="output__data4" className="output__span">
                 {dataName.file4}
@@ -988,7 +1139,7 @@ function M11() {
               <p>15 Сохраните RTL-схему в pdf.</p>
               {/* input */}
 
-              <div className="input-file">
+              <div className="input-file pdf">
                 <input
                   type="file"
                   name="file5"
@@ -997,7 +1148,7 @@ function M11() {
                   id="upload__input__pdf3"
                   accept=".pdf"
                 />
-                <label htmlFor="upload__input__pdf3">Файл</label>
+                <label htmlFor="upload__input__pdf3"></label>
               </div>
               <span id="output__data5" className="output__span">
                 {dataName.file5}
@@ -1018,7 +1169,7 @@ function M11() {
               </p>
               {/* input */}
 
-              <div className="input-file">
+              <div className="input-file png">
                 <input
                   type="file"
                   name="file6"
@@ -1027,7 +1178,7 @@ function M11() {
                   id="upload__input__png2"
                   accept=".png"
                 />
-                <label htmlFor="upload__input__png2">Файл</label>
+                <label htmlFor="upload__input__png2"></label>
               </div>
               <span id="output__data6" className="output__span">
                 {dataName.file6}
@@ -1036,52 +1187,59 @@ function M11() {
               <p>18 Сравните полученные результаты (временные диаграммы и схемы).</p>
             </div>
           </div>
-        </form>
-        <div className="row">
-          <div className="centering">
-            <button
-              type="submit"
-              onClick={saveHandler}
-              className="generate__btn"
-              value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}>
-              <span classNam="text">
-                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
-              </span>
-            </button>
+          <div className="row">
+            <div className="centering">
+              <button
+                type="submit"
+                onClick={saveHandler}
+                className="generate__btn"
+                value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
+                disabled={
+                  !(performers.performers && performers.group && performers.email)
+                    ? 'disabled'
+                    : null
+                }>
+                <span className="text">
+                  {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
+                </span>
+              </button>
+            </div>
+            <div>
+              {isLoading ? <img src={preloader} className="preloader" /> : null}
+              {isSended === true && (
+                <>
+                  ID (Сохраните, пожалуйста): <b>{id}</b>
+                </>
+              )}
+            </div>
           </div>
-          <div>
+
+          <FooterLab needPhoto={false} />
+          <div className="row">
             {isLoading ? <img src={preloader} className="preloader" /> : null}
-            {isSended === true && (
-              <>
-                ID (Сохраните, пожалуйста): <b>{id}</b>
-              </>
-            )}
+            <div className="centering">
+              <button
+                type="submit"
+                className="send__button"
+                onClick={labHandler}
+                id="subm_btn"
+                disabled={
+                  !(
+                    dataName.file1 &&
+                    dataName.file2 &&
+                    dataName.file3 &&
+                    dataName.file4 &&
+                    dataName.file5 &&
+                    dataName.file6
+                  )
+                    ? 'disabled'
+                    : null
+                }>
+                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
+              </button>
+            </div>
           </div>
-        </div>
-        <FooterLab needPhoto={false} />
-        <div className="row">
-          {isLoading ? <img src={preloader} className="preloader" /> : null}
-          <div className="centering">
-            <button
-              className="send__button"
-              onClick={labHandler}
-              id="subm_btn"
-              disabled={
-                !(
-                  dataName.file1 &&
-                  dataName.file2 &&
-                  dataName.file3 &&
-                  dataName.file4 &&
-                  dataName.file5 &&
-                  dataName.file6
-                )
-                  ? 'disabled'
-                  : null
-              }>
-              {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </>
   );

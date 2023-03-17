@@ -535,6 +535,34 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       color: rgba(0, 0, 0, 1);
       margin: 15px auto;
 
+      &.png {
+        label {
+          &:before {
+            content: url(../images/icons/png.svg);
+            height: 24px;
+          }
+        }
+      }
+
+      &.pdf {
+        label {
+          display: flex;
+          &:before {
+            content: url(../images/icons/pdf.svg);
+            height: 24px;
+          }
+        }
+      }
+
+      &.verilog {
+        label {
+          &:before {
+            content: url(../images/icons/verilog.svg);
+            height: 24px;
+          }
+        }
+      }
+
       label {
         // position: relative;
         // display: inline-block;
@@ -606,7 +634,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
         border: 1px solid $orange;
         border-radius: 30px;
         cursor: pointer;
-        display: inline-flex;
+        display: flex;
         flex-shrink: 0;
         font-size: 16px;
         gap: 8px;
@@ -723,6 +751,19 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.42, 0.97, 0.52, 1.49);
       margin: 10px 5px;
+
+      &:disabled {
+        background: darken($color: $orange, $amount: 30);
+        border: 1px solid darken($color: $orange, $amount: 30);
+        cursor: auto;
+        color: lightgray;
+
+        &:hover {
+          transform: none;
+          background: darken($color: $orange, $amount: 30);
+          color: lightgray;
+        }
+      }
 
       &:hover {
         transform: scale(1.02);
