@@ -17,10 +17,13 @@ import tableOfIndicators from '../../images/M12/tableOfIndicators.png';
 import anode from '../../images/M12/anode.gif';
 import cathode from '../../images/M12/cathode.gif';
 import asciiCodeChart from '../../images/M12/asciiCodeChart.png';
-import kakietoSignals from '../../images/M12/kakietoSignals.png';
+import kakietoSignals from '../../images/M12/kakietoSignals.svg';
 import driver7seg from '../../images/M12/driver7seg.svg';
 import driverascii from '../../images/M12/driverascii.svg';
 import M12AdditionalBlock from '../../components/Labs/M12AdditionalBlock';
+import kakietoSignals_white from '../../images/M12/kakietoSignals_white.svg';
+import driver7seg_white from '../../images/M12/driver7seg_white.svg';
+import driverascii_white from '../../images/M12/driverascii_white.svg';
 
 function M12() {
   const lab_name = 'M12';
@@ -32,10 +35,12 @@ function M12() {
     React.useContext(Context);
 
   const [id_lab, setIdLab] = React.useState('');
+  const [receivedId, setReceivedId] = React.useState('');
   const [currentId, setCurrentId] = React.useState('');
   const [withBoard, setWithBoard] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
+  const [arrayOfTable, setArrayOfTable] = React.useState({});
   const [dataName, setDataName] = React.useState({
     file1: '',
     file2: '',
@@ -51,18 +56,94 @@ function M12() {
     setIdLab(new Date().getTime());
   }, []);
 
-  const labHandler = async (e) => {
-    // e.preventDefault();
+  const findData = async (event) => {
+    event.preventDefault();
+
+    await axios.get('/api/labs/m12save/' + currentId).then((res) => {
+      const dataFromDB = res.data.result[0];
+      const dataTable = res.data.result[1];
+      const newDataTable = Object.values(dataTable).slice(0, 24);
+
+      if (dataFromDB !== undefined) {
+        setPerformers({
+          ...performers,
+          performers: dataFromDB.performers,
+          group: dataFromDB.group,
+          email: dataFromDB.email,
+        });
+
+        // setDataName({
+        //   file1: dataTable.file1,
+        //   file2: dataTable.file2,
+        //   file3: dataTable.file3,
+        //   file4: dataTable.file4,
+        //   file5: dataTable.file5,
+        //   file6: dataTable.file6,
+        // });
+
+        // setDisabledInp(true);
+        // setisBtnExist(null);
+        // setisBtnEnterExist(null);
+      } else if (dataTable !== undefined) {
+        console.log(str);
+      }
+    });
+  };
+
+  const saveHandler = async (event) => {
+    event.preventDefault();
     setIsLoading(true);
     const formData = new FormData(formRef.current);
-    // try {
-    // formData.append('lab_name', lab_name);
-    // formData.append('id_lab', id_lab);
-    // formData.append('letterOne', array[0]);
-    // formData.append('letterTwo', array[1]);
-    // formData.append('token', secretKey.token);
-    // formData.append('photo', photo);
-    // formData.append('quantity', quantity.quantity);
+
+    formData.append('lab_name', lab_name);
+    formData.append('id_lab', id_lab);
+
+    for (let i = 0; i < Object.values(arrayOfTable).length; i++) {
+      formData.delete(`${i}`);
+    }
+
+    formData.append('arrayOfTable', Object.values(arrayOfTable));
+
+    console.log(Array.from(formData));
+    await axios
+      .post('api/labs/m12save', formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        const newId = res.data.id_lab;
+        setId(newId);
+        setIsLoading(false);
+        setIsSended(true);
+        console.log(`Success `, res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+        setIsSended('error');
+      });
+  };
+
+  const labHandler = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(formRef.current);
+    try {
+      formData.append('lab_name', lab_name);
+      formData.append('id_lab', id_lab);
+      formData.append('token', secretKey.token);
+      formData.append('photo', photo);
+      formData.append('quantity', quantity.quantity);
+
+      for (let i = 1; i < Object.values(arrayOfTable).length; i++) {
+        formData.delete(`${i}`);
+      }
+
+      formData.append('arrayOfTable', Object.values(arrayOfTable));
+    } catch (error) {
+      console.log(error);
+    }
 
     console.log(Array.from(formData));
 
@@ -93,7 +174,8 @@ function M12() {
         <HeaderLab Subject={Subject} LabName={LabName} />
         <form ref={formRef}>
           <Performers />
-          <div className="centeredInRow">
+          <div className="centeredInRow" style={{ justifyContent: 'center' }}>
+            <p>Работа выполняется с отладочной платой?</p>
             <label className="switch">
               <input
                 type="checkbox"
@@ -273,25 +355,81 @@ function M12() {
                     <td>0</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="1"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="2"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="3"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="4"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="5"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="6"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="7"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -301,25 +439,80 @@ function M12() {
                     <td>0</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="8"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="9"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="10"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="11"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="12"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="13"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="14"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -329,25 +522,81 @@ function M12() {
                     <td>1</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="15"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="16"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="17"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="18"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="19"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="20"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="21"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -357,25 +606,81 @@ function M12() {
                     <td>1</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="22"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="23"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="24"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="25"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="26"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="27"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="28"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -385,25 +690,81 @@ function M12() {
                     <td>0</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="29"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="30"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="31"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="32"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="33"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="34"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="35"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -413,25 +774,81 @@ function M12() {
                     <td>0</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="36"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="37"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="38"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="39"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="40"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="41"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="42"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -441,25 +858,81 @@ function M12() {
                     <td>1</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="43"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="44"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="45"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="46"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="47"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="48"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="49"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -469,25 +942,81 @@ function M12() {
                     <td>1</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="50"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="51"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="52"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="53"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="54"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="55"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="56"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -497,25 +1026,81 @@ function M12() {
                     <td>0</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="57"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="58"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="59"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="60"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="61"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="62"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="63"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -525,25 +1110,81 @@ function M12() {
                     <td>0</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="64"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="65"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="66"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="67"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="68"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="69"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="70"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -553,25 +1194,81 @@ function M12() {
                     <td>1</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="71"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="72"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="73"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="74"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="75"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="76"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="77"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -581,25 +1278,81 @@ function M12() {
                     <td>1</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="78"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="79"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="80"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="81"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="82"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="83"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="84"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -609,25 +1362,81 @@ function M12() {
                     <td>0</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="85"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="86"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="87"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="88"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="89"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="90"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="91"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -637,25 +1446,81 @@ function M12() {
                     <td>0</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="92"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="93"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="94"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="95"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="96"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="97"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="98"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -665,25 +1530,81 @@ function M12() {
                     <td>1</td>
                     <td>0</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="99"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="100"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="101"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="102"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="103"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="104"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="105"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -693,25 +1614,83 @@ function M12() {
                     <td>1</td>
                     <td>1</td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="106"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="107"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="108"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="109"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" max="1" name="" />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="110"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="number" min="0" max="1" name="" />
+                      <input
+                        type="text"
+                        min="0"
+                        maxLength="1"
+                        name="111"
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                     <td>
-                      <input type="text" maxLength="1" name="" pattern={'d [0-9]'} />
+                      <input
+                        type="text"
+                        maxLength="1"
+                        name="112"
+                        //pattern={'d [0-9]'}
+                        required="required"
+                        onChange={(e) =>
+                          setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
+                        }
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -869,7 +1848,7 @@ function M12() {
                 рекомендуется задать инструментом Count Value. Например:
               </p>
               <div className="content-image">
-                <img src={kakietoSignals} alt="kakietoSignals" />
+                <img src={darkMode ? kakietoSignals_white : kakietoSignals} alt="kakietoSignals" />
               </div>
 
               <p>
@@ -894,7 +1873,7 @@ function M12() {
               {withBoard ? <M12AdditionalBlock /> : null}
 
               <div className="content-image">
-                <img src={driver7seg} alt="driver7seg" name="pic7" />
+                <img src={darkMode ? driver7seg_white : driver7seg} alt="driver7seg" name="pic7" />
                 <label htmlFor="pic7">
                   Разработанный модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>driver7seg</span>
                 </label>
@@ -1104,12 +2083,42 @@ function M12() {
               </p>
 
               <div className="content-image">
-                <img src={driverascii} alt="driverascii" name="pic7" />
+                <img
+                  src={darkMode ? driverascii_white : driverascii}
+                  alt="driverascii"
+                  name="pic7"
+                />
                 <label htmlFor="pic7">
                   Разработанный модуль{' '}
                   <span style={{ fontFamily: 'Ubuntu Mono' }}>driverascii</span>
                 </label>
               </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="centering">
+              <button
+                type="submit"
+                onClick={saveHandler}
+                className="generate__btn"
+                value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
+                disabled={
+                  !(performers.performers && performers.group && performers.email)
+                    ? 'disabled'
+                    : null
+                }>
+                <span className="text">
+                  {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
+                </span>
+              </button>
+            </div>
+            <div>
+              {isLoading ? <img src={preloader} className="preloader" /> : null}
+              {isSended === true && (
+                <>
+                  ID (Сохраните, пожалуйста): <b>{receivedId}</b>
+                </>
+              )}
             </div>
           </div>
 
@@ -1122,6 +2131,7 @@ function M12() {
                 onClick={labHandler}
                 id="subm_btn"
                 disabled={
+                  //fix
                   !(
                     dataName.file1 &&
                     dataName.file2 &&
