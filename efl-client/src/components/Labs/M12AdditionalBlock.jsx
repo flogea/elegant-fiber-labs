@@ -5,6 +5,7 @@ function M12AdditionalBlock() {
   const [manualEnter, setManualEnter] = React.useState(false);
   const [isBtnExist, setisBtnExist] = React.useState(true);
   const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
+  const [isInpExist, setisInpExist] = React.useState(false);
   const [dataName, setDataName] = React.useState({
     file1png: '',
     file2png: '',
@@ -24,6 +25,7 @@ function M12AdditionalBlock() {
     }
     setisBtnEnterExist(false);
     setisBtnExist(false);
+    setisInpExist(true);
   };
 
   return (
@@ -66,6 +68,7 @@ function M12AdditionalBlock() {
                 setManualEnter(true);
                 setisBtnEnterExist(false);
                 setisBtnExist(false);
+                setisInpExist(true);
               }}>
               Ввести вручную
             </button>
@@ -73,14 +76,28 @@ function M12AdditionalBlock() {
         </div>
 
         <div className="centeredInRow" style={{ justifyContent: 'center' }}>
-          <p className="outputWithSymbol">
-            Вывод{' '}
-            {manualEnter ? (
-              <input type="text" maxLength={1} name="output1" className="oneCharacterInp" />
+          <p className="outputWithSymbol">Вывод </p>
+          {isInpExist &&
+            (manualEnter ? (
+              <input
+                type="text"
+                maxLength={1}
+                name="output1"
+                className="oneCharacterInp"
+                id="manualInp1"
+              />
             ) : (
-              randomArray[0]
-            )}
-          </p>
+              <input
+                type="text"
+                maxLength={1}
+                name="output1"
+                className="oneCharacterInp"
+                value={randomArray[0] || ''}
+                // disabled="disabled"
+                readOnly="readonly"
+                id="generatedInp1"
+              />
+            ))}
           <div className="input-file png">
             <input
               type="file"
@@ -98,14 +115,28 @@ function M12AdditionalBlock() {
         </div>
 
         <div className="centeredInRow">
-          <p className="outputWithSymbol">
-            Вывод{' '}
-            {manualEnter ? (
-              <input type="text" maxLength={1} name="output2" className="oneCharacterInp" />
+          <p className="outputWithSymbol">Вывод </p>
+          {isInpExist &&
+            (manualEnter ? (
+              <input
+                type="text"
+                maxLength={1}
+                name="output2"
+                className="oneCharacterInp"
+                id="manualInp2"
+              />
             ) : (
-              randomArray[1]
-            )}
-          </p>
+              <input
+                type="text"
+                maxLength={1}
+                name="output1"
+                className="oneCharacterInp"
+                value={randomArray[1] || ''}
+                // disabled="disabled"
+                readOnly="readonly"
+                id="generatedInp2"
+              />
+            ))}
           <div className="input-file png">
             <input
               type="file"
@@ -123,14 +154,28 @@ function M12AdditionalBlock() {
         </div>
 
         <div className="centeredInRow">
-          <p className="outputWithSymbol">
-            Вывод{' '}
-            {manualEnter ? (
-              <input type="text" maxLength={1} name="output3" className="oneCharacterInp" />
+          <p className="outputWithSymbol">Вывод </p>
+          {isInpExist &&
+            (manualEnter ? (
+              <input
+                type="text"
+                maxLength={1}
+                name="output3"
+                className="oneCharacterInp"
+                id="manualInp3"
+              />
             ) : (
-              randomArray[2]
-            )}
-          </p>
+              <input
+                type="text"
+                maxLength={1}
+                name="output1"
+                className="oneCharacterInp"
+                value={randomArray[2] || ''}
+                // disabled="disabled"
+                readOnly="readonly"
+                id="generatedInp3"
+              />
+            ))}
           <div className="input-file png">
             <input
               type="file"
@@ -148,14 +193,28 @@ function M12AdditionalBlock() {
         </div>
 
         <div className="centeredInRow">
-          <p className="outputWithSymbol">
-            Вывод{' '}
-            {manualEnter ? (
-              <input type="text" maxLength={1} name="output4" className="oneCharacterInp" />
+          <p className="outputWithSymbol">Вывод </p>
+          {isInpExist &&
+            (manualEnter ? (
+              <input
+                type="text"
+                maxLength={1}
+                name="output4"
+                className="oneCharacterInp"
+                id="manualInp4"
+              />
             ) : (
-              randomArray[3]
-            )}
-          </p>
+              <input
+                type="text"
+                maxLength={1}
+                name="output1"
+                className="oneCharacterInp"
+                value={randomArray[3] || ''}
+                // disabled="disabled"
+                readOnly="readonly"
+                id="generatedInp4"
+              />
+            ))}
           <div className="input-file png">
             <input
               type="file"
