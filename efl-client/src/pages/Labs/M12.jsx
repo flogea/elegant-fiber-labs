@@ -54,7 +54,12 @@ function M12() {
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
+    setWithBoard(Boolean(JSON.parse(localStorage.getItem('withBoard'))));
   }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('withBoard', JSON.stringify(withBoard));
+  }, [withBoard]);
 
   const findData = async (event) => {
     event.preventDefault();
@@ -85,7 +90,6 @@ function M12() {
         // setisBtnExist(null);
         // setisBtnEnterExist(null);
       } else if (dataTable !== undefined) {
-        console.log(str);
       }
     });
   };
@@ -113,7 +117,7 @@ function M12() {
       })
       .then((res) => {
         const newId = res.data.id_lab;
-        setId(newId);
+        setReceivedId(newId);
         setIsLoading(false);
         setIsSended(true);
         console.log(`Success `, res.data);
@@ -130,11 +134,11 @@ function M12() {
     setIsLoading(true);
     const formData = new FormData(formRef.current);
     try {
-      formData.append('lab_name', lab_name);
-      formData.append('id_lab', id_lab);
-      formData.append('token', secretKey.token);
-      formData.append('photo', photo);
-      formData.append('quantity', quantity.quantity);
+      // formData.append('lab_name', lab_name);
+      // formData.append('id_lab', id_lab);
+      // formData.append('token', secretKey.token);
+      // formData.append('photo', photo);
+      // formData.append('quantity', quantity.quantity);
 
       for (let i = 1; i < Object.values(arrayOfTable).length; i++) {
         formData.delete(`${i}`);
