@@ -67,7 +67,7 @@ function FooterLab(props) {
       <h2>Подтверждение работы</h2>
 
       <div className="input__data">
-        <input type="text" name="quantity" required="required" onChange={handleChangeQuantity} />
+        <input type="number" name="quantity" required="required" onChange={handleChangeQuantity} />
         <span>Количество участников</span>
         <i></i>
       </div>
