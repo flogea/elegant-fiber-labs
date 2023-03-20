@@ -49,6 +49,16 @@ function M12() {
     file5: '',
     file6: '',
   });
+  const [receivedPhotos, setReceivedPhotos] = React.useState({
+    file1png: '',
+    file2png: '',
+    file3png: '',
+    file4png: '',
+    output1: '',
+    output2: '',
+    output3: '',
+    output4: '',
+  });
 
   const formRef = React.useRef();
 
@@ -61,35 +71,58 @@ function M12() {
     localStorage.setItem('withBoard', JSON.stringify(withBoard));
   }, [withBoard]);
 
+  // React.useEffect(() => {
+  //   console.log(arrayOfTable);
+  // }, [arrayOfTable]);
+
   const findData = async (event) => {
     event.preventDefault();
 
     await axios.get('/api/labs/m12save/' + currentId).then((res) => {
-      const dataFromDB = res.data.result[0];
+      const dataSummary = res.data.result[0];
       const dataTable = res.data.result[1];
-      const newDataTable = Object.values(dataTable).slice(0, 24);
 
-      if (dataFromDB !== undefined) {
+      console.log(res.data);
+
+      if (dataSummary !== undefined) {
         setPerformers({
           ...performers,
-          performers: dataFromDB.performers,
-          group: dataFromDB.group,
-          email: dataFromDB.email,
+          performers: dataSummary.performers,
+          group: dataSummary.group,
+          email: dataSummary.email,
         });
 
-        // setDataName({
-        //   file1: dataTable.file1,
-        //   file2: dataTable.file2,
-        //   file3: dataTable.file3,
-        //   file4: dataTable.file4,
-        //   file5: dataTable.file5,
-        //   file6: dataTable.file6,
-        // });
-
-        // setDisabledInp(true);
+        setDisabledInp(true);
         // setisBtnExist(null);
         // setisBtnEnterExist(null);
-      } else if (dataTable !== undefined) {
+      }
+
+      if (dataTable !== undefined) {
+        setDataName({
+          file1: dataTable.file1,
+          file2: dataTable.file2,
+          file3: dataTable.file3,
+          file4: dataTable.file4,
+          file5: dataTable.file5,
+          file6: dataTable.file6,
+        });
+
+        setReceivedPhotos({
+          file1png: dataTable.file1png,
+          file2png: dataTable.file2png,
+          file3png: dataTable.file3png,
+          file4png: dataTable.file4png,
+          output1: dataTable.output1,
+          output2: dataTable.output2,
+          output3: dataTable.output3,
+          output4: dataTable.output4,
+        });
+
+        for (let i = 1; i < 113; i++) {
+          if (dataTable[i]) {
+            setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
+          }
+        }
       }
     });
   };
@@ -106,7 +139,8 @@ function M12() {
       formData.delete(`${i}`);
     }
 
-    formData.append('arrayOfTable', Object.values(arrayOfTable));
+    formData.append('arrayOfTable', JSON.stringify(arrayOfTable));
+    console.log(JSON.stringify(arrayOfTable));
 
     console.log(Array.from(formData));
     await axios
@@ -133,41 +167,39 @@ function M12() {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(formRef.current);
-    try {
-      // formData.append('lab_name', lab_name);
-      // formData.append('id_lab', id_lab);
-      // formData.append('token', secretKey.token);
-      // formData.append('photo', photo);
-      // formData.append('quantity', quantity.quantity);
 
+    formData.append('lab_name', lab_name);
+    formData.append('id_lab', id_lab);
+
+    try {
       for (let i = 1; i < Object.values(arrayOfTable).length; i++) {
         formData.delete(`${i}`);
       }
 
-      formData.append('arrayOfTable', Object.values(arrayOfTable));
+      formData.append('arrayOfTable', JSON.stringify(arrayOfTable));
     } catch (error) {
       console.log(error);
     }
 
     console.log(Array.from(formData));
 
-    // try {
-    //   await axios
-    //     .post('/api/labs/m11', formData, {
-    //       headers: {
-    //         'Content-type': 'multipart/form-data',
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       setIsLoading(false);
-    //       setIsSended(true);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    //   setIsLoading(false);
-    //   setIsSended('error');
-    // }
+    try {
+      await axios
+        .post('/api/labs/m12', formData, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          setIsSended(true);
+        });
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsSended('error');
+    }
   };
 
   return (
@@ -179,7 +211,7 @@ function M12() {
         <form ref={formRef}>
           <Performers />
           <div className="centeredInRow" style={{ justifyContent: 'center' }}>
-            <p>Работа выполняется с отладочной платой?</p>
+            <p>Отладочная плата</p>
             <label className="switch">
               <input
                 type="checkbox"
@@ -208,7 +240,9 @@ function M12() {
                   onChange={(e) => setCurrentId(e.target.value)}
                   placeholder="ID"
                 />
-                <button className="generate__btn">Продолжить</button>
+                <button onClick={findData} className="generate__btn">
+                  Продолжить
+                </button>
               </div>
             </Foldable>
             <Foldable header="Теоретические сведения">
@@ -364,6 +398,7 @@ function M12() {
                         maxLength="1"
                         name="1"
                         required="required"
+                        value={arrayOfTable[1] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -375,6 +410,7 @@ function M12() {
                         maxLength="1"
                         name="2"
                         required="required"
+                        value={arrayOfTable[2] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -386,6 +422,7 @@ function M12() {
                         maxLength="1"
                         name="3"
                         required="required"
+                        value={arrayOfTable[3] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -397,6 +434,7 @@ function M12() {
                         maxLength="1"
                         name="4"
                         required="required"
+                        value={arrayOfTable[4] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -408,6 +446,7 @@ function M12() {
                         maxLength="1"
                         name="5"
                         required="required"
+                        value={arrayOfTable[5] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -419,6 +458,7 @@ function M12() {
                         maxLength="1"
                         name="6"
                         required="required"
+                        value={arrayOfTable[6] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -430,6 +470,7 @@ function M12() {
                         maxLength="1"
                         name="7"
                         required="required"
+                        value={arrayOfTable[7] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -448,6 +489,7 @@ function M12() {
                         maxLength="1"
                         name="8"
                         required="required"
+                        value={arrayOfTable[8] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -459,6 +501,7 @@ function M12() {
                         maxLength="1"
                         name="9"
                         required="required"
+                        value={arrayOfTable[9] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -470,6 +513,7 @@ function M12() {
                         maxLength="1"
                         name="10"
                         required="required"
+                        value={arrayOfTable[10] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -481,6 +525,7 @@ function M12() {
                         maxLength="1"
                         name="11"
                         required="required"
+                        value={arrayOfTable[11] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -492,6 +537,7 @@ function M12() {
                         maxLength="1"
                         name="12"
                         required="required"
+                        value={arrayOfTable[12] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -503,6 +549,7 @@ function M12() {
                         maxLength="1"
                         name="13"
                         required="required"
+                        value={arrayOfTable[13] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -513,6 +560,7 @@ function M12() {
                         type="text"
                         maxLength="1"
                         name="14"
+                        value={arrayOfTable[14] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -531,6 +579,7 @@ function M12() {
                         maxLength="1"
                         name="15"
                         required="required"
+                        value={arrayOfTable[15] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -542,6 +591,7 @@ function M12() {
                         maxLength="1"
                         name="16"
                         required="required"
+                        value={arrayOfTable[16] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -553,6 +603,7 @@ function M12() {
                         maxLength="1"
                         name="17"
                         required="required"
+                        value={arrayOfTable[17] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -564,6 +615,7 @@ function M12() {
                         maxLength="1"
                         name="18"
                         required="required"
+                        value={arrayOfTable[18] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -575,6 +627,7 @@ function M12() {
                         maxLength="1"
                         name="19"
                         required="required"
+                        value={arrayOfTable[19] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -586,6 +639,7 @@ function M12() {
                         maxLength="1"
                         name="20"
                         required="required"
+                        value={arrayOfTable[20] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -597,6 +651,7 @@ function M12() {
                         maxLength="1"
                         name="21"
                         required="required"
+                        value={arrayOfTable[21] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -615,6 +670,7 @@ function M12() {
                         maxLength="1"
                         name="22"
                         required="required"
+                        value={arrayOfTable[22] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -626,6 +682,7 @@ function M12() {
                         maxLength="1"
                         name="23"
                         required="required"
+                        value={arrayOfTable[23] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -637,6 +694,7 @@ function M12() {
                         maxLength="1"
                         name="24"
                         required="required"
+                        value={arrayOfTable[24] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -648,6 +706,7 @@ function M12() {
                         maxLength="1"
                         name="25"
                         required="required"
+                        value={arrayOfTable[25] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -659,6 +718,7 @@ function M12() {
                         maxLength="1"
                         name="26"
                         required="required"
+                        value={arrayOfTable[26] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -670,6 +730,7 @@ function M12() {
                         maxLength="1"
                         name="27"
                         required="required"
+                        value={arrayOfTable[27] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -681,6 +742,7 @@ function M12() {
                         maxLength="1"
                         name="28"
                         required="required"
+                        value={arrayOfTable[28] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -699,6 +761,7 @@ function M12() {
                         maxLength="1"
                         name="29"
                         required="required"
+                        value={arrayOfTable[29] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -710,6 +773,7 @@ function M12() {
                         maxLength="1"
                         name="30"
                         required="required"
+                        value={arrayOfTable[30] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -721,6 +785,7 @@ function M12() {
                         maxLength="1"
                         name="31"
                         required="required"
+                        value={arrayOfTable[31] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -732,6 +797,7 @@ function M12() {
                         maxLength="1"
                         name="32"
                         required="required"
+                        value={arrayOfTable[32] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -743,6 +809,7 @@ function M12() {
                         maxLength="1"
                         name="33"
                         required="required"
+                        value={arrayOfTable[33] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -754,6 +821,7 @@ function M12() {
                         maxLength="1"
                         name="34"
                         required="required"
+                        value={arrayOfTable[34] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -765,6 +833,7 @@ function M12() {
                         maxLength="1"
                         name="35"
                         required="required"
+                        value={arrayOfTable[35] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -783,6 +852,7 @@ function M12() {
                         maxLength="1"
                         name="36"
                         required="required"
+                        value={arrayOfTable[36] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -794,6 +864,7 @@ function M12() {
                         maxLength="1"
                         name="37"
                         required="required"
+                        value={arrayOfTable[37] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -805,6 +876,7 @@ function M12() {
                         maxLength="1"
                         name="38"
                         required="required"
+                        value={arrayOfTable[38] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -816,6 +888,7 @@ function M12() {
                         maxLength="1"
                         name="39"
                         required="required"
+                        value={arrayOfTable[39] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -827,6 +900,7 @@ function M12() {
                         maxLength="1"
                         name="40"
                         required="required"
+                        value={arrayOfTable[40] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -838,6 +912,7 @@ function M12() {
                         maxLength="1"
                         name="41"
                         required="required"
+                        value={arrayOfTable[41] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -849,6 +924,7 @@ function M12() {
                         maxLength="1"
                         name="42"
                         required="required"
+                        value={arrayOfTable[42] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -867,6 +943,7 @@ function M12() {
                         maxLength="1"
                         name="43"
                         required="required"
+                        value={arrayOfTable[43] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -878,6 +955,7 @@ function M12() {
                         maxLength="1"
                         name="44"
                         required="required"
+                        value={arrayOfTable[44] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -889,6 +967,7 @@ function M12() {
                         maxLength="1"
                         name="45"
                         required="required"
+                        value={arrayOfTable[45] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -900,6 +979,7 @@ function M12() {
                         maxLength="1"
                         name="46"
                         required="required"
+                        value={arrayOfTable[46] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -911,6 +991,7 @@ function M12() {
                         maxLength="1"
                         name="47"
                         required="required"
+                        value={arrayOfTable[47] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -922,6 +1003,7 @@ function M12() {
                         maxLength="1"
                         name="48"
                         required="required"
+                        value={arrayOfTable[48] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -933,6 +1015,7 @@ function M12() {
                         maxLength="1"
                         name="49"
                         required="required"
+                        value={arrayOfTable[49] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -951,6 +1034,7 @@ function M12() {
                         maxLength="1"
                         name="50"
                         required="required"
+                        value={arrayOfTable[50] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -962,6 +1046,7 @@ function M12() {
                         maxLength="1"
                         name="51"
                         required="required"
+                        value={arrayOfTable[51] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -973,6 +1058,7 @@ function M12() {
                         maxLength="1"
                         name="52"
                         required="required"
+                        value={arrayOfTable[52] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -984,6 +1070,7 @@ function M12() {
                         maxLength="1"
                         name="53"
                         required="required"
+                        value={arrayOfTable[53] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -995,6 +1082,7 @@ function M12() {
                         maxLength="1"
                         name="54"
                         required="required"
+                        value={arrayOfTable[54] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1006,6 +1094,7 @@ function M12() {
                         maxLength="1"
                         name="55"
                         required="required"
+                        value={arrayOfTable[55] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1017,6 +1106,7 @@ function M12() {
                         maxLength="1"
                         name="56"
                         required="required"
+                        value={arrayOfTable[56] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1035,6 +1125,7 @@ function M12() {
                         maxLength="1"
                         name="57"
                         required="required"
+                        value={arrayOfTable[57] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1046,6 +1137,7 @@ function M12() {
                         maxLength="1"
                         name="58"
                         required="required"
+                        value={arrayOfTable[58] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1057,6 +1149,7 @@ function M12() {
                         maxLength="1"
                         name="59"
                         required="required"
+                        value={arrayOfTable[59] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1068,6 +1161,7 @@ function M12() {
                         maxLength="1"
                         name="60"
                         required="required"
+                        value={arrayOfTable[60] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1079,6 +1173,7 @@ function M12() {
                         maxLength="1"
                         name="61"
                         required="required"
+                        value={arrayOfTable[61] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1090,6 +1185,7 @@ function M12() {
                         maxLength="1"
                         name="62"
                         required="required"
+                        value={arrayOfTable[62] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1101,6 +1197,7 @@ function M12() {
                         maxLength="1"
                         name="63"
                         required="required"
+                        value={arrayOfTable[63] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1119,6 +1216,7 @@ function M12() {
                         maxLength="1"
                         name="64"
                         required="required"
+                        value={arrayOfTable[64] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1130,6 +1228,7 @@ function M12() {
                         maxLength="1"
                         name="65"
                         required="required"
+                        value={arrayOfTable[65] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1141,6 +1240,7 @@ function M12() {
                         maxLength="1"
                         name="66"
                         required="required"
+                        value={arrayOfTable[66] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1152,6 +1252,7 @@ function M12() {
                         maxLength="1"
                         name="67"
                         required="required"
+                        value={arrayOfTable[67] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1163,6 +1264,7 @@ function M12() {
                         maxLength="1"
                         name="68"
                         required="required"
+                        value={arrayOfTable[68] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1174,6 +1276,7 @@ function M12() {
                         maxLength="1"
                         name="69"
                         required="required"
+                        value={arrayOfTable[69] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1185,6 +1288,7 @@ function M12() {
                         maxLength="1"
                         name="70"
                         required="required"
+                        value={arrayOfTable[70] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1203,6 +1307,7 @@ function M12() {
                         maxLength="1"
                         name="71"
                         required="required"
+                        value={arrayOfTable[71] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1214,6 +1319,7 @@ function M12() {
                         maxLength="1"
                         name="72"
                         required="required"
+                        value={arrayOfTable[72] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1225,6 +1331,7 @@ function M12() {
                         maxLength="1"
                         name="73"
                         required="required"
+                        value={arrayOfTable[73] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1236,6 +1343,7 @@ function M12() {
                         maxLength="1"
                         name="74"
                         required="required"
+                        value={arrayOfTable[74] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1247,6 +1355,7 @@ function M12() {
                         maxLength="1"
                         name="75"
                         required="required"
+                        value={arrayOfTable[75] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1258,6 +1367,7 @@ function M12() {
                         maxLength="1"
                         name="76"
                         required="required"
+                        value={arrayOfTable[76] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1269,6 +1379,7 @@ function M12() {
                         maxLength="1"
                         name="77"
                         required="required"
+                        value={arrayOfTable[77] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1287,6 +1398,7 @@ function M12() {
                         maxLength="1"
                         name="78"
                         required="required"
+                        value={arrayOfTable[78] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1298,6 +1410,7 @@ function M12() {
                         maxLength="1"
                         name="79"
                         required="required"
+                        value={arrayOfTable[79] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1309,6 +1422,7 @@ function M12() {
                         maxLength="1"
                         name="80"
                         required="required"
+                        value={arrayOfTable[80] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1320,6 +1434,7 @@ function M12() {
                         maxLength="1"
                         name="81"
                         required="required"
+                        value={arrayOfTable[81] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1331,6 +1446,7 @@ function M12() {
                         maxLength="1"
                         name="82"
                         required="required"
+                        value={arrayOfTable[82] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1342,6 +1458,7 @@ function M12() {
                         maxLength="1"
                         name="83"
                         required="required"
+                        value={arrayOfTable[83] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1353,6 +1470,7 @@ function M12() {
                         maxLength="1"
                         name="84"
                         required="required"
+                        value={arrayOfTable[84] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1371,6 +1489,7 @@ function M12() {
                         maxLength="1"
                         name="85"
                         required="required"
+                        value={arrayOfTable[85] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1382,6 +1501,7 @@ function M12() {
                         maxLength="1"
                         name="86"
                         required="required"
+                        value={arrayOfTable[86] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1393,6 +1513,7 @@ function M12() {
                         maxLength="1"
                         name="87"
                         required="required"
+                        value={arrayOfTable[87] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1404,6 +1525,7 @@ function M12() {
                         maxLength="1"
                         name="88"
                         required="required"
+                        value={arrayOfTable[88] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1415,6 +1537,7 @@ function M12() {
                         maxLength="1"
                         name="89"
                         required="required"
+                        value={arrayOfTable[89] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1426,6 +1549,7 @@ function M12() {
                         maxLength="1"
                         name="90"
                         required="required"
+                        value={arrayOfTable[90] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1437,6 +1561,7 @@ function M12() {
                         maxLength="1"
                         name="91"
                         required="required"
+                        value={arrayOfTable[91] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1455,6 +1580,7 @@ function M12() {
                         maxLength="1"
                         name="92"
                         required="required"
+                        value={arrayOfTable[92] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1466,6 +1592,7 @@ function M12() {
                         maxLength="1"
                         name="93"
                         required="required"
+                        value={arrayOfTable[93] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1477,6 +1604,7 @@ function M12() {
                         maxLength="1"
                         name="94"
                         required="required"
+                        value={arrayOfTable[94] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1488,6 +1616,7 @@ function M12() {
                         maxLength="1"
                         name="95"
                         required="required"
+                        value={arrayOfTable[95] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1499,6 +1628,7 @@ function M12() {
                         maxLength="1"
                         name="96"
                         required="required"
+                        value={arrayOfTable[96] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1510,6 +1640,7 @@ function M12() {
                         maxLength="1"
                         name="97"
                         required="required"
+                        value={arrayOfTable[97] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1521,6 +1652,7 @@ function M12() {
                         maxLength="1"
                         name="98"
                         required="required"
+                        value={arrayOfTable[98] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1539,6 +1671,7 @@ function M12() {
                         maxLength="1"
                         name="99"
                         required="required"
+                        value={arrayOfTable[99] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1550,6 +1683,7 @@ function M12() {
                         maxLength="1"
                         name="100"
                         required="required"
+                        value={arrayOfTable[100] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1561,6 +1695,7 @@ function M12() {
                         maxLength="1"
                         name="101"
                         required="required"
+                        value={arrayOfTable[101] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1572,6 +1707,7 @@ function M12() {
                         maxLength="1"
                         name="102"
                         required="required"
+                        value={arrayOfTable[102] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1583,6 +1719,7 @@ function M12() {
                         maxLength="1"
                         name="103"
                         required="required"
+                        value={arrayOfTable[103] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1594,6 +1731,7 @@ function M12() {
                         maxLength="1"
                         name="104"
                         required="required"
+                        value={arrayOfTable[104] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1605,6 +1743,7 @@ function M12() {
                         maxLength="1"
                         name="105"
                         required="required"
+                        value={arrayOfTable[105] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1623,6 +1762,7 @@ function M12() {
                         maxLength="1"
                         name="106"
                         required="required"
+                        value={arrayOfTable[106] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1634,6 +1774,7 @@ function M12() {
                         maxLength="1"
                         name="107"
                         required="required"
+                        value={arrayOfTable[107] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1645,6 +1786,7 @@ function M12() {
                         maxLength="1"
                         name="108"
                         required="required"
+                        value={arrayOfTable[108] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1656,6 +1798,7 @@ function M12() {
                         maxLength="1"
                         name="109"
                         required="required"
+                        value={arrayOfTable[109] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1667,6 +1810,7 @@ function M12() {
                         maxLength="1"
                         name="110"
                         required="required"
+                        value={arrayOfTable[110] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1679,6 +1823,7 @@ function M12() {
                         maxLength="1"
                         name="111"
                         required="required"
+                        value={arrayOfTable[111] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1691,6 +1836,7 @@ function M12() {
                         name="112"
                         //pattern={'d [0-9]'}
                         required="required"
+                        value={arrayOfTable[112] || ''}
                         onChange={(e) =>
                           setArrayOfTable({ ...arrayOfTable, [e.target.name]: e.target.value })
                         }
@@ -1874,7 +2020,7 @@ function M12() {
               <span id="output__data3" className="output__span">
                 {dataName.file3}
               </span>
-              {withBoard ? <M12AdditionalBlock /> : null}
+              {withBoard ? <M12AdditionalBlock receivedPhotos={receivedPhotos} /> : null}
 
               <div className="content-image">
                 <img src={darkMode ? driver7seg_white : driver7seg} alt="driver7seg" name="pic7" />
@@ -2135,7 +2281,6 @@ function M12() {
                 onClick={labHandler}
                 id="subm_btn"
                 disabled={
-                  //fix
                   !(
                     dataName.file1 &&
                     dataName.file2 &&

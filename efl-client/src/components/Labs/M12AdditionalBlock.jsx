@@ -1,6 +1,6 @@
 import React from 'react';
 
-function M12AdditionalBlock() {
+function M12AdditionalBlock({ receivedPhotos }) {
   const [randomArray, setRandomArray] = React.useState([]);
   const [manualEnter, setManualEnter] = React.useState(false);
   const [isBtnExist, setisBtnExist] = React.useState(true);
@@ -12,6 +12,36 @@ function M12AdditionalBlock() {
     file3png: '',
     file4png: '',
   });
+  console.log(receivedPhotos);
+
+  React.useEffect(() => {
+    Object.values(receivedPhotos).forEach((element) => {
+      if (element) {
+        setisBtnEnterExist(false);
+        setisBtnExist(false);
+        setisInpExist(true);
+
+        setDataName({
+          file1png: receivedPhotos.file1png,
+          file2png: receivedPhotos.file2png,
+          file3png: receivedPhotos.file3png,
+          file4png: receivedPhotos.file4png,
+        });
+        setRandomArray([
+          receivedPhotos.output1,
+          receivedPhotos.output2,
+          receivedPhotos.output3,
+          receivedPhotos.output4,
+        ]);
+
+        return;
+      }
+    });
+  }, [receivedPhotos]);
+
+  React.useEffect(() => {
+    console.log(randomArray);
+  }, [randomArray]);
 
   const randomSymbolGenerate = () => {
     const initialArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
@@ -93,7 +123,6 @@ function M12AdditionalBlock() {
                 name="output1"
                 className="oneCharacterInp"
                 value={randomArray[0] || ''}
-                // disabled="disabled"
                 readOnly="readonly"
                 id="generatedInp1"
               />
@@ -132,7 +161,6 @@ function M12AdditionalBlock() {
                 name="output1"
                 className="oneCharacterInp"
                 value={randomArray[1] || ''}
-                // disabled="disabled"
                 readOnly="readonly"
                 id="generatedInp2"
               />
@@ -171,7 +199,6 @@ function M12AdditionalBlock() {
                 name="output1"
                 className="oneCharacterInp"
                 value={randomArray[2] || ''}
-                // disabled="disabled"
                 readOnly="readonly"
                 id="generatedInp3"
               />
@@ -210,7 +237,6 @@ function M12AdditionalBlock() {
                 name="output1"
                 className="oneCharacterInp"
                 value={randomArray[3] || ''}
-                // disabled="disabled"
                 readOnly="readonly"
                 id="generatedInp4"
               />
@@ -235,4 +261,4 @@ function M12AdditionalBlock() {
   );
 }
 
-export default M12AdditionalBlock;
+export default React.memo(M12AdditionalBlock);
