@@ -206,7 +206,6 @@ function M12() {
     <>
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
-        <i className="centeredInRow">В разработке :)</i>
         <HeaderLab Subject={Subject} LabName={LabName} />
         <form ref={formRef}>
           <Performers />
@@ -328,9 +327,24 @@ function M12() {
                 <li>управляющих символов.</li>
               </ul>
               <p>
-                В программном пакете Quartus поддерживается только символы ASCII-кода от 33dec
-                (21hex, !) до 126dec (7Ehex, ~) включительно. Следовательно, вся информация должна
-                быть представлена с использованием только этих символов.{' '}
+                В программном пакете Quartus поддерживается только символы ASCII-кода от 33
+                <sub>
+                  <small>dec</small>
+                </sub>
+                (21
+                <sub>
+                  <small>hex</small>
+                </sub>
+                , !) до 126
+                <sub>
+                  <small>dec</small>
+                </sub>{' '}
+                (7E
+                <sub>
+                  <small>hex</small>
+                </sub>
+                , ~) включительно. Следовательно, вся информация должна быть представлена с
+                использованием только этих символов.{' '}
               </p>
               <p>
                 Для вывода одного символа ASCII требуется использовать 8-разрядную шину.
@@ -1992,10 +2006,11 @@ function M12() {
               </span>
 
               <p>
-                9 Произведите функциональную симуляцию модуля driver7seg. В качестве входных данных
-                используйте последовательность цифр номера студенческого билета, а также цифр от 0
-                до F. Длительность одной цифры установите равной 10 нс. Промежуток от 70 до 230 нс
-                рекомендуется задать инструментом Count Value. Например:
+                9 Произведите функциональную симуляцию модуля{' '}
+                <span style={{ fontFamily: 'Ubuntu-Mono' }}>driver7seg</span>. В качестве входных
+                данных используйте последовательность цифр номера студенческого билета, а также цифр
+                от 0 до F. Длительность одной цифры установите равной 10 нс. Промежуток от 70 до 230
+                нс рекомендуется задать инструментом Count Value. Например:
               </p>
               <div className="content-image">
                 <img src={darkMode ? kakietoSignals_white : kakietoSignals} alt="kakietoSignals" />
@@ -2029,12 +2044,22 @@ function M12() {
                 </label>
               </div>
 
-              <h2>Модуль driverascii — драйвер для вывода сигналов в формате ASCII</h2>
+              <h2>
+                Модуль <span style={{ fontFamily: 'Ubuntu-Mono' }}>driverascii</span> — драйвер для
+                вывода сигналов в формате ASCII
+              </h2>
               <p>
                 16 Создайте новый файл типа Verilog HDL File. Сохраните его под именем
-                driverascii.v. Сделайте файл старшим в иерархии.
+                <span style={{ fontFamily: 'Ubuntu-Mono', textDecoration: 'underline' }}>
+                  driverascii.v
+                </span>
+                . Сделайте файл старшим в иерархии.
               </p>
-              <p>17 Опишите проектируемый модуль driverascii на Verilog HDL, дополнив код:</p>
+              <p>
+                17 Опишите проектируемый модуль{' '}
+                <span style={{ fontFamily: 'Ubuntu-Mono' }}>driverascii</span> на Verilog HDL,
+                дополнив код:
+              </p>
 
               <pre
                 className="hljs"
@@ -2162,9 +2187,16 @@ function M12() {
 
               <p>
                 Реализуемый модуль должен выводить числа 0ASCII — FASCII при введенных 0
-                <sub>hex</sub> — F<sub>hex</sub>. Соответственно, вход модуля — четырехразрядная
-                шина bin[3:0], выход — восьмиразрядная шина{' '}
-                <span style={{ fontFamily: 'Ubunto Mono' }}>ascii</span>[8*1-1:0].
+                <sub>
+                  <small>hex</small>
+                </sub>{' '}
+                — F
+                <sub>
+                  <small>hex</small>
+                </sub>
+                . Соответственно, вход модуля — четырехразрядная шина bin[3:0], выход —
+                восьмиразрядная шина <span style={{ fontFamily: 'Ubunto Mono' }}>ascii</span>
+                [8*1-1:0].
               </p>
 
               <div className="input-file verilog">
@@ -2229,7 +2261,10 @@ function M12() {
               <p>
                 22 Сохраните результат симуляции в виде скриншота промежутка от 0 до 240 нс, при
                 этом разверните все шины, формат отображения шины ascii переведите в ASCII
-                <sup>11</sup>.
+                <sup>
+                  <small>11</small>
+                </sup>
+                .
               </p>
 
               <div className="content-image">

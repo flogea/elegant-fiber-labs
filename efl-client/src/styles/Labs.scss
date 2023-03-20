@@ -667,7 +667,17 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      margin: 5px;
+      margin: 0 5px 15px 5px;
+
+      p {
+        margin: 0 5px;
+        margin-bottom: 15px;
+      }
+
+      .switch {
+        margin: 0 5px;
+        margin-bottom: 15px;
+      }
 
       .input-file {
         margin: 15px;
@@ -902,6 +912,10 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
         pre {
           margin: 10px auto;
+          -ms-user-select: none;
+          -moz-user-select: none;
+          -webkit-user-select: none;
+          user-select: none;
         }
       }
     }
@@ -923,6 +937,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     ul {
       li {
         list-style: initial;
+        text-indent: 0;
       }
     }
 
@@ -1212,6 +1227,10 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       .left-text {
         pre {
           max-width: none;
+          -ms-user-select: none;
+          -moz-user-select: none;
+          -webkit-user-select: none;
+          user-select: none;
         }
       }
     }

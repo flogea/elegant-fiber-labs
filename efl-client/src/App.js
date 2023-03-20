@@ -6,7 +6,7 @@ import { Context } from './Context';
 
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import { F11, F12, F13, F14, F15, F21, F22, M11, M12, N11, N21, PromtM } from './pages/Labs';
+import { F11, F12, F13, F14, F15, F21, F22, M11, M12, M13, N11, N21, PromtM } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import F11m from './pages/Materials/F11m';
 import ParticlesBG from './components/ParticlesBG';
@@ -204,6 +204,7 @@ function App() {
             <Route exact path="/" element={<Home mat={false} />} />
             <Route path="/m11" element={<M11 />} />
             <Route path="/m12" element={<M12 />} />
+            <Route path="/m13" element={<M13 />} />
             <Route path="/n11" element={<N11 />} />
             <Route path="/n21" element={<N21 />} />
             <Route path="/promtm" element={<PromtM />} />
