@@ -160,7 +160,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               <input
                 type="text"
                 maxLength={1}
-                name="output1"
+                name="output2"
                 className="oneCharacterInp"
                 value={randomArray[1] || ''}
                 readOnly="readonly"
@@ -198,7 +198,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               <input
                 type="text"
                 maxLength={1}
-                name="output1"
+                name="output3"
                 className="oneCharacterInp"
                 value={randomArray[2] || ''}
                 readOnly="readonly"
@@ -236,7 +236,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               <input
                 type="text"
                 maxLength={1}
-                name="output1"
+                name="output4"
                 className="oneCharacterInp"
                 value={randomArray[3] || ''}
                 readOnly="readonly"

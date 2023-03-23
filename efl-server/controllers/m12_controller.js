@@ -37,13 +37,23 @@ class m12_controller {
   async saveData(req, res, next) {
     // GET DATA
     try {
-      const { performers, group, email, id_lab, lab_name, quantity, arrayOfTable, labId, output1 } =
-        req.body;
+      const {
+        performers,
+        group,
+        email,
+        id_lab,
+        lab_name,
+        quantity,
+        arrayOfTable,
+        labId,
+        output1,
+        output2,
+        output3,
+        output4,
+      } = req.body;
       const formData = req.files;
       //const dataArray = arrayOfTable.split(',');
-      console.log(arrayOfTable, JSON.parse(arrayOfTable));
       const dataArray = JSON.parse(arrayOfTable);
-      console.log(formData);
 
       // RENAME FILES AND WRITE DATA TO FILE
       if (formData !== null) {
@@ -493,28 +503,28 @@ class m12_controller {
                       : formData.file6 === undefined
                       ? null
                       : formData.file6.name,
-                  output1: output1 === undefined || null ? null : output1[0],
+                  output1: output1 === undefined || null ? null : output1,
                   file1png:
                     formData === null
                       ? null
                       : formData.file1png === undefined
                       ? null
                       : formData.file1png.name,
-                  output2: output1 === undefined || null ? null : output1[1],
+                  output2: output2 === undefined || null ? null : output2,
                   file2png:
                     formData === null
                       ? null
                       : formData.file2png === undefined
                       ? null
                       : formData.file2png.name,
-                  output3: output1 === undefined || null ? null : output1[2],
+                  output3: output3 === undefined || null ? null : output3,
                   file3png:
                     formData === null
                       ? null
                       : formData.file3png === undefined
                       ? null
                       : formData.file3png.name,
-                  output4: output1 === undefined || null ? null : output1[3],
+                  output4: output4 === undefined || null ? null : output4,
                   file4png:
                     formData === null
                       ? null

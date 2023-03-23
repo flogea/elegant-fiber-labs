@@ -655,7 +655,7 @@ function M11() {
   };
 
   const labHandler = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(formRef.current);
     try {
@@ -663,9 +663,7 @@ function M11() {
       formData.append('id_lab', id_lab);
       formData.append('letterOne', array[0]);
       formData.append('letterTwo', array[1]);
-      formData.append('token', secretKey.token);
       formData.append('photo', photo);
-      formData.append('quantity', quantity.quantity);
 
       for (let i = 0; i < Object.values(array).length; i++) {
         formData.delete(`${i}`);
