@@ -554,7 +554,8 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
         }
       }
 
-      &.verilog {
+      &.verilog,
+      &.v {
         label {
           &:before {
             content: url(../images/icons/verilog.svg);
@@ -615,7 +616,8 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     }
 
     .output__span {
-      display: block;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 100%;
@@ -625,6 +627,11 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       text-align: center;
       font-style: italic;
       text-indent: 0;
+
+      img {
+        width: 50%;
+        margin: 1em;
+      }
     }
 
     .generate__btn {

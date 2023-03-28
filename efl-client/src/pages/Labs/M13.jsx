@@ -14,6 +14,7 @@ import ParticlesBG from '../../components/ParticlesBG';
 import signals from '../../images/M13/signals.svg';
 import signals_white from '../../images/M13/signals_white.svg';
 import M13AdditionalBlock from '../../components/Labs/M13AdditionalBlock';
+import InputWithPreview from '../../components/Labs/InputWithPreview';
 
 function M13() {
   const lab_name = 'M13';
@@ -34,6 +35,7 @@ function M13() {
   const [table2data, setTable2data] = React.useState([]);
   const [isBtnExist, setisBtnExist] = React.useState(true);
   const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
+  const [rangeTable, setRangeTable] = React.useState([]);
 
   const formRef = React.useRef();
 
@@ -46,75 +48,98 @@ function M13() {
     localStorage.setItem('withBoard', JSON.stringify(withBoard));
   }, [withBoard]);
 
-  function generateRandomNumbers() {
-    let numbers = [];
-    while (numbers.length < 10) {
-      let randomNumber = Math.floor(Math.random() * 32) * 5 + 5;
-      if (!numbers.includes(randomNumber)) {
-        numbers.push(randomNumber);
+  function generateRandomNumbers(e) {
+    // e.preventDefault();
+    while (rangeTable.length < 10) {
+      let randomNumber = Math.floor(Math.random() * 31) * 5 + 5;
+      if (!rangeTable.includes(randomNumber)) {
+        rangeTable.push(randomNumber);
+        setRangeTable(rangeTable);
       }
     }
-    numbers.sort(function (a, b) {
+    rangeTable.sort(function (a, b) {
       return a - b;
     });
-    return numbers;
+    console.log(rangeTable);
+    return rangeTable;
   }
 
-  function Table() {
-    <table class="iksweb">
-      <tbody>
-        <tr>
-          <td>Время, нс</td>
-          <td>Адрес (addrhex[3:0])</td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" />
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>160 — 320</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>;
+  function Table({ numOfTable }) {
+    const array = numOfTable === 1 ? table1data : table2data;
+    return (
+      <table className="iksweb">
+        <tbody>
+          <tr>
+            <td>Время, нс</td>
+            <td>Адрес (addrhex[3:0])</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[0]} — ${array[1]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[1]} — ${array[2]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[2]} — ${array[3]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[3]} — ${array[4]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[4]} — ${array[5]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[5]} — ${array[6]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[6]} — ${array[7]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[7]} — ${array[8]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[8]} — ${array[9]}`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" defaultValue={`${array[9]} — 160`} />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>160 — 320</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
 
   const findData = async (event) => {
@@ -438,37 +463,11 @@ function M13() {
                 проекта (Ctrl-K).
               </p>
 
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file1"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog1"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog1"></label>
-              </div>
-              <span id="output__data1" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="1" ext="v" />
 
               <p>5 Получите RTL-схему дешифратора в формате pdf.</p>
 
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file2"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf1"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf1"></label>
-              </div>
-              <span id="output__data2" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="2" ext="pdf" />
 
               <p>
                 6 Произведите функциональную симуляцию. Шаг сетки в симуляторе рекомендуется
@@ -479,38 +478,24 @@ function M13() {
               <div className="centeredInRow">
                 {isBtnExist && (
                   <button
-                    onClick={setTable1data(generateRandomNumbers())}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTable1data(generateRandomNumbers());
+                    }}
                     className="generate__btn">
                     Сгенерировать
                   </button>
                 )}
-                {isBtnEnterExist && (
-                  <button className="generate__btn hands" onClick={generateRandomNumbers}>
-                    Ввести вручную
-                  </button>
-                )}
+                {isBtnEnterExist && <button className="generate__btn hands">Ввести вручную</button>}
               </div>
-              <div>{}</div>
+              <div>{Boolean(table1data.length) && <Table numOfTable={1} />}</div>
 
               <p>
                 7 Сохраните результаты работы (скриншот временных диаграмм) от 0 до 320 нс с
                 развернутыми шинами и названиями сигналов.
               </p>
 
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file3"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png1"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png1"></label>
-              </div>
-              <span id="output__data3" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="3" ext="png" />
 
               <h3>Шифратор (CD)</h3>
               <p>8 Создайте файл типа Verilog HDL File. Сохраните его под именем cd_8_3.v.</p>
@@ -593,39 +578,11 @@ function M13() {
                 проекта (Ctrl-K).
               </p>
 
-              {/* file */}
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file4"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog2"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog2"></label>
-              </div>
-              <span id="output__data4" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="4" ext="v" />
 
               <p>11 Получите RTL-схему шифратора в формате pdf.</p>
 
-              {/* file */}
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file5"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf2"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf2"></label>
-              </div>
-              <span id="output__data5" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="5" ext="pdf" />
 
               <p>
                 12 Произведите функциональную симуляцию. Шаг сетки в симуляторе рекомендуется
@@ -639,21 +596,7 @@ function M13() {
                 развернутыми шинами и названиями сигналов.
               </p>
 
-              {/* file */}
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file6"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png2"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png2"></label>
-              </div>
-              <span id="output__data6" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="6" ext="png" />
 
               <h3>Одноразрядный полный сумматор (ADD1)</h3>
               <p>14 Создайте файл типа Verilog HDL File. Сохраните его под именем add1.v.</p>
@@ -670,7 +613,7 @@ function M13() {
                   overflowX: 'hidden',
                   padding: '0.5em',
                   background: 'rgb(0, 0, 0)',
-                  color: 'rgb(170, 170, 170);',
+                  color: 'rgb(170, 170, 170)',
                 }}>
                 <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
                   module
@@ -710,21 +653,7 @@ function M13() {
                 проекта.
               </p>
 
-              {/* file */}
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file7"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog3"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog3"></label>
-              </div>
-              <span id="output__data7" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="7" ext="v" />
 
               <p>17 Произведите функциональную симуляцию add1:</p>
               <ul>
@@ -734,21 +663,7 @@ function M13() {
               </ul>
               <p>Сохраните результаты работы (скриншот временной диаграммы) от 0 до 160 нс.</p>
 
-              {/* file */}
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file8"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png3"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png3"></label>
-              </div>
-              <span id="output__data8" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="8" ext="png" />
 
               <h3>Четырехразрядный сумматор (ADD4)</h3>
               <p>19 Создайте файл типа Verilog HDL File. Сохраните его под именем add4.v.</p>
@@ -861,21 +776,7 @@ function M13() {
                 проекта.
               </p>
 
-              {/* file */}
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file9"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog4"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog4"></label>
-              </div>
-              <span id="output__data9" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="9" ext="v" />
 
               <p>22 Произведите функциональную симуляцию add4:</p>
               <ul>
@@ -888,21 +789,7 @@ function M13() {
                 развернув все шины.
               </p>
 
-              {/* file */}
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file10"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png4"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png4"></label>
-              </div>
-              <span id="output__data10" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="10" ext="png" />
 
               <h3>Четырехразрядный сумматор с драйвером вывода</h3>
               <p>24 Создайте файл типа Verilog HDL File. Сохраните его под именем wrapper_add.v.</p>
@@ -915,42 +802,14 @@ function M13() {
                 проекта.
               </p>
 
-              {/* file */}
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file11"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog5"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog5"></label>
-              </div>
-              <span id="output__data11" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="11" ext="v" />
 
               <p>
                 27 Получите RTL-схему сумматора с драйвером вывода в формате pdf, развернув модуль
                 add4 и один из модулей add1.
               </p>
 
-              {/* file */}
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file12"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf3"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf3"></label>
-              </div>
-              <span id="output__data12" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="12" ext="pdf" />
 
               <p>28 Произведите функциональную симуляцию wrapper_add:</p>
               <ul>
@@ -962,21 +821,7 @@ function M13() {
                 развернув все шины.
               </p>
 
-              {/* file */}
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file13"
-                  // onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png5"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png5"></label>
-              </div>
-              <span id="output__data13" className="output__span">
-                {/* {dataName.file1} */}
-              </span>
+              <InputWithPreview num="13" ext="png" />
 
               {withBoard ? <M13AdditionalBlock /> : null}
             </div>
