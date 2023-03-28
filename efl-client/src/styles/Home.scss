@@ -8,6 +8,7 @@ $lightYellow: rgb(255, 192, 0, 0.4);
 $lightOrange: rgb(255, 165, 0, 0.4);
 $orange: #ff5712;
 $blue: #0982fe;
+$textInDarkMode: rgba(255, 255, 255, 0.9);
 
 * {
   .navlist-mobile {
@@ -179,6 +180,39 @@ $blue: #0982fe;
     }
   }
 
+  .search {
+    display: flex;
+    position: relative;
+
+    .search__img {
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      opacity: 0.7;
+    }
+
+    .search__clear {
+      position: absolute;
+      top: 13px;
+      right: 15px;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
+    .search__input {
+      width: 300px;
+      margin: 5px;
+      padding: 10px 15px;
+      padding-left: 40px;
+      border-radius: 50px;
+      outline: none;
+      background: transparent;
+      color: $textInDarkMode;
+      font-size: 16px;
+      border: 1px solid $orange;
+    }
+  }
+
   // DARK MODE TOGGLE
   .switch {
     position: relative;
@@ -302,6 +336,7 @@ $blue: #0982fe;
       padding: 0 10px;
       font-size: 14pt;
       background: transparent;
+      cursor: pointer;
 
       option {
       }

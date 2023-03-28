@@ -5,6 +5,7 @@ import '../styles/Home.scss';
 import logo from '../images/logo.svg';
 import textedLogo from '../images/logo_with_text.svg';
 import { Context } from '../Context';
+import Search from './Labs/Search';
 
 function Navbar() {
   const { darkMode, setDarkMode } = React.useContext(Context);
@@ -27,6 +28,7 @@ function Navbar() {
             <img src={logo} alt="Logo" />
           </a>
         </div>
+        <Search />
         <label className="switch">
           <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
           <span className="slider round"></span>
