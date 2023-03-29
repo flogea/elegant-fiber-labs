@@ -331,7 +331,25 @@ function M13() {
           </tr>
           <tr>
             <td>160 — 320</td>
-            <td>{`Счетчик, начальное значение 3, период 5 нс`}</td>
+            <td>
+              Счетчик, начальное значение
+              <input
+                type="text"
+                maxLength={1}
+                value={hexArray[Math.floor(Math.random() * hexArray.length)]}
+                readOnly={!manualEnter}
+                style={{ width: '20px', height: '50%' }}
+              />
+              , период
+              <input
+                type="text"
+                maxLength={1}
+                value={Math.floor(Math.random() * 6) + 3}
+                readOnly={!manualEnter}
+                style={{ width: '20px', height: '50%' }}
+              />
+              нс
+            </td>
           </tr>
         </tbody>
       </table>
