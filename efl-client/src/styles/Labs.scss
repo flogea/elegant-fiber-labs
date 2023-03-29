@@ -438,7 +438,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     // TABLE
     table.iksweb {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
       border-spacing: 0;
       height: auto;
       text-align: center;
@@ -461,8 +461,27 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
     table.iksweb {
       tr {
+        & .halfCell {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          .halfInp {
+            width: 45%;
+            border: none;
+
+            &.right {
+              text-align: right;
+            }
+
+            &.left {
+              text-align: left;
+            }
+          }
+        }
+
         & td {
-          text-align: left;
+          text-align: center;
 
           input {
             width: 100%;
@@ -473,6 +492,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
             outline: none;
             font-size: 1rem;
             background: transparent;
+            text-align: center;
             -moz-appearance: textfield;
 
             &::-webkit-outer-spin-button,
@@ -724,6 +744,28 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
           flex-direction: row;
           align-items: center;
           justify-content: center;
+        }
+      }
+    }
+
+    .blockWithInputs {
+      display: flex;
+      flex-direction: column;
+
+      .inARow {
+        display: flex;
+        flex-direction: row;
+
+        input {
+          width: 100px;
+          text-align: center;
+          background: transparent;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          color: $textInDarkMode;
+          margin: 10px;
+          padding: 5px 10px;
         }
       }
     }

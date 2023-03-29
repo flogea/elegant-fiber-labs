@@ -31,11 +31,21 @@ function M13() {
   const [withBoard, setWithBoard] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
-  const [table1data, setTable1data] = React.useState([]);
-  const [table2data, setTable2data] = React.useState([]);
+  const [table1data, setTable1data] = React.useState({
+    ranges: [],
+    hexNumbers: [],
+    manualEnter: false,
+  });
+  const [table2data, setTable2data] = React.useState({
+    ranges: [],
+    hexNumbers: [],
+    manualEnter: false,
+  });
   const [isBtnExist, setisBtnExist] = React.useState(true);
   const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
-  const [rangeTable, setRangeTable] = React.useState([]);
+  const [isBtnExist2, setisBtnExist2] = React.useState(true);
+  const [isBtnEnterExist2, setisBtnEnterExist2] = React.useState(true);
+  const [tableState, setTableState] = React.useState(false);
 
   const formRef = React.useRef();
 
@@ -48,24 +58,35 @@ function M13() {
     localStorage.setItem('withBoard', JSON.stringify(withBoard));
   }, [withBoard]);
 
-  function generateRandomNumbers(e) {
-    // e.preventDefault();
+  function generateHexNumbers() {
+    const hexNumbers = [];
+    for (let i = 0; i < 10; i++) {
+      const randomNumber = Math.floor(Math.random() * 15) + 1;
+      const hexNumber = randomNumber.toString(16).toUpperCase();
+      hexNumbers.push(hexNumber);
+    }
+    return hexNumbers;
+  }
+
+  function generateRandomRange() {
+    const rangeTable = [];
     while (rangeTable.length < 10) {
       let randomNumber = Math.floor(Math.random() * 31) * 5 + 5;
       if (!rangeTable.includes(randomNumber)) {
         rangeTable.push(randomNumber);
-        setRangeTable(rangeTable);
       }
     }
     rangeTable.sort(function (a, b) {
       return a - b;
     });
-    console.log(rangeTable);
     return rangeTable;
   }
 
   function Table({ numOfTable }) {
-    const array = numOfTable === 1 ? table1data : table2data;
+    const array = numOfTable === 1 ? table1data.ranges : table2data.ranges;
+    const hexArray = numOfTable === 1 ? table1data.hexNumbers : table2data.hexNumbers;
+    const manualEnter = numOfTable === 1 ? table1data.manualEnter : table2data.manualEnter;
+
     return (
       <table className="iksweb">
         <tbody>
@@ -74,68 +95,243 @@ function M13() {
             <td>Адрес (addrhex[3:0])</td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[0]} — ${array[1]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[0] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[1] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[0] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[1]} — ${array[2]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[1] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[2] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[1] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[2]} — ${array[3]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[2] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[3] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[2] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[3]} — ${array[4]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[3] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[4] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[3] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[4]} — ${array[5]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[4] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[5] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[4] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[5]} — ${array[6]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[5] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[6] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[5] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[6]} — ${array[7]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[6] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[7] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[6] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[7]} — ${array[8]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[7] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[8] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[7] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[8]} — ${array[9]}`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[8] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[9] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[8] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
-            <td>
-              <input type="text" defaultValue={`${array[9]} — 160`} />
+            <td className="halfCell">
+              <input
+                type="text"
+                defaultValue={array.length ? array[9] : ''}
+                readOnly={!manualEnter}
+                className="halfInp right"
+              />
+              {' — '}
+              <input type="text" defaultValue={160} readOnly className="halfInp left" />
             </td>
-            <td></td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[9] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
           </tr>
           <tr>
             <td>160 — 320</td>
-            <td></td>
+            <td>{`Счетчик, начальное значение 3, период 5 нс`}</td>
           </tr>
         </tbody>
       </table>
@@ -480,15 +676,33 @@ function M13() {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      setTable1data(generateRandomNumbers());
+                      setTable1data({
+                        ...table1data,
+                        ranges: generateRandomRange(),
+                        hexNumbers: generateHexNumbers(),
+                        manualEnter: false,
+                      });
+                      setisBtnEnterExist(false);
+                      setisBtnExist(false);
                     }}
                     className="generate__btn">
                     Сгенерировать
                   </button>
                 )}
-                {isBtnEnterExist && <button className="generate__btn hands">Ввести вручную</button>}
+                {isBtnEnterExist && (
+                  <button
+                    className="generate__btn hands"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTable1data({ ...table1data, manualEnter: true });
+                      setisBtnEnterExist(false);
+                      setisBtnExist(false);
+                    }}>
+                    Ввести вручную
+                  </button>
+                )}
               </div>
-              <div>{Boolean(table1data.length) && <Table numOfTable={1} />}</div>
+              <div>{<Table numOfTable={1} />}</div>
 
               <p>
                 7 Сохраните результаты работы (скриншот временных диаграмм) от 0 до 320 нс с
@@ -590,6 +804,38 @@ function M13() {
               </p>
 
               {/* table */}
+              <div className="centeredInRow">
+                {isBtnExist2 && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTable2data({
+                        ...table2data,
+                        ranges: generateRandomRange(),
+                        hexNumbers: generateHexNumbers(),
+                        manualEnter: false,
+                      });
+                      setisBtnEnterExist2(false);
+                      setisBtnExist2(false);
+                    }}
+                    className="generate__btn">
+                    Сгенерировать
+                  </button>
+                )}
+                {isBtnEnterExist2 && (
+                  <button
+                    className="generate__btn hands"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTable2data({ ...table2data, manualEnter: true });
+                      setisBtnEnterExist2(false);
+                      setisBtnExist2(false);
+                    }}>
+                    Ввести вручную
+                  </button>
+                )}
+              </div>
+              <div>{<Table numOfTable={2} />}</div>
 
               <p>
                 13 Сохраните результаты работы (скриншот временных диаграмм) от 0 до 320 нс с
