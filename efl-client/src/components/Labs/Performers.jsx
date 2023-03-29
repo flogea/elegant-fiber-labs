@@ -1,27 +1,24 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../../styles/Labs.scss';
 
 import { Context } from '../../Context';
+import { setPerformers } from '../../redux/slices/PerformerSlice';
 
 function Performers() {
-  const { performers, setPerformers, disabledInp } = React.useContext(Context);
+  const { disabledInp } = React.useContext(Context);
   const [errors, setErrors] = React.useState(null);
 
-  const handleChangePerformer = (event) => {
-    setPerformers({ ...performers, [event.target.name]: event.target.value });
-  };
+  const performers = useSelector((state) => state.PerformerSlice.performers);
+  const group = useSelector((state) => state.PerformerSlice.group);
+  const email = useSelector((state) => state.PerformerSlice.email);
 
-  // React.useCallback(() => {
-  //   for (var obj in performers) {
-  //     if (performers[obj] !== '') {
-  //       console.log(obj);
-  //       var data = localStorage.getItem(obj);
-  //       //setPerformers({ ...performers, [obj]: data });
-  //       obj.value = data;
-  //     }
-  //   }
-  // }, []);
+  const dispatch = useDispatch();
+
+  const handleChangePerformer = (event) => {
+    dispatch(setPerformers({ name: event.target.name, value: event.target.value }));
+  };
 
   React.useEffect(() => {
     for (var obj in performers) {
@@ -40,7 +37,7 @@ function Performers() {
     } else {
       setErrors(null);
     }
-    setPerformers({ ...performers, [event.target.name]: event.target.value });
+    dispatch(setPerformers({ name: event.target.name, value: event.target.value }));
     return true;
   };
 
@@ -55,7 +52,7 @@ function Performers() {
             className="validate"
             required="required"
             onChange={handleChangePerformer}
-            value={performers.performers}
+            value={performers}
             disabled={disabledInp ? 'disabled' : false}
           />
           {disabledInp ? null : <span htmlFor="performers">Фамилии И.О. исполнителей</span>}
@@ -68,7 +65,7 @@ function Performers() {
             className="validate"
             required="required"
             onChange={handleChangePerformer}
-            value={performers.group}
+            value={group}
             disabled={disabledInp ? 'disabled' : false}
           />
           {disabledInp ? null : <span htmlFor="group">Группа</span>}
@@ -81,7 +78,7 @@ function Performers() {
             className="validate"
             required="required"
             onChange={checkEmail}
-            value={performers.email}
+            value={email}
             disabled={disabledInp ? 'disabled' : false}
           />
           {disabledInp ? null : <span>E-mail ответственного исполнителя</span>}
