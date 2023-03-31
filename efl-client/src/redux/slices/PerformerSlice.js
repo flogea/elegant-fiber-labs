@@ -11,8 +11,10 @@ const PerformerSlice = createSlice({
   initialState,
   reducers: {
     setPerformers(state, action) {
-      const { name, value } = action.payload;
-      state[name] = value;
+      const { performers, group, email } = action.payload;
+      state.performers = performers;
+      state.group = group;
+      state.email = email;
     },
   },
 });

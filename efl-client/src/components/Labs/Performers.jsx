@@ -10,14 +10,12 @@ function Performers() {
   const { disabledInp } = React.useContext(Context);
   const [errors, setErrors] = React.useState(null);
 
-  const performers = useSelector((state) => state.PerformerSlice.performers);
-  const group = useSelector((state) => state.PerformerSlice.group);
-  const email = useSelector((state) => state.PerformerSlice.email);
+  const performers = useSelector((state) => state.PerformerSlice);
 
   const dispatch = useDispatch();
 
   const handleChangePerformer = (event) => {
-    dispatch(setPerformers({ name: event.target.name, value: event.target.value }));
+    dispatch(setPerformers({ ...performers, [event.target.name]: event.target.value }));
   };
 
   React.useEffect(() => {
@@ -37,7 +35,7 @@ function Performers() {
     } else {
       setErrors(null);
     }
-    dispatch(setPerformers({ name: event.target.name, value: event.target.value }));
+    dispatch(setPerformers({ ...performers, [event.target.name]: event.target.value }));
     return true;
   };
 
@@ -52,7 +50,7 @@ function Performers() {
             className="validate"
             required="required"
             onChange={handleChangePerformer}
-            value={performers}
+            value={performers.performers}
             disabled={disabledInp ? 'disabled' : false}
           />
           {disabledInp ? null : <span htmlFor="performers">Фамилии И.О. исполнителей</span>}
@@ -65,7 +63,7 @@ function Performers() {
             className="validate"
             required="required"
             onChange={handleChangePerformer}
-            value={group}
+            value={performers.group}
             disabled={disabledInp ? 'disabled' : false}
           />
           {disabledInp ? null : <span htmlFor="group">Группа</span>}
@@ -78,7 +76,7 @@ function Performers() {
             className="validate"
             required="required"
             onChange={checkEmail}
-            value={email}
+            value={performers.email}
             disabled={disabledInp ? 'disabled' : false}
           />
           {disabledInp ? null : <span>E-mail ответственного исполнителя</span>}
