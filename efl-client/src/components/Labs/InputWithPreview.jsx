@@ -7,7 +7,7 @@ function InputWithPreview({ num, ext }) {
   const fileName = useSelector((state) => state.fileNameSlice);
   const dispatch = useDispatch();
 
-  const nameOfFile = `fileName${num}`;
+  const nameOfFile = `file${num}`;
 
   const onChangeInput = (e) => {
     const file = e.target.files[0];

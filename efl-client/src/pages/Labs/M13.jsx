@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 import '../../styles/Labs.scss';
 
@@ -22,8 +23,9 @@ function M13() {
   const LabName = 'М13 КОДОПРЕОБРАЗУЮЩИЕ УСТРОЙСТВА (CD, DC, ADD)';
   const LabLink = 'ъыъ.рф/ЪыуЕ';
 
-  const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp, darkMode } =
-    React.useContext(Context);
+  const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
+  const performers = useSelector((state) => state.PerformerSlice);
+  const additionalArray = useSelector((state) => state.ArraySlice.someArray);
 
   const [id_lab, setIdLab] = React.useState('');
   const [receivedId, setReceivedId] = React.useState('');
@@ -338,7 +340,7 @@ function M13() {
                 maxLength={1}
                 value={hexArray[Math.floor(Math.random() * hexArray.length)]}
                 readOnly={!manualEnter}
-                style={{ width: '20px', height: '50%' }}
+                style={{ width: '20px' }}
               />
               , период
               <input
@@ -346,7 +348,7 @@ function M13() {
                 maxLength={1}
                 value={Math.floor(Math.random() * 6) + 3}
                 readOnly={!manualEnter}
-                style={{ width: '20px', height: '50%' }}
+                style={{ width: '20px' }}
               />
               нс
             </td>
@@ -402,17 +404,27 @@ function M13() {
   };
 
   const saveHandler = async (event) => {
-    // event.preventDefault();
-    // setIsLoading(true);
-    // const formData = new FormData(formRef.current);
-    // formData.append('lab_name', lab_name);
-    // formData.append('id_lab', id_lab);
+    event.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(formRef.current);
+    formData.append('lab_name', lab_name);
+    formData.append('id_lab', id_lab);
     // for (let i = 0; i < Object.values(arrayOfTable).length; i++) {
     //   formData.delete(`${i}`);
     // }
     // formData.append('arrayOfTable', JSON.stringify(arrayOfTable));
     // console.log(JSON.stringify(arrayOfTable));
-    // console.log(Array.from(formData));
+
+    formData.append('range1', JSON.stringify(table1data.ranges));
+    formData.append('hex1', JSON.stringify(table1data.hexNumbers));
+    formData.append('range2', JSON.stringify(table2data.ranges));
+    formData.append('hex2', JSON.stringify(table2data.hexNumbers));
+    formData.append('additionalArray', JSON.stringify(additionalArray));
+
+    // formData.append('table1range', table2data.ranges);
+    // formData.append('table2range', table2data.hexNumbers);
+    console.log(Array.from(formData));
+
     // await axios
     //   .post('api/labs/m12save', formData, {
     //     headers: {

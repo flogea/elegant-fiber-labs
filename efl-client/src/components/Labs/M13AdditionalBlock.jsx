@@ -1,11 +1,17 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import InputWithPreview from './InputWithPreview';
+import { setArray } from '../../redux/slices/ArraySlice';
 
 function M13AdditionalBlock() {
   const [isBtnExist, setisBtnExist] = React.useState(true);
   const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
   const [manualEntry, setManualEntry] = React.useState(false);
-  const [arrayOfNums, setArrayOfNums] = React.useState(false);
+
+  const arrayOfNums = useSelector((state) => state.ArraySlice.someArray);
+
+  const dispatch = useDispatch();
 
   function generateUniqueHexNumbers() {
     let numbers = new Set();
@@ -43,7 +49,7 @@ function M13AdditionalBlock() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              setArrayOfNums(generateUniqueHexNumbers());
+              dispatch(setArray(generateUniqueHexNumbers()));
               setisBtnEnterExist(false);
               setisBtnExist(false);
             }}
