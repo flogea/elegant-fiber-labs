@@ -9,6 +9,7 @@ const m11_controller = require('../controllers/m11_controller');
 const n21_controller = require('../controllers/n21_controller');
 const n11_controller = require('../controllers/n11_controller');
 const m12_controller = require('../controllers/m12_controller');
+const m13_controller = require('../controllers/m13_controller');
 const decode = require('../middleware/decode');
 const Labs = require('../models/Labs');
 
@@ -30,6 +31,13 @@ router.post('/m12', checkKey, m12_controller.saveData, m12_controller.addData, r
 router.post('/m12save', m12_controller.saveData, (req, res) => {
   const id_lab = res.locals.id_lab;
   res.status(201).json({ message: 'success save m12', id_lab });
+});
+
+router.get('/m13save/:id', m13_controller.getData);
+router.post('/m13', checkKey, m13_controller.saveData, m13_controller.addData, runScriptMW);
+router.post('/m13save', m13_controller.saveData, (req, res) => {
+  const id_lab = res.locals.id_lab;
+  res.status(201).json({ message: 'success save m13', id_lab });
 });
 
 router.post('/n11', checkKey, decode, n11_controller.addData, runScriptMW);

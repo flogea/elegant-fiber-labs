@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../../styles/Labs.scss';
 
@@ -16,6 +16,7 @@ import signals from '../../images/M13/signals.svg';
 import signals_white from '../../images/M13/signals_white.svg';
 import M13AdditionalBlock from '../../components/Labs/M13AdditionalBlock';
 import InputWithPreview from '../../components/Labs/InputWithPreview';
+import { setPerformers } from '../../redux/slices/PerformerSlice';
 
 function M13() {
   const lab_name = 'M13';
@@ -48,7 +49,15 @@ function M13() {
   const [isBtnExist2, setisBtnExist2] = React.useState(true);
   const [isBtnEnterExist2, setisBtnEnterExist2] = React.useState(true);
   const [tableState, setTableState] = React.useState(false);
-
+  const lastRange1 = [
+    table1data.hexNumbers[Math.floor(Math.random() * table1data.hexNumbers.length)],
+    Math.floor(Math.random() * 6) + 3,
+  ];
+  const lastRange2 = [
+    table2data.hexNumbers[Math.floor(Math.random() * table2data.hexNumbers.length)],
+    Math.floor(Math.random() * 6) + 3,
+  ];
+  const dispatch = useDispatch();
   const formRef = React.useRef();
 
   React.useEffect(() => {
@@ -88,6 +97,7 @@ function M13() {
     const array = numOfTable === 1 ? table1data.ranges : table2data.ranges;
     const hexArray = numOfTable === 1 ? table1data.hexNumbers : table2data.hexNumbers;
     const manualEnter = numOfTable === 1 ? table1data.manualEnter : table2data.manualEnter;
+    const range = numOfTable === 1 ? lastRange1 : lastRange2;
 
     return (
       <table className="iksweb">
@@ -338,7 +348,7 @@ function M13() {
               <input
                 type="text"
                 maxLength={1}
-                value={hexArray[Math.floor(Math.random() * hexArray.length)]}
+                value={range[0]}
                 readOnly={!manualEnter}
                 style={{ width: '20px' }}
               />
@@ -346,7 +356,7 @@ function M13() {
               <input
                 type="text"
                 maxLength={1}
-                value={Math.floor(Math.random() * 6) + 3}
+                value={range[1]}
                 readOnly={!manualEnter}
                 style={{ width: '20px' }}
               />
@@ -359,48 +369,33 @@ function M13() {
   }
 
   const findData = async (event) => {
-    // event.preventDefault();
-    // await axios.get('/api/labs/m12save/' + currentId).then((res) => {
-    //   const dataSummary = res.data.result[0];
-    //   const dataTable = res.data.result[1];
-    //   console.log(res.data);
-    //   if (dataSummary !== undefined) {
-    //     setPerformers({
-    //       ...performers,
-    //       performers: dataSummary.performers,
-    //       group: dataSummary.group,
-    //       email: dataSummary.email,
-    //     });
-    //     setDisabledInp(true);
-    //     // setisBtnExist(null);
-    //     // setisBtnEnterExist(null);
-    //   }
-    //   if (dataTable !== undefined) {
-    //     setDataName({
-    //       file1: dataTable.file1,
-    //       file2: dataTable.file2,
-    //       file3: dataTable.file3,
-    //       file4: dataTable.file4,
-    //       file5: dataTable.file5,
-    //       file6: dataTable.file6,
-    //     });
-    //     setReceivedPhotos({
-    //       file1png: dataTable.file1png,
-    //       file2png: dataTable.file2png,
-    //       file3png: dataTable.file3png,
-    //       file4png: dataTable.file4png,
-    //       output1: dataTable.output1,
-    //       output2: dataTable.output2,
-    //       output3: dataTable.output3,
-    //       output4: dataTable.output4,
-    //     });
-    //     for (let i = 1; i < 113; i++) {
-    //       if (dataTable[i]) {
-    //         setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
-    //       }
-    //     }
-    //   }
-    // });
+    event.preventDefault();
+    await axios.get('/api/labs/m13save/' + currentId).then((res) => {
+      const dataSummary = res.data.result[0];
+      const dataTable = res.data.result[1];
+      console.log(res.data);
+      if (dataSummary !== undefined) {
+        dispatch(
+          setPerformers({
+            // ...performers,
+            performers: dataSummary.performers,
+            group: dataSummary.group,
+            email: dataSummary.email,
+          }),
+        );
+
+        setDisabledInp(true);
+        // setisBtnExist(null);
+        // setisBtnEnterExist(null);
+      }
+      if (dataTable !== undefined) {
+        for (let i = 1; i < 113; i++) {
+          if (dataTable[i]) {
+            // setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
+          }
+        }
+      }
+    });
   };
 
   const saveHandler = async (event) => {
@@ -420,29 +415,29 @@ function M13() {
     formData.append('range2', JSON.stringify(table2data.ranges));
     formData.append('hex2', JSON.stringify(table2data.hexNumbers));
     formData.append('additionalArray', JSON.stringify(additionalArray));
+    formData.append('lastRange1', JSON.stringify(lastRange1));
+    formData.append('lastRange2', JSON.stringify(lastRange2));
 
-    // formData.append('table1range', table2data.ranges);
-    // formData.append('table2range', table2data.hexNumbers);
     console.log(Array.from(formData));
 
-    // await axios
-    //   .post('api/labs/m12save', formData, {
-    //     headers: {
-    //       'Content-type': 'multipart/form-data',
-    //     },
-    //   })
-    //   .then((res) => {
-    //     const newId = res.data.id_lab;
-    //     setReceivedId(newId);
-    //     setIsLoading(false);
-    //     setIsSended(true);
-    //     console.log(`Success `, res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setIsLoading(false);
-    //     setIsSended('error');
-    //   });
+    await axios
+      .post('api/labs/m13save', formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        const newId = res.data.id_lab;
+        setReceivedId(newId);
+        setIsLoading(false);
+        setIsSended(true);
+        console.log(`Success `, res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+        setIsSended('error');
+      });
   };
 
   const labHandler = async (e) => {
@@ -515,7 +510,10 @@ function M13() {
                 <input
                   type="text"
                   name="labId"
-                  onChange={(e) => setCurrentId(e.target.value)}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setCurrentId(e.target.value);
+                  }}
                   placeholder="ID"
                 />
                 <button onClick={findData} className="generate__btn">
