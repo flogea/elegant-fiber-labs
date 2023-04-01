@@ -134,6 +134,7 @@ function M12() {
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('withBoard', withBoard);
 
     for (let i = 0; i < Object.values(arrayOfTable).length; i++) {
       formData.delete(`${i}`);
@@ -170,6 +171,7 @@ function M12() {
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('withBoard', withBoard);
 
     try {
       for (let i = 1; i < Object.values(arrayOfTable).length; i++) {

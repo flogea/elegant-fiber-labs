@@ -46,6 +46,7 @@ class m12_controller {
         quantity,
         arrayOfTable,
         labId,
+        withBoard,
         output1,
         output2,
         output3,
@@ -99,6 +100,10 @@ class m12_controller {
             case 'file4png':
               newFileName = id_lab + '_1214_pr.png';
               formData[oneObj].name = id_lab + '_1214_pr.png';
+              break;
+            case 'avatar':
+              newFileName = id_lab + '_photo.png';
+              formData[oneObj].name = id_lab + '_photo.png';
               break;
           }
 
@@ -212,6 +217,12 @@ class m12_controller {
                 group: group === undefined ? result.group : group,
                 email: email === undefined ? result.email : email,
                 quantity: quantity === undefined ? result.quantity : quantity,
+                photo:
+                  formData === null
+                    ? null
+                    : formData.avatar === undefined
+                    ? null
+                    : formData.avatar.name,
               },
               {
                 new: true,
@@ -302,7 +313,9 @@ class m12_controller {
                         ? null
                         : formData.file4png === undefined
                         ? null
-                        : formData.file4png.name,
+                        : formData.file4png.name === undefined
+                        ? null
+                        : formData.file3png.name,
                   },
                   {
                     new: true,
@@ -330,6 +343,12 @@ class m12_controller {
                       group: group === undefined ? result.group : group,
                       email: email === undefined ? result.email : email,
                       quantity: quantity === undefined ? result.quantity : quantity,
+                      photo:
+                        formData === null
+                          ? null
+                          : formData.avatar === undefined
+                          ? null
+                          : formData.avatar.name,
                     },
                     {
                       new: true,
@@ -355,6 +374,7 @@ class m12_controller {
               try {
                 const m12 = new M12model({
                   id_lab,
+                  withBoard,
                   1: dataArray[0] === null || undefined ? null : dataArray[1],
                   2: dataArray[1] === null || undefined ? null : dataArray[2],
                   3: dataArray[2] === null || undefined ? null : dataArray[3],
@@ -541,6 +561,12 @@ class m12_controller {
                   lab_name,
                   id_lab,
                   quantity,
+                  photo:
+                    formData === null
+                      ? null
+                      : formData.avatar === undefined
+                      ? null
+                      : formData.avatar.name,
                 });
                 await summary.save();
                 res.locals.id_lab = id_lab;
@@ -571,7 +597,7 @@ class m12_controller {
           if (result.length === 0) {
             try {
               console.log('first');
-              const { performers, group, email, lab_name, quantity, data } = req.body;
+              const { performers, group, email, lab_name, quantity, data, withBoard } = req.body;
               const formData = req.files;
               res.locals.lab_name = lab_name;
               console.log(formData);
@@ -599,6 +625,8 @@ class m12_controller {
                   '\n' +
                   quantity +
                   '\n' +
+                  +withBoard +
+                  '\n' +
                   str +
                   (formData.file1 === undefined ? null : formData.file1.name) +
                   '\n' +
@@ -610,7 +638,14 @@ class m12_controller {
                   '\n' +
                   (formData.file5 === undefined ? null : formData.file5.name) +
                   '\n' +
-                  (formData.file6 === undefined ? null : formData.file6.name),
+                  (formData.file6 === undefined ? null : formData.file6.name) +
+                  '\n' +
+                  formData ===
+                null
+                  ? null
+                  : formData.avatar === undefined
+                  ? null
+                  : formData.file3png.name,
               ];
 
               fs.writeFile(`${id_lab}_${lab_name}.txt`, `${newData}`, (err) => {
@@ -624,19 +659,6 @@ class m12_controller {
           } else {
             try {
               console.log('second');
-              // const {
-              //   performers,
-              //   group,
-              //   email,
-              //   id_lab,
-              //   lab_name,
-              //   quantity,
-              //   data,
-              //   letterOne,
-              //   letterTwo,
-              // } = req.body;
-              // const formData = req.files;
-              // const dataArray = data.split(',');
               const id_lab = res.locals.id_lab;
 
               const m12Obj = await M12model.find({ id_lab })
@@ -653,8 +675,8 @@ class m12_controller {
                 })
                 .catch((err) => res.status(500).json(err));
 
-              const { group, email, performers, lab_name } = summaryObj[0];
-              const { file1, file2, file3, file4, file5, file6 } = m12Obj[0];
+              const { group, email, performers, lab_name, photo } = summaryObj[0];
+              const { file1, file2, file3, file4, file5, file6, withBoard } = m12Obj[0];
               const { quantity } = req.body;
               console.log(m12Obj);
               res.locals.lab_name = lab_name;
@@ -669,6 +691,7 @@ class m12_controller {
               delete dataArray.file4;
               delete dataArray.file5;
               delete dataArray.file6;
+              delete dataArray.withBoard;
               delete dataArray._id;
               delete dataArray.__v;
 
@@ -696,6 +719,8 @@ class m12_controller {
                   '\n' +
                   quantity +
                   '\n' +
+                  +withBoard +
+                  '\n' +
                   str +
                   (file1 === undefined ? null : file1) +
                   '\n' +
@@ -707,7 +732,9 @@ class m12_controller {
                   '\n' +
                   (file5 === undefined ? null : file5) +
                   '\n' +
-                  (file6 === undefined ? null : file6),
+                  (file6 === undefined ? null : file6) +
+                  '\n' +
+                  photo,
               ];
 
               console.log(newData);

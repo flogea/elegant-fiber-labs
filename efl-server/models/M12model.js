@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
   id_lab: { type: String, unique: true, required: true },
+  withBoard: { type: Boolean },
   1: { type: Number },
   2: { type: Number },
   3: { type: Number },
