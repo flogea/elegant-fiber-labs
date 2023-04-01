@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../../styles/Labs.scss';
 
@@ -10,6 +11,7 @@ import { Context } from '../../Context';
 import Foldable from '../../components/Labs/Foldable';
 import preloader from '../../images/Infinity.gif';
 import ParticlesBG from '../../components/ParticlesBG';
+import { setPerformers } from '../../redux/slices/PerformerSlice';
 
 import sevenSegmentIndicator from '../../images/M12/sevenSegmentIndicator.png';
 import schemeOfIndicator from '../../images/M12/schemeOfIndicator.png';
@@ -31,13 +33,15 @@ function M12() {
   const LabName = 'М12 КОДОПРЕОБРАЗОВАТЕЛИ В ОБЩЕМ ВИДЕ (ASCII, 7SEG DRIVER)';
   const LabLink = 'ъыъ.рф/ьАуУ';
 
-  const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp, darkMode } =
-    React.useContext(Context);
+  const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
+  const performers = useSelector((state) => state.PerformerSlice);
+
+  const dispatch = useDispatch();
 
   const [id_lab, setIdLab] = React.useState('');
   const [receivedId, setReceivedId] = React.useState('');
   const [currentId, setCurrentId] = React.useState('');
-  const [withBoard, setWithBoard] = React.useState(false);
+  const [withBoard, setWithBoard] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const [arrayOfTable, setArrayOfTable] = React.useState({});
@@ -64,7 +68,7 @@ function M12() {
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
-    setWithBoard(Boolean(JSON.parse(localStorage.getItem('withBoard'))));
+    setWithBoard(JSON.parse(localStorage.getItem('withBoard')));
   }, []);
 
   React.useEffect(() => {
@@ -85,12 +89,14 @@ function M12() {
       console.log(res.data);
 
       if (dataSummary !== undefined) {
-        setPerformers({
-          ...performers,
-          performers: dataSummary.performers,
-          group: dataSummary.group,
-          email: dataSummary.email,
-        });
+        dispatch(
+          setPerformers({
+            ...performers,
+            performers: dataSummary.performers,
+            group: dataSummary.group,
+            email: dataSummary.email,
+          }),
+        );
 
         setDisabledInp(true);
         // setisBtnExist(null);

@@ -625,7 +625,7 @@ class m12_controller {
                   '\n' +
                   quantity +
                   '\n' +
-                  +withBoard +
+                  withBoard +
                   '\n' +
                   str +
                   (formData.file1 === undefined ? null : formData.file1.name) +
@@ -719,7 +719,7 @@ class m12_controller {
                   '\n' +
                   quantity +
                   '\n' +
-                  +withBoard +
+                  withBoard +
                   '\n' +
                   str +
                   (file1 === undefined ? null : file1) +
