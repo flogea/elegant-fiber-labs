@@ -17,6 +17,8 @@ import signals_white from '../../images/M13/signals_white.svg';
 import M13AdditionalBlock from '../../components/Labs/M13AdditionalBlock';
 import InputWithPreview from '../../components/Labs/InputWithPreview';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
+import { setFileName } from '../../redux/slices/fileNameSlice';
+import { setArray } from '../../redux/slices/ArraySlice';
 
 function M13() {
   const lab_name = 'M13';
@@ -27,6 +29,7 @@ function M13() {
   const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
   const performers = useSelector((state) => state.PerformerSlice);
   const additionalArray = useSelector((state) => state.ArraySlice.someArray);
+  const fileName = useSelector((state) => state.fileNameSlice);
 
   const [id_lab, setIdLab] = React.useState('');
   const [receivedId, setReceivedId] = React.useState('');
@@ -49,14 +52,15 @@ function M13() {
   const [isBtnExist2, setisBtnExist2] = React.useState(true);
   const [isBtnEnterExist2, setisBtnEnterExist2] = React.useState(true);
   const [tableState, setTableState] = React.useState(false);
-  const lastRange1 = [
+  const [lastRange1, setLastRange1] = React.useState([
     table1data.hexNumbers[Math.floor(Math.random() * table1data.hexNumbers.length)],
     Math.floor(Math.random() * 6) + 3,
-  ];
-  const lastRange2 = [
+  ]);
+  const [lastRange2, setLastRange2] = React.useState([
     table2data.hexNumbers[Math.floor(Math.random() * table2data.hexNumbers.length)],
     Math.floor(Math.random() * 6) + 3,
-  ];
+  ]);
+
   const dispatch = useDispatch();
   const formRef = React.useRef();
 
@@ -374,7 +378,7 @@ function M13() {
       const dataSummary = res.data.result[0];
       const dataTable = res.data.result[1];
       console.log(res.data);
-      if (dataSummary !== undefined) {
+      if (dataSummary) {
         dispatch(
           setPerformers({
             // ...performers,
@@ -388,12 +392,33 @@ function M13() {
         // setisBtnExist(null);
         // setisBtnEnterExist(null);
       }
-      if (dataTable !== undefined) {
-        for (let i = 1; i < 113; i++) {
-          if (dataTable[i]) {
-            // setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
+
+      if (dataTable) {
+        // dispatch(setFileName({}));
+        dispatch(setArray(dataTable.additionalArray));
+        setTable1data({ ...table1data, ranges: dataTable.range1, hexNumbers: dataTable.hex1 });
+        setTable2data({ ...table2data, ranges: dataTable.range2, hexNumbers: dataTable.hex2 });
+        setLastRange1(dataTable.lastRange1);
+        setLastRange2(dataTable.lastRange2);
+
+        // Object.keys(dataTable)
+        //   .filter((name) => name.includes('file'))
+        //   .map((name, index) => {
+        //     dispatch(setFileName({ ...fileName, [name]: dataTable[name] }));
+        //   });
+        for (const key in dataTable) {
+          if (Object.hasOwnProperty.call(dataTable, key)) {
+            const element = dataTable[key];
+            console.log(element);
           }
         }
+        // dispatch(setFileName({ ...fileName, [name]: dataTable[name] }));
+
+        // for (let i = 1; i < 113; i++) {
+        //   if (dataTable[i]) {
+        //     // setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
+        //   }
+        // }
       }
     });
   };

@@ -12,7 +12,7 @@ function InputWithPreview({ num, ext }) {
   const onChangeInput = (e) => {
     const file = e.target.files[0];
     const currentName = file.name;
-    dispatch(setFileName({ name: e.target.name, value: currentName }));
+    dispatch(setFileName({ ...fileName, name: e.target.name, value: currentName }));
     fileReader.readAsDataURL(file);
   };
 
