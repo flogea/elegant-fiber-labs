@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { v4 } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../../styles/Labs.scss';
 
@@ -9,7 +10,10 @@ import HeaderLab from '../../components/Labs/HeaderLab';
 import Performers from '../../components/Labs/Performers';
 import m11Qr from '../../images/qr/m11.png';
 import { Context } from '../../Context';
+import { setPerformers } from '../../redux/slices/PerformerSlice';
+import { setFileName } from '../../redux/slices/fileNameSlice';
 import Foldable from '../../components/Labs/Foldable';
+
 import pic1 from '../../images/M11/kcu.png';
 import pic2 from '../../images/M11/formula1.png';
 import pic3 from '../../images/M11/formula2.png';
@@ -22,6 +26,7 @@ import pic9 from '../../images/M11/diagramm1.png';
 import pic10 from '../../images/M11/diagramm2.png';
 import preloader from '../../images/Infinity.gif';
 import ParticlesBG from '../../components/ParticlesBG';
+import InputWithPreview from '../../components/Labs/InputWithPreview';
 
 function M11() {
   const lab_name = 'M11';
@@ -29,22 +34,17 @@ function M11() {
   const LabName = 'М11 QUARTUS II. СОЗДАНИЕ ПРОСТЕЙШИХ ЦИФРОВЫХ СХЕМ';
   const LabLink = 'ъыъ.рф/ьАуУ';
 
-  const { performers, setPerformers, photo, quantity, secretKey, setDisabledInp, darkMode } =
-    React.useContext(Context);
+  const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
+  const performers = useSelector((state) => state.PerformerSlice);
+  const dataName = useSelector((state) => state.fileNameSlice);
+  const dispatch = useDispatch();
+
   const [id_lab, setIdLab] = React.useState('');
-  const [dataName, setDataName] = React.useState({
-    file1: '',
-    file2: '',
-    file3: '',
-    file4: '',
-    file5: '',
-    file6: '',
-  });
   const [id, setId] = React.useState('');
   const [table, setTable] = React.useState('');
   const [currentId, setCurrentId] = React.useState('');
-  const [array, setArray] = React.useState([]);
-  const [str, setStr] = React.useState([]);
+  const [array, setArray] = React.useState({});
+  const [str, setStr] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const formRef = React.useRef();
@@ -56,6 +56,7 @@ function M11() {
   }, []);
 
   React.useEffect(() => {
+    setArray(str);
     setTable(
       <table className="iksweb">
         <tbody>
@@ -67,73 +68,73 @@ function M11() {
             <td>a</td>
             <td>b[1]</td>
             <td>b[0]</td>
-            <td>{str[0]}</td>
-            <td>{str[1]}[0]</td>
-            <td>{str[1]}[1]</td>
+            <td>{str.letterOne}</td>
+            <td>{str.letterTwo}[0]</td>
+            <td>{str.letterTwo}[1]</td>
           </tr>
           <tr>
             <td>0</td>
             <td>0</td>
             <td>0</td>
+            <td>{str[0]}</td>
+            <td>{str[1]}</td>
             <td>{str[2]}</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
             <td>{str[3]}</td>
             <td>{str[4]}</td>
+            <td>{str[5]}</td>
           </tr>
           <tr>
             <td>0</td>
-            <td>0</td>
             <td>1</td>
-            <td>{str[5]}</td>
+            <td>0</td>
             <td>{str[6]}</td>
             <td>{str[7]}</td>
+            <td>{str[8]}</td>
           </tr>
           <tr>
             <td>0</td>
             <td>1</td>
-            <td>0</td>
-            <td>{str[8]}</td>
+            <td>1</td>
             <td>{str[9]}</td>
             <td>{str[10]}</td>
+            <td>{str[11]}</td>
           </tr>
           <tr>
+            <td>1</td>
             <td>0</td>
-            <td>1</td>
-            <td>1</td>
-            <td>{str[11]}</td>
+            <td>0</td>
             <td>{str[12]}</td>
             <td>{str[13]}</td>
+            <td>{str[14]}</td>
           </tr>
           <tr>
             <td>1</td>
             <td>0</td>
-            <td>0</td>
-            <td>{str[14]}</td>
+            <td>1</td>
             <td>{str[15]}</td>
             <td>{str[16]}</td>
+            <td>{str[17]}</td>
           </tr>
           <tr>
             <td>1</td>
-            <td>0</td>
             <td>1</td>
-            <td>{str[17]}</td>
+            <td>0</td>
             <td>{str[18]}</td>
             <td>{str[19]}</td>
+            <td>{str[20]}</td>
           </tr>
           <tr>
             <td>1</td>
             <td>1</td>
-            <td>0</td>
-            <td>{str[20]}</td>
+            <td>1</td>
             <td>{str[21]}</td>
             <td>{str[22]}</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
             <td>{str[23]}</td>
-            <td>{str[24]}</td>
-            <td>{str[25]}</td>
           </tr>
         </tbody>
       </table>,
@@ -174,19 +175,22 @@ function M11() {
     let rand = Math.floor(Math.random() * values.length);
 
     let i = 0;
-    while (str.length < len) {
+    const letters = [];
+    while (letters.length < len) {
       let pos = Math.floor(Math.random() * alphabet.length);
-      if (str.indexOf(alphabet[pos]) === -1) {
-        str[i] = alphabet[pos];
+      if (letters.indexOf(alphabet[pos]) === -1) {
+        letters[i] = alphabet[pos];
         i++;
       }
     }
 
+    setStr({ ...str, letterOne: letters[0], letterTwo: letters[1] });
+
     for (let i = 0; i < len2; i++) {
       let rand = Math.floor(Math.random() * values.length);
-      str[i + 2] = values[rand];
+      setStr((prev) => ({ ...prev, [i]: values[rand] }));
+      // str.i = values[rand];
     }
-    setArray(str);
     setisBtnExist(null);
     setisBtnEnterExist(false);
     setTable(
@@ -296,7 +300,7 @@ function M11() {
             <td>
               <input
                 type="text"
-                name="0"
+                name="letterOne"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -306,7 +310,7 @@ function M11() {
               <input
                 type="text"
                 style={{ width: '50%' }}
-                name="1"
+                name="letterTwo"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -314,7 +318,13 @@ function M11() {
               [0]
             </td>
             <td style={{ textAlign: 'right' }}>
-              <input type="text" style={{ width: '50%' }} maxlength="1" required="required" />
+              <input
+                type="text"
+                style={{ width: '50%' }}
+                maxlength="1"
+                value={array.letterTwo}
+                readOnly
+              />
               [1]
             </td>
           </tr>
@@ -324,8 +334,8 @@ function M11() {
             <td>0</td>
             <td>
               <input
-                type="number"
-                name="2"
+                type="text"
+                name="0"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -333,7 +343,30 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
+                name="1"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="2"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>
+              <input
+                type="text"
                 name="3"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -342,8 +375,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="4"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="5"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -352,20 +394,11 @@ function M11() {
           </tr>
           <tr>
             <td>0</td>
-            <td>0</td>
             <td>1</td>
+            <td>0</td>
             <td>
               <input
-                type="number"
-                name="5"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
+                type="text"
                 name="6"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -374,8 +407,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="7"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="8"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -385,19 +427,10 @@ function M11() {
           <tr>
             <td>0</td>
             <td>1</td>
-            <td>0</td>
+            <td>1</td>
             <td>
               <input
-                type="number"
-                name="8"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
+                type="text"
                 name="9"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -406,8 +439,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="10"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="11"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -415,21 +457,12 @@ function M11() {
             </td>
           </tr>
           <tr>
+            <td>1</td>
             <td>0</td>
-            <td>1</td>
-            <td>1</td>
+            <td>0</td>
             <td>
               <input
-                type="number"
-                name="11"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
+                type="text"
                 name="12"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -438,8 +471,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="13"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="14"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -449,19 +491,10 @@ function M11() {
           <tr>
             <td>1</td>
             <td>0</td>
-            <td>0</td>
+            <td>1</td>
             <td>
               <input
-                type="number"
-                name="14"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
+                type="text"
                 name="15"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -470,8 +503,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="16"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="17"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -480,20 +522,11 @@ function M11() {
           </tr>
           <tr>
             <td>1</td>
-            <td>0</td>
             <td>1</td>
+            <td>0</td>
             <td>
               <input
-                type="number"
-                name="17"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
+                type="text"
                 name="18"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -502,8 +535,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="19"
+                onChange={handleChangeTable}
+                maxlength="1"
+                required="required"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="20"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -513,19 +555,10 @@ function M11() {
           <tr>
             <td>1</td>
             <td>1</td>
-            <td>0</td>
+            <td>1</td>
             <td>
               <input
-                type="number"
-                name="20"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
+                type="text"
                 name="21"
                 onChange={handleChangeTable}
                 maxlength="1"
@@ -534,40 +567,17 @@ function M11() {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="22"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
               />
             </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="23"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                name="24"
-                onChange={handleChangeTable}
-                maxlength="1"
-                required="required"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                name="25"
                 onChange={handleChangeTable}
                 maxlength="1"
                 required="required"
@@ -578,43 +588,55 @@ function M11() {
       </table>,
     );
   }
-
+  const [url, setUrl] = React.useState('');
   const findData = async (event) => {
     event.preventDefault();
 
     await axios.get('/api/labs/m11save/' + currentId).then((res) => {
+      console.log(res.data);
       const dataFromDB = res.data.result[0];
       const dataTable = res.data.result[1];
-      const newDataTable = Object.values(dataTable).slice(0, 24);
-      newDataTable.unshift(dataTable.letterTwo);
-      newDataTable.unshift(dataTable.letterOne);
 
-      if (dataFromDB !== undefined) {
-        setPerformers({
-          ...performers,
-          performers: dataFromDB.performers,
-          group: dataFromDB.group,
-          email: dataFromDB.email,
-        });
+      if (dataFromDB) {
+        dispatch(
+          setPerformers({
+            // ...performers,
+            performers: dataFromDB.performers,
+            group: dataFromDB.group,
+            email: dataFromDB.email,
+          }),
+        );
+      }
+      if (dataTable) {
+        const newDataTable = dataTable.data[0];
+        console.log(newDataTable);
 
-        setDataName({
-          file1: dataTable.file1,
-          file2: dataTable.file2,
-          file3: dataTable.file3,
-          file4: dataTable.file4,
-          file5: dataTable.file5,
-          file6: dataTable.file6,
-        });
+        dispatch(
+          setFileName({
+            file1: dataTable.file1,
+            file2: dataTable.file2,
+            file3: dataTable.file3,
+            file4: dataTable.file4,
+            file5: dataTable.file5,
+            file6: dataTable.file6,
+          }),
+        );
 
         setStr(newDataTable);
-        setDisabledInp(true);
         setisBtnExist(null);
         setisBtnEnterExist(null);
-      } else if (dataTable !== undefined) {
-        setStr(newDataTable);
-        console.log(str);
       }
+      setDisabledInp(true);
     });
+
+    // await axios
+    //   .get('/api/labs/m11GetFiles/' + currentId, { responseType: 'blob' })
+    //   .then((response) => {
+    //     console.log(response, response.data);
+    //     // const url = URL.createObjectURL(response.data);
+    //     setUrl(URL.createObjectURL(response.data));
+    //     console.log(url);
+    //   });
   };
 
   const saveHandler = async (event) => {
@@ -661,14 +683,12 @@ function M11() {
     try {
       formData.append('lab_name', lab_name);
       formData.append('id_lab', id_lab);
-      formData.append('letterOne', array[0]);
-      formData.append('letterTwo', array[1]);
-      formData.append('photo', photo);
 
       for (let i = 0; i < Object.values(array).length; i++) {
         formData.delete(`${i}`);
       }
-      formData.append('data', Object.values(array).slice(2));
+
+      formData.append('data', JSON.stringify(array));
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -703,7 +723,7 @@ function M11() {
         <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
         <form ref={formRef}>
           <Performers />
-
+          <iframe src={url} frameborder="0"></iframe>
           <div className="foldable__content">
             <Foldable header="Продолжить работу">
               <div
@@ -875,7 +895,6 @@ function M11() {
               </p>
             </Foldable>
           </div>
-
           <div className="completing">
             <div className="left-text">
               <h3>Выполнение работы</h3>
@@ -925,22 +944,8 @@ function M11() {
               <p>
                 7 Сохраните разработанную логическую схему в pdf<sup>5</sup>.
               </p>
-              {/* input */}
 
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  name="file1"
-                  required="required"
-                  id="upload__input__pdf1"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf1"></label>
-              </div>
-              <span id="output__data1" className="output__span">
-                {dataName.file1}
-              </span>
+              <InputWithPreview num={1} ext="pdf" />
 
               <p>
                 8 Получите и изучите RTL-схему модуля<sup>6</sup>.
@@ -948,22 +953,8 @@ function M11() {
               <p>
                 9 Сохраните RTL-схему в pdf<sup>7</sup>.
               </p>
-              {/* input */}
 
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file2"
-                  onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf2"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf2"></label>
-              </div>
-              <span id="output__data2" className="output__span">
-                {dataName.file2}
-              </span>
+              <InputWithPreview num={2} ext="pdf" />
 
               <p>
                 10 Произведите функциональную симуляцию модуля{' '}
@@ -981,22 +972,8 @@ function M11() {
                   Пример<sup>8</sup>:
                 </i>
               </p>
-              {/* input */}
 
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file3"
-                  onChange={(e) => setDataName({ ...dataName, file3: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png1"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png1"></label>
-              </div>
-              <span id="output__data3" className="output__span">
-                {dataName.file3}
-              </span>
+              <InputWithPreview num={3} ext="png" />
 
               <h3>
                 Модуль <span style={{ fontFamily: 'Ubuntu Mono' }}>lab11_hdl</span> — КЦУ, описанное
@@ -1115,42 +1092,14 @@ function M11() {
                 называется <span style={{ textDecoration: 'underline' }}>exersize_1</span>, то файл
                 будет называться <span style={{ textDecoration: 'underline' }}>exersize_1.v.</span>
               </p>
-              {/* input */}
 
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file4"
-                  onChange={(e) => setDataName({ ...dataName, file4: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__v"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__v"></label>
-              </div>
-              <span id="output__data4" className="output__span">
-                {dataName.file4}
-              </span>
+              <InputWithPreview num={4} ext="v" />
 
               <p>13 Выполните анализ и синтез проекта. Исправьте ошибки, если таковые имеются.</p>
               <p>14 Получите и изучите RTL-схему модуля.</p>
               <p>15 Сохраните RTL-схему в pdf.</p>
-              {/* input */}
 
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file5"
-                  onChange={(e) => setDataName({ ...dataName, file5: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf3"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf3"></label>
-              </div>
-              <span id="output__data5" className="output__span">
-                {dataName.file5}
-              </span>
+              <InputWithPreview num={5} ext="pdf" />
 
               <p>
                 16 Произведите функциональную симуляцию разработанного модуля{' '}
@@ -1165,22 +1114,8 @@ function M11() {
                 17 Сохраните результат симуляции в виде скриншота промежутка от 0 до 320 нс, при
                 этом разверните все шины.
               </p>
-              {/* input */}
 
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file6"
-                  onChange={(e) => setDataName({ ...dataName, file6: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png2"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png2"></label>
-              </div>
-              <span id="output__data6" className="output__span">
-                {dataName.file6}
-              </span>
+              <InputWithPreview num={6} ext="png" />
 
               <p>18 Сравните полученные результаты (временные диаграммы и схемы).</p>
             </div>
@@ -1211,7 +1146,6 @@ function M11() {
               )}
             </div>
           </div>
-
           <FooterLab needPhoto={false} />
           <div className="row">
             {isLoading ? <img src={preloader} className="preloader" /> : null}

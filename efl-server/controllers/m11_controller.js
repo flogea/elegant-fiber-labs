@@ -1,11 +1,38 @@
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
 
 const M11model = require('../models/M11model');
 const Summary = require('../models/Summary');
 const { format } = require('date-fns');
 
 class m11_controller {
+  async getFiles(req, res) {
+    try {
+      const { id } = req.params;
+      // const pattern = `**/${id}*.*`;
+      // const pathToFile = path.join(__dirname, `./../Files/M11`);
+      // console.log(pathToFile);
+
+      glob(__dirname + '/**/*', (err, files) => {
+        console.log(files);
+        if (err) {
+          console.log(err);
+          res.status(500).send('Internal Server Error');
+        } else {
+          console.log(files);
+          // res.send(files);
+        }
+      });
+      // const file = path.join(__dirname, `./../Files/M11/${id}`);
+      // console.log(file);
+
+      // res.status(200).sendFile(file);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json('error send files m11 ', error);
+    }
+  }
   async getData(req, res) {
     try {
       const { id } = req.params;
@@ -21,35 +48,24 @@ class m11_controller {
         })
         .catch((err) => res.status(500).json(err));
 
-      //const results = { ...summaryObj[0], ...m11Obj[0] };
       const result = summaryObj.concat(m11Obj);
 
-      //const result = Object.assign(summaryObj, m11Obj[0]);
       console.log(result);
       res.status(200).json({ result });
     } catch (error) {
       console.log(error.message);
-      res.status(500).json('error save m11 data ', error);
+      res.status(500).json('error get data m11 ', error);
     }
   }
 
   async saveData(req, res, next) {
     // GET DATA
     try {
-      const {
-        performers,
-        group,
-        email,
-        id_lab,
-        lab_name,
-        quantity,
-        data,
-        letterOne,
-        letterTwo,
-        labId,
-      } = req.body;
+      const { performers, group, email, id_lab, lab_name, quantity, data, labId } = req.body;
       const formData = req.files;
-      const dataArray = data.split(',');
+      // const dataArray = data.split(',');
+      const dataArray = JSON.parse(data);
+      console.log(dataArray);
       console.log(formData);
 
       // RENAME FILES AND WRITE DATA TO FILE
@@ -288,32 +304,7 @@ class m11_controller {
               try {
                 const m11 = new M11model({
                   id_lab,
-                  letterOne,
-                  letterTwo,
-                  1: dataArray[0],
-                  2: dataArray[1],
-                  3: dataArray[2],
-                  4: dataArray[3],
-                  5: dataArray[4],
-                  6: dataArray[5],
-                  7: dataArray[6],
-                  8: dataArray[7],
-                  9: dataArray[8],
-                  10: dataArray[9],
-                  11: dataArray[10],
-                  12: dataArray[11],
-                  13: dataArray[12],
-                  14: dataArray[13],
-                  15: dataArray[14],
-                  16: dataArray[15],
-                  17: dataArray[16],
-                  18: dataArray[17],
-                  19: dataArray[18],
-                  20: dataArray[19],
-                  21: dataArray[20],
-                  22: dataArray[21],
-                  23: dataArray[22],
-                  24: dataArray[23],
+                  data: dataArray,
                   file1:
                     formData === null
                       ? null
@@ -390,12 +381,16 @@ class m11_controller {
           if (result.length === 0) {
             try {
               console.log('first');
-              const { performers, group, email, lab_name, quantity, data, letterOne, letterTwo } =
-                req.body;
+              const { performers, group, email, lab_name, quantity, data } = req.body;
               const formData = req.files;
               res.locals.lab_name = lab_name;
-              console.log(formData);
-              const dataArray = data.split(',');
+
+              const dataArray = JSON.parse(data);
+              console.log(dataArray);
+              const letterOne = dataArray.letterOne;
+              const letterTwo = dataArray.letterTwo;
+              delete dataArray.letterOne;
+              delete dataArray.letterTwo;
 
               let str = '';
               for (const [key, value] of Object.entries(dataArray)) {
@@ -476,25 +471,19 @@ class m11_controller {
                 .catch((err) => res.status(500).json(err));
 
               const { group, email, performers, lab_name } = summaryObj[0];
-              const { letterOne, letterTwo, file1, file2, file3, file4, file5, file6 } = m11Obj[0];
+              const { file1, file2, file3, file4, file5, file6, data } = m11Obj[0];
               const { quantity } = req.body;
               console.log(m11Obj);
               res.locals.lab_name = lab_name;
 
               console.log(file1, file2, file3, file4, file5, file6);
 
-              const dataArray = m11Obj[0]._doc;
-              delete dataArray.id_lab;
+              const dataArray = data[0];
+              console.log(dataArray);
+              const letterOne = dataArray.letterOne;
+              const letterTwo = dataArray.letterTwo;
               delete dataArray.letterOne;
               delete dataArray.letterTwo;
-              delete dataArray.file1;
-              delete dataArray.file2;
-              delete dataArray.file3;
-              delete dataArray.file4;
-              delete dataArray.file5;
-              delete dataArray.file6;
-              delete dataArray._id;
-              delete dataArray.__v;
 
               let str = '';
               for (const [key, value] of Object.entries(dataArray)) {

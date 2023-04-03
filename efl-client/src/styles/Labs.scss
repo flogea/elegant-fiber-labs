@@ -566,7 +566,7 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
       &.pdf {
         label {
-          display: flex;
+          // display: flex;
           &:before {
             content: url(../images/icons/pdf.svg);
             height: 24px;
