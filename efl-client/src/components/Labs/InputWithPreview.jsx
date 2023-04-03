@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFileName } from '../../redux/slices/fileNameSlice';
+import Foldable from './Foldable';
 
 function InputWithPreview({ num, ext }) {
   const [fileURL, setFileURL] = React.useState('');
@@ -36,8 +37,28 @@ function InputWithPreview({ num, ext }) {
       </div>
       <span id={`output__data${num}`} className="output__span">
         {fileName[nameOfFile]}
-        {fileURL && ext === 'png' ? <img src={fileURL} /> : null}
       </span>
+      {fileURL && ext === 'png' ? (
+        <div className="foldable__content">
+          <Foldable header="Предпросмотр">
+            <div className="centeredInRow">
+              <img src={fileURL} />
+            </div>
+          </Foldable>
+        </div>
+      ) : null}
+      {fileURL && ext === 'pdf' ? (
+        <div className="foldable__content">
+          <Foldable header="Предпросмотр">
+            <div className="centeredInRow">
+              <iframe
+                style={{ width: '100%', height: '80vh' }}
+                src={fileURL}
+                frameborder="0"></iframe>
+            </div>
+          </Foldable>
+        </div>
+      ) : null}
     </>
   );
 }
