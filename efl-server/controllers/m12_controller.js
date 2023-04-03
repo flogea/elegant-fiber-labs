@@ -597,11 +597,13 @@ class m12_controller {
           if (result.length === 0) {
             try {
               console.log('first');
-              const { performers, group, email, lab_name, quantity, data, withBoard } = req.body;
+              const { performers, group, email, lab_name, quantity, arrayOfTable, withBoard } =
+                req.body;
               const formData = req.files;
               res.locals.lab_name = lab_name;
               console.log(formData);
-              const dataArray = data.split(',');
+              // const dataArray = data.split(',');
+              const dataArray = JSON.parse(arrayOfTable);
 
               let str = '';
               for (const [key, value] of Object.entries(dataArray)) {
@@ -645,7 +647,7 @@ class m12_controller {
                   ? null
                   : formData.avatar === undefined
                   ? null
-                  : formData.file3png.name,
+                  : formData.avatar.name,
               ];
 
               fs.writeFile(`${id_lab}_${lab_name}.txt`, `${newData}`, (err) => {

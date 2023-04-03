@@ -68,7 +68,12 @@ function M12() {
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
-    setWithBoard(JSON.parse(localStorage.getItem('withBoard')));
+
+    if (JSON.parse(localStorage.getItem('withBoard') === null)) {
+      localStorage.setItem('withBoard', JSON.stringify(withBoard));
+    } else {
+      setWithBoard(Number(JSON.parse(localStorage.getItem('withBoard'))));
+    }
   }, []);
 
   React.useEffect(() => {
@@ -88,7 +93,7 @@ function M12() {
 
       console.log(res.data);
 
-      if (dataSummary !== undefined) {
+      if (dataSummary) {
         dispatch(
           setPerformers({
             ...performers,
@@ -103,7 +108,7 @@ function M12() {
         // setisBtnEnterExist(null);
       }
 
-      if (dataTable !== undefined) {
+      if (dataTable) {
         setDataName({
           file1: dataTable.file1,
           file2: dataTable.file2,
@@ -140,7 +145,7 @@ function M12() {
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
-    formData.append('withBoard', withBoard);
+    formData.append('withBoard', Number(withBoard));
 
     for (let i = 0; i < Object.values(arrayOfTable).length; i++) {
       formData.delete(`${i}`);
@@ -177,7 +182,7 @@ function M12() {
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
-    formData.append('withBoard', withBoard);
+    formData.append('withBoard', Number(withBoard));
 
     try {
       for (let i = 1; i < Object.values(arrayOfTable).length; i++) {
