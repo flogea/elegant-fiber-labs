@@ -25,9 +25,12 @@ const fileNameSlice = createSlice({
   initialState,
   reducers: {
     setFileName(state, action) {
-      const { name, value } = action.payload;
-      console.log(action.payload);
-      state[name] = value;
+      for (const key in action.payload) {
+        if (Object.hasOwnProperty.call(action.payload, key)) {
+          const element = action.payload[key];
+          state[key] = element;
+        }
+      }
     },
   },
 });
