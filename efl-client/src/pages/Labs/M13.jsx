@@ -394,6 +394,11 @@ function M13() {
       }
 
       if (dataTable) {
+        setisBtnEnterExist(false);
+        setisBtnEnterExist2(false);
+        setisBtnExist(false);
+        setisBtnExist2(false);
+
         // dispatch(setFileName({}));
         dispatch(setArray(dataTable.additionalArray));
         setTable1data({ ...table1data, ranges: dataTable.range1, hexNumbers: dataTable.hex1 });
@@ -401,17 +406,18 @@ function M13() {
         setLastRange1(dataTable.lastRange1);
         setLastRange2(dataTable.lastRange2);
 
-        // Object.keys(dataTable)
-        //   .filter((name) => name.includes('file'))
-        //   .map((name, index) => {
-        //     dispatch(setFileName({ ...fileName, [name]: dataTable[name] }));
-        //   });
-        for (const key in dataTable) {
-          if (Object.hasOwnProperty.call(dataTable, key)) {
-            const element = dataTable[key];
-            console.log(element);
-          }
-        }
+        Object.keys(dataTable)
+          .filter((name) => name.includes('file'))
+          .map((name, index) => {
+            console.log(name, index);
+            dispatch(setFileName({ ...fileName, name: name, value: dataTable[name] }));
+          });
+
+        // for (const key in dataTable) {
+        //   if (Object.hasOwnProperty.call(dataTable, key)) {
+        //     const element = dataTable[key];
+        //   }
+        // }
         // dispatch(setFileName({ ...fileName, [name]: dataTable[name] }));
 
         // for (let i = 1; i < 113; i++) {

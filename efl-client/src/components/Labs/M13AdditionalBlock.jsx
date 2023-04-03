@@ -11,6 +11,13 @@ function M13AdditionalBlock() {
 
   const arrayOfNums = useSelector((state) => state.ArraySlice.someArray);
 
+  React.useEffect(() => {
+    if (arrayOfNums.length > 0) {
+      setisBtnEnterExist(false);
+      setisBtnExist(false);
+    }
+  }, []);
+
   const dispatch = useDispatch();
 
   function generateUniqueHexNumbers() {
