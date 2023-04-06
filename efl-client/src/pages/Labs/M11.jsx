@@ -646,14 +646,12 @@ function M11() {
 
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
-    formData.append('letterOne', array[0]);
-    formData.append('letterTwo', array[1]);
 
     for (let i = 0; i < Object.values(array).length; i++) {
       formData.delete(`${i}`);
     }
 
-    formData.append('data', Object.values(array).slice(2));
+    formData.append('data', JSON.stringify(array));
 
     console.log(Array.from(formData));
     await axios
@@ -723,7 +721,7 @@ function M11() {
         <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
         <form ref={formRef}>
           <Performers />
-          <iframe src={url} frameborder="0"></iframe>
+          {/* <iframe src={url} frameborder="0"></iframe> */}
           <div className="foldable__content">
             <Foldable header="Продолжить работу">
               <div

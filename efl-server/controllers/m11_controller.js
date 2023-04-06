@@ -64,12 +64,13 @@ class m11_controller {
       const { performers, group, email, id_lab, lab_name, quantity, data, labId } = req.body;
       const formData = req.files;
       // const dataArray = data.split(',');
+      console.log(data);
       const dataArray = JSON.parse(data);
       console.log(dataArray);
       console.log(formData);
 
       // RENAME FILES AND WRITE DATA TO FILE
-      if (formData !== null) {
+      if (formData) {
         for (var oneObj in formData) {
           let newFileName;
           switch (oneObj) {
@@ -110,6 +111,7 @@ class m11_controller {
 
       // IF LAB IS CONTINUED
       if (labId) {
+        console.log('save data -- if continued');
         res.locals.id_lab = labId;
         M11model.findOne({ id_lab: labId })
           .then(async (result) => {
@@ -120,37 +122,37 @@ class m11_controller {
                 {
                   file1:
                     formData === null
-                      ? null
+                      ? result.file1
                       : formData.file1 === undefined
                       ? result.file1
                       : formData.file1.name,
                   file2:
                     formData === null
-                      ? null
+                      ? result.file2
                       : formData.file2 === undefined
                       ? result.file2
                       : formData.file2.name,
                   file3:
                     formData === null
-                      ? null
+                      ? result.file3
                       : formData.file3 === undefined
                       ? result.file3
                       : formData.file3.name,
                   file4:
                     formData === null
-                      ? null
+                      ? result.file4
                       : formData.file4 === undefined
                       ? result.file4
                       : formData.file4.name,
                   file5:
                     formData === null
-                      ? null
+                      ? result.file5
                       : formData.file5 === undefined
                       ? result.file5
                       : formData.file5.name,
                   file6:
                     formData === null
-                      ? null
+                      ? result.file6
                       : formData.file6 === undefined
                       ? result.file6
                       : formData.file6.name,
@@ -209,6 +211,7 @@ class m11_controller {
           M11model.findOne({ id_lab }).then(async (result) => {
             if (result) {
               // IF DOUBLE CLICKED ON SAVE BUTTON
+              console.log('save data -- if double click');
               try {
                 res.locals.data = result;
                 res.locals.id_lab = id_lab;
@@ -218,37 +221,37 @@ class m11_controller {
                   {
                     file1:
                       formData === null
-                        ? null
+                        ? result.file1
                         : formData.file1 === undefined
                         ? result.file1
                         : formData.file1.name,
                     file2:
                       formData === null
-                        ? null
+                        ? result.file2
                         : formData.file2 === undefined
                         ? result.file2
                         : formData.file2.name,
                     file3:
                       formData === null
-                        ? null
+                        ? result.file3
                         : formData.file3 === undefined
                         ? result.file3
                         : formData.file3.name,
                     file4:
                       formData === null
-                        ? null
+                        ? result.file4
                         : formData.file4 === undefined
                         ? result.file4
                         : formData.file4.name,
                     file5:
                       formData === null
-                        ? null
+                        ? result.file5
                         : formData.file5 === undefined
                         ? result.file5
                         : formData.file5.name,
                     file6:
                       formData === null
-                        ? null
+                        ? result.file6
                         : formData.file6 === undefined
                         ? result.file6
                         : formData.file6.name,
@@ -301,6 +304,7 @@ class m11_controller {
               next();
             } else {
               // CREATE NEW DATA
+              console.log('save data -- create new data');
               try {
                 const m11 = new M11model({
                   id_lab,
@@ -443,19 +447,6 @@ class m11_controller {
           } else {
             try {
               console.log('second');
-              // const {
-              //   performers,
-              //   group,
-              //   email,
-              //   id_lab,
-              //   lab_name,
-              //   quantity,
-              //   data,
-              //   letterOne,
-              //   letterTwo,
-              // } = req.body;
-              // const formData = req.files;
-              // const dataArray = data.split(',');
               const id_lab = res.locals.id_lab;
 
               const m11Obj = await M11model.find({ id_lab })
