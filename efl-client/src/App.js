@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import { F11, F12, F13, F14, F15, F21, F22, M11, M12, M13, N11, N21, PromtM } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
-import F11m from './pages/Materials/F11m';
 import ParticlesBG from './components/ParticlesBG';
 
 function App() {

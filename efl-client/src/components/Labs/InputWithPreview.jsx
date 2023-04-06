@@ -44,8 +44,8 @@ function InputWithPreview({ num, ext }) {
         {fileName[nameOfFile]}
       </span>
       {fileURL[`${nameOfFile}URL`] && ext === 'png' ? (
-        <div className="foldable__content">
-          <Foldable header="Предпросмотр">
+        <div className="foldable__content preview">
+          <Foldable header="Предпросмотр" preview={true}>
             <div className="centeredInRow">
               <img src={fileURL[`${nameOfFile}URL`]} />
             </div>
@@ -53,8 +53,8 @@ function InputWithPreview({ num, ext }) {
         </div>
       ) : null}
       {fileURL[`${nameOfFile}URL`] && (ext === 'pdf' || ext === 'v') ? (
-        <div className="foldable__content">
-          <Foldable header="Предпросмотр">
+        <div className="foldable__content preview">
+          <Foldable header="Предпросмотр" preview={true}>
             <div className="centeredInRow">
               <iframe
                 style={{ width: '100%', height: '50vh' }}

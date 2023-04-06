@@ -23,6 +23,12 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       color: $textInDarkMode;
 
       .foldable__content {
+        &.preview {
+          .foldable {
+            border: none;
+          }
+        }
+
         .foldable {
           //box-shadow: 0 0 10px 1px $orange;
           border: 1px solid $orange;
@@ -382,6 +388,24 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       justify-content: center;
       align-items: center;
 
+      &.preview {
+        width: 60%;
+
+        .foldable {
+          padding: 10px;
+          box-shadow: none;
+          margin-bottom: 0;
+
+          .toggle {
+            justify-content: center;
+          }
+
+          h2 {
+            color: gray;
+          }
+        }
+      }
+
       .foldable {
         width: 100%;
         margin-bottom: 20px;
@@ -417,7 +441,8 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
 
           .foldableIcon {
             transition: 0.4s ease;
-            flex: right;
+            display: flex;
+            align-items: center;
 
             &.active {
               transform: rotate(90deg);
