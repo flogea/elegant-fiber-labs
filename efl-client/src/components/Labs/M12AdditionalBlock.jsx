@@ -1,4 +1,5 @@
 import React from 'react';
+import InputWithPreview from '../../components/Labs/InputWithPreview';
 
 function M12AdditionalBlock({ receivedPhotos }) {
   const [randomArray, setRandomArray] = React.useState([]);
@@ -128,20 +129,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp1"
             />
           ))}
-        <div className="input-file png">
-          <input
-            type="file"
-            name="file1png"
-            onChange={(e) => setDataName({ ...dataName, file1png: e.target.files[0].name })}
-            required="required"
-            id="upload__input__png11"
-            accept=".png"
-          />
-          <label htmlFor="upload__input__png11">Файл</label>
-        </div>
-        <span id="output__data1png" className="output__span">
-          {dataName.file1png}
-        </span>
+        <InputWithPreview ext="png" num={1_1} />
       </div>
 
       <div className="centeredInRow">
@@ -166,20 +154,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp2"
             />
           ))}
-        <div className="input-file png">
-          <input
-            type="file"
-            name="file2png"
-            onChange={(e) => setDataName({ ...dataName, file2png: e.target.files[0].name })}
-            required="required"
-            id="upload__input__png12"
-            accept=".png"
-          />
-          <label htmlFor="upload__input__png12">Файл</label>
-        </div>
-        <span id="output__data2png" className="output__span">
-          {dataName.file2png}
-        </span>
+        <InputWithPreview ext="png" num={2_1} />
       </div>
 
       <div className="centeredInRow">
@@ -204,20 +179,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp3"
             />
           ))}
-        <div className="input-file png">
-          <input
-            type="file"
-            name="file3png"
-            onChange={(e) => setDataName({ ...dataName, file3png: e.target.files[0].name })}
-            required="required"
-            id="upload__input__png3"
-            accept=".png"
-          />
-          <label htmlFor="upload__input__png3">Файл</label>
-        </div>
-        <span id="output__data3png" className="output__span">
-          {dataName.file3png}
-        </span>
+        <InputWithPreview ext="png" num={3_1} />
       </div>
 
       <div className="centeredInRow">
@@ -242,20 +204,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp4"
             />
           ))}
-        <div className="input-file png">
-          <input
-            type="file"
-            name="file4png"
-            onChange={(e) => setDataName({ ...dataName, file4png: e.target.files[0].name })}
-            required="required"
-            id="upload__input__png4"
-            accept=".png"
-          />
-          <label htmlFor="upload__input__png4">Файл</label>
-        </div>
-        <span id="output__data4png" className="output__span">
-          {dataName.file4png}
-        </span>
+        <InputWithPreview ext="png" num={4_1} />
       </div>
       <hr />
     </>

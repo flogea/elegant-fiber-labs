@@ -26,6 +26,7 @@ import M12AdditionalBlock from '../../components/Labs/M12AdditionalBlock';
 import kakietoSignals_white from '../../images/M12/kakietoSignals_white.svg';
 import driver7seg_white from '../../images/M12/driver7seg_white.svg';
 import driverascii_white from '../../images/M12/driverascii_white.svg';
+import InputWithPreview from '../../components/Labs/InputWithPreview';
 
 function M12() {
   const lab_name = 'M12';
@@ -129,11 +130,7 @@ function M12() {
           output4: dataTable.output4,
         });
 
-        for (let i = 1; i < 113; i++) {
-          if (dataTable[i]) {
-            setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
-          }
-        }
+        setArrayOfTable(dataTable.dataArray[0]);
       }
     });
   };
@@ -1981,20 +1978,7 @@ function M12() {
                 </span>
               </pre>
 
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file1"
-                  onChange={(e) => setDataName({ ...dataName, file1: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog1"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog1"></label>
-              </div>
-              <span id="output__data1" className="output__span">
-                {dataName.file1}
-              </span>
+              <InputWithPreview ext="v" num={1} />
 
               <p>
                 6 Выполните анализ и синтез проекта (Ctrl + K). Исправьте ошибки, если таковые
@@ -2003,20 +1987,7 @@ function M12() {
               <p>7 Получите и изучите RTL-схему модуля.</p>
               <p>8 Сохраните RTL-схему в pdf.</p>
 
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file2"
-                  onChange={(e) => setDataName({ ...dataName, file2: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf1"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf1"></label>
-              </div>
-              <span id="output__data2" className="output__span">
-                {dataName.file2}
-              </span>
+              <InputWithPreview ext="pdf" num={2} />
 
               <p>
                 9 Произведите функциональную симуляцию модуля{' '}
@@ -2034,20 +2005,8 @@ function M12() {
                 этом разверните все шины.
               </p>
 
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file3"
-                  onChange={(e) => setDataName({ ...dataName, file3: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png1"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png1"></label>
-              </div>
-              <span id="output__data3" className="output__span">
-                {dataName.file3}
-              </span>
+              <InputWithPreview ext="png" num={3} />
+
               {withBoard ? <M12AdditionalBlock receivedPhotos={receivedPhotos} /> : null}
 
               <div className="content-image">
@@ -2212,20 +2171,7 @@ function M12() {
                 [8*1-1:0].
               </p>
 
-              <div className="input-file verilog">
-                <input
-                  type="file"
-                  name="file4"
-                  onChange={(e) => setDataName({ ...dataName, file4: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__verilog2"
-                  accept=".v"
-                />
-                <label htmlFor="upload__input__verilog2"></label>
-              </div>
-              <span id="output__data4" className="output__span">
-                {dataName.file4}
-              </span>
+              <InputWithPreview ext="v" num={4} />
 
               <p>
                 18 Выполните анализ и синтез проекта (Ctrl + K). Исправьте ошибки, если таковые
@@ -2234,20 +2180,7 @@ function M12() {
               <p>19 Получите и изучите RTL-схему модуля.</p>
               <p>20 Сохраните RTL-схему в pdf</p>
 
-              <div className="input-file pdf">
-                <input
-                  type="file"
-                  name="file5"
-                  onChange={(e) => setDataName({ ...dataName, file5: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__pdf2"
-                  accept=".pdf"
-                />
-                <label htmlFor="upload__input__pdf2"></label>
-              </div>
-              <span id="output__data5" className="output__span">
-                {dataName.file5}
-              </span>
+              <InputWithPreview ext="pdf" num={5} />
 
               <p>
                 21 Произведите функциональную симуляцию модуля driverascii. В качестве входных
@@ -2256,20 +2189,7 @@ function M12() {
                 нс рекомендуется задать инструментом Count Value.
               </p>
 
-              <div className="input-file png">
-                <input
-                  type="file"
-                  name="file6"
-                  onChange={(e) => setDataName({ ...dataName, file6: e.target.files[0].name })}
-                  required="required"
-                  id="upload__input__png2"
-                  accept=".png"
-                />
-                <label htmlFor="upload__input__png2"></label>
-              </div>
-              <span id="output__data6" className="output__span">
-                {dataName.file6}
-              </span>
+              <InputWithPreview ext="png" num={6} />
 
               <p>
                 22 Сохраните результат симуляции в виде скриншота промежутка от 0 до 240 нс, при
