@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
+const mime = require('mime-types');
 
 const M11model = require('../models/M11model');
 const Summary = require('../models/Summary');
@@ -9,25 +9,30 @@ const { format } = require('date-fns');
 class m11_controller {
   async getFiles(req, res) {
     try {
-      const { id } = req.params;
-      // const pattern = `**/${id}*.*`;
-      // const pathToFile = path.join(__dirname, `./../Files/M11`);
-      // console.log(pathToFile);
+      const { id, i } = req.params;
 
-      glob(__dirname + '/**/*', (err, files) => {
-        console.log(files);
+      const directoryPath = path.join(__dirname, './../Files/M11');
+
+      fs.readdir(directoryPath, (err, files) => {
         if (err) {
-          console.log(err);
-          res.status(500).send('Internal Server Error');
-        } else {
-          console.log(files);
-          // res.send(files);
+          return console.log('Unable to scan directory: ' + err);
         }
-      });
-      // const file = path.join(__dirname, `./../Files/M11/${id}`);
-      // console.log(file);
 
-      // res.status(200).sendFile(file);
+        const filteredFiles = files.filter((file) => file.includes(id));
+
+        const filePath = path.join(directoryPath, `${filteredFiles[i]}`);
+
+        fs.readFile(filePath, function (err, data) {
+          if (err) {
+            return console.log('Unable to read file: ' + err);
+          }
+          const contentType = mime.lookup(filePath);
+          res.writeHead(200, {
+            'Content-Type': contentType,
+          });
+          res.end(data);
+        });
+      });
     } catch (error) {
       console.log(error.message);
       res.status(500).json('error send files m11 ', error);

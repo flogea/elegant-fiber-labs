@@ -12,6 +12,8 @@ import m11Qr from '../../images/qr/m11.png';
 import { Context } from '../../Context';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
+import { setFileURL } from '../../redux/slices/fileURLSlice';
+
 import Foldable from '../../components/Labs/Foldable';
 
 import pic1 from '../../images/M11/kcu.png';
@@ -37,6 +39,7 @@ function M11() {
   const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
   const performers = useSelector((state) => state.PerformerSlice);
   const dataName = useSelector((state) => state.fileNameSlice);
+  const fileURL = useSelector((state) => state.fileURLSlice);
   const dispatch = useDispatch();
 
   const [id_lab, setIdLab] = React.useState('');
@@ -588,7 +591,7 @@ function M11() {
       </table>,
     );
   }
-  const [url, setUrl] = React.useState('');
+
   const findData = async (event) => {
     event.preventDefault();
 
@@ -629,14 +632,14 @@ function M11() {
       setDisabledInp(true);
     });
 
-    // await axios
-    //   .get('/api/labs/m11GetFiles/' + currentId, { responseType: 'blob' })
-    //   .then((response) => {
-    //     console.log(response, response.data);
-    //     // const url = URL.createObjectURL(response.data);
-    //     setUrl(URL.createObjectURL(response.data));
-    //     console.log(url);
-    //   });
+    for (let i = 0; i < 6; i++) {
+      await axios
+        .get('/api/labs/m11GetFiles/' + currentId + '/' + i, { responseType: 'blob' })
+        .then((response) => {
+          const currentUrl = URL.createObjectURL(response.data).toString();
+          dispatch(setFileURL({ [`file${[i + 1]}URL`]: `${currentUrl}` }));
+        });
+    }
   };
 
   const saveHandler = async (event) => {
@@ -721,7 +724,6 @@ function M11() {
         <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
         <form ref={formRef}>
           <Performers />
-          {/* <iframe src={url} frameborder="0"></iframe> */}
           <div className="foldable__content">
             <Foldable header="Продолжить работу">
               <div
