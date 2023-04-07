@@ -721,6 +721,10 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       align-items: center;
       margin: 0 5px 15px 5px;
 
+      .foldable__content {
+        width: 40%;
+      }
+
       p {
         margin: 0 5px;
         margin-bottom: 15px;
@@ -736,7 +740,9 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       }
 
       .output__span {
+        width: 20%;
         text-align: left;
+        word-break: break-all;
       }
 
       .oneCharacterInp {

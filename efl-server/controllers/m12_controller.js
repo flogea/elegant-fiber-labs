@@ -1,11 +1,44 @@
 const fs = require('fs');
 const path = require('path');
+const mime = require('mime-types');
 
 const M12model = require('../models/M12model');
 const Summary = require('../models/Summary');
 const { format } = require('date-fns');
 
 class m12_controller {
+  async getFiles(req, res) {
+    try {
+      const { id, i } = req.params;
+
+      const directoryPath = path.join(__dirname, './../Files/M12');
+
+      fs.readdir(directoryPath, (err, files) => {
+        if (err) {
+          return console.log('Unable to scan directory: ' + err);
+        }
+
+        const filteredFiles = files.filter((file) => file.includes(id));
+
+        const filePath = path.join(directoryPath, `${filteredFiles[i]}`);
+
+        fs.readFile(filePath, function (err, data) {
+          if (err) {
+            return console.log('Unable to read file: ' + err);
+          }
+          const contentType = mime.lookup(filePath);
+          res.writeHead(200, {
+            'Content-Type': contentType,
+          });
+          res.end(data);
+        });
+      });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json('error send files m12 ', error);
+    }
+  }
+
   async getData(req, res) {
     try {
       const { id } = req.params;
@@ -85,20 +118,20 @@ class m12_controller {
               newFileName = id_lab + '_122_sim.png';
               formData[oneObj].name = id_lab + '_122_sim.png';
               break;
-            case 'file1png':
-              newFileName = id_lab + '_1211_pr.png';
+            case 'file_1':
+              newFileName = id_lab + '_12_11_pr.png';
               formData[oneObj].name = id_lab + '_1211_pr.png';
               break;
-            case 'file2png':
-              newFileName = id_lab + '_1212_pr.png';
+            case 'file_2':
+              newFileName = id_lab + '_12_12_pr.png';
               formData[oneObj].name = id_lab + '_1212_pr.png';
               break;
-            case 'file3png':
-              newFileName = id_lab + '_1213_pr.png';
+            case 'file_3':
+              newFileName = id_lab + '_12_13_pr.png';
               formData[oneObj].name = id_lab + '_1213_pr.png';
               break;
-            case 'file4png':
-              newFileName = id_lab + '_1214_pr.png';
+            case 'file_4':
+              newFileName = id_lab + '_12_14_pr.png';
               formData[oneObj].name = id_lab + '_1214_pr.png';
               break;
             case 'avatar':
@@ -162,30 +195,30 @@ class m12_controller {
                       : formData.file6 === undefined
                       ? result.file6
                       : formData.file6.name,
-                  file1png:
+                  file_1:
                     formData === null
-                      ? result.file1png
-                      : formData.file1png === undefined
-                      ? result.file1png
-                      : formData.file1png.name,
-                  file2png:
+                      ? result.file_1
+                      : formData.file_1 === undefined
+                      ? result.file_1
+                      : formData.file_1.name,
+                  file_2:
                     formData === null
-                      ? result.file2png
-                      : formData.file2png === undefined
-                      ? result.file2png
-                      : formData.file2png.name,
-                  file3png:
+                      ? result.file_2
+                      : formData.file_2 === undefined
+                      ? result.file_2
+                      : formData.file_2.name,
+                  file_3:
                     formData === null
-                      ? result.file3png
-                      : formData.file3png === undefined
-                      ? result.file3png
-                      : formData.file3png.name,
-                  file4png:
+                      ? result.file_3
+                      : formData.file_3 === undefined
+                      ? result.file_3
+                      : formData.file_3.name,
+                  file_4:
                     formData === null
-                      ? result.file4png
-                      : formData.file4png === undefined
-                      ? result.file4png
-                      : formData.file4png.name,
+                      ? result.file_4
+                      : formData.file_4 === undefined
+                      ? result.file_4
+                      : formData.file_4.name,
                 },
                 {
                   new: true,
@@ -290,30 +323,30 @@ class m12_controller {
                         : formData.file6 === undefined
                         ? result.file6
                         : formData.file6.name,
-                    file1png:
+                    file_1:
                       formData === null
-                        ? result.file1png
-                        : formData.file1png === undefined
-                        ? result.file1png
-                        : formData.file1png.name,
-                    file2png:
+                        ? result.file_1
+                        : formData.file_1 === undefined
+                        ? result.file_1
+                        : formData.file_1.name,
+                    file_2:
                       formData === null
-                        ? result.file2png
-                        : formData.file2png === undefined
-                        ? result.file2png
-                        : formData.file2png.name,
-                    file3png:
+                        ? result.file_2
+                        : formData.file_2 === undefined
+                        ? result.file_2
+                        : formData.file_2.name,
+                    file_3:
                       formData === null
-                        ? result.file3png
-                        : formData.file3png === undefined
-                        ? result.file3png
-                        : formData.file3png.name,
-                    file4png:
+                        ? result.file_3
+                        : formData.file_3 === undefined
+                        ? result.file_3
+                        : formData.file_3.name,
+                    file_4:
                       formData === null
-                        ? result.file4png
-                        : formData.file4png === undefined
-                        ? result.file4png
-                        : formData.file4png.name,
+                        ? result.file_4
+                        : formData.file_4 === undefined
+                        ? result.file_4
+                        : formData.file_4.name,
                   },
                   {
                     new: true,
@@ -523,33 +556,33 @@ class m12_controller {
                       ? null
                       : formData.file6.name,
                   output1: output1 === undefined || null ? null : output1,
-                  file1png:
+                  file_1:
                     formData === null
                       ? null
-                      : formData.file1png === undefined
+                      : formData.file_1 === undefined
                       ? null
-                      : formData.file1png.name,
+                      : formData.file_1.name,
                   output2: output2 === undefined || null ? null : output2,
-                  file2png:
+                  file_2:
                     formData === null
                       ? null
-                      : formData.file2png === undefined
+                      : formData.file_2 === undefined
                       ? null
-                      : formData.file2png.name,
+                      : formData.file_2.name,
                   output3: output3 === undefined || null ? null : output3,
-                  file3png:
+                  file_3:
                     formData === null
                       ? null
-                      : formData.file3png === undefined
+                      : formData.file_3 === undefined
                       ? null
-                      : formData.file3png.name,
+                      : formData.file_3.name,
                   output4: output4 === undefined || null ? null : output4,
-                  file4png:
+                  file_4:
                     formData === null
                       ? null
-                      : formData.file4png === undefined
+                      : formData.file_4 === undefined
                       ? null
-                      : formData.file4png.name,
+                      : formData.file_4.name,
                 });
                 await m12.save();
 

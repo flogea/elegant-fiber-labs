@@ -12,6 +12,8 @@ import Foldable from '../../components/Labs/Foldable';
 import preloader from '../../images/Infinity.gif';
 import ParticlesBG from '../../components/ParticlesBG';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
+import { setFileName } from '../../redux/slices/fileNameSlice';
+import { setFileURL } from '../../redux/slices/fileURLSlice';
 
 import sevenSegmentIndicator from '../../images/M12/sevenSegmentIndicator.png';
 import schemeOfIndicator from '../../images/M12/schemeOfIndicator.png';
@@ -36,6 +38,7 @@ function M12() {
 
   const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
   const performers = useSelector((state) => state.PerformerSlice);
+  const dataName = useSelector((state) => state.fileNameSlice);
 
   const dispatch = useDispatch();
 
@@ -46,19 +49,7 @@ function M12() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const [arrayOfTable, setArrayOfTable] = React.useState({});
-  const [dataName, setDataName] = React.useState({
-    file1: '',
-    file2: '',
-    file3: '',
-    file4: '',
-    file5: '',
-    file6: '',
-  });
   const [receivedPhotos, setReceivedPhotos] = React.useState({
-    file1png: '',
-    file2png: '',
-    file3png: '',
-    file4png: '',
     output1: '',
     output2: '',
     output3: '',
@@ -81,9 +72,32 @@ function M12() {
     localStorage.setItem('withBoard', JSON.stringify(withBoard));
   }, [withBoard]);
 
-  // React.useEffect(() => {
-  //   console.log(arrayOfTable);
-  // }, [arrayOfTable]);
+  React.useEffect(() => {
+    const dataNameLength = Object.values(dataName).filter(
+      (val) => val !== '' && val !== null,
+    ).length;
+
+    try {
+      let counter = 0;
+      for (const obj in dataName) {
+        if (Object.hasOwnProperty.call(dataName, obj)) {
+          const element = dataName[obj];
+          console.log(obj, element);
+          if (element) {
+            axios
+              .get('/api/labs/m12GetFiles/' + currentId + '/' + counter, { responseType: 'blob' })
+              .then((response) => {
+                const currentUrl = URL.createObjectURL(response.data).toString();
+                dispatch(setFileURL({ [`${obj}URL`]: `${currentUrl}` }));
+              });
+            counter++;
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dataName]);
 
   const findData = async (event) => {
     event.preventDefault();
@@ -110,20 +124,23 @@ function M12() {
       }
 
       if (dataTable) {
-        setDataName({
-          file1: dataTable.file1,
-          file2: dataTable.file2,
-          file3: dataTable.file3,
-          file4: dataTable.file4,
-          file5: dataTable.file5,
-          file6: dataTable.file6,
-        });
+        console.log(dataTable);
+        dispatch(
+          setFileName({
+            file1: dataTable.file1,
+            file2: dataTable.file2,
+            file3: dataTable.file3,
+            file4: dataTable.file4,
+            file5: dataTable.file5,
+            file6: dataTable.file6,
+            file_1: dataTable.file_1,
+            file_2: dataTable.file_2,
+            file_3: dataTable.file_3,
+            file_4: dataTable.file_4,
+          }),
+        );
 
         setReceivedPhotos({
-          file1png: dataTable.file1png,
-          file2png: dataTable.file2png,
-          file3png: dataTable.file3png,
-          file4png: dataTable.file4png,
           output1: dataTable.output1,
           output2: dataTable.output2,
           output3: dataTable.output3,

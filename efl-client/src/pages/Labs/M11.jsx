@@ -39,7 +39,7 @@ function M11() {
   const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
   const performers = useSelector((state) => state.PerformerSlice);
   const dataName = useSelector((state) => state.fileNameSlice);
-  const fileURL = useSelector((state) => state.fileURLSlice);
+
   const dispatch = useDispatch();
 
   const [id_lab, setIdLab] = React.useState('');

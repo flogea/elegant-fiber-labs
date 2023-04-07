@@ -14,10 +14,10 @@ const initialState = {
   file11: '',
   file12: '',
   file13: '',
-  file1_1: '',
-  file2_1: '',
-  file3_1: '',
-  file4_1: '',
+  file_1: '',
+  file_2: '',
+  file_3: '',
+  file_4: '',
 };
 
 const fileNameSlice = createSlice({

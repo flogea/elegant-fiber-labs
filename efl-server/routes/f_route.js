@@ -28,6 +28,7 @@ router.post('/m11save', m11_controller.saveData, (req, res) => {
 });
 
 router.get('/m12save/:id', m12_controller.getData);
+router.get('/m12GetFiles/:id/:i', m12_controller.getFiles);
 router.post('/m12', checkKey, m12_controller.saveData, m12_controller.addData, runScriptMW);
 router.post('/m12save', m12_controller.saveData, (req, res) => {
   const id_lab = res.locals.id_lab;

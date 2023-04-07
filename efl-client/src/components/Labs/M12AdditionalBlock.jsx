@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import InputWithPreview from '../../components/Labs/InputWithPreview';
+import { setFileName } from '../../redux/slices/fileNameSlice';
 
 function M12AdditionalBlock({ receivedPhotos }) {
   const [randomArray, setRandomArray] = React.useState([]);
@@ -7,13 +10,10 @@ function M12AdditionalBlock({ receivedPhotos }) {
   const [isBtnExist, setisBtnExist] = React.useState(true);
   const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
   const [isInpExist, setisInpExist] = React.useState(false);
-  const [dataName, setDataName] = React.useState({
-    file1png: '',
-    file2png: '',
-    file3png: '',
-    file4png: '',
-  });
-  console.log(receivedPhotos);
+
+  const dataName = useSelector((state) => state.fileNameSlice);
+
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     Object.values(receivedPhotos).forEach((element) => {
@@ -22,12 +22,6 @@ function M12AdditionalBlock({ receivedPhotos }) {
         setisBtnExist(false);
         setisInpExist(true);
 
-        setDataName({
-          file1png: receivedPhotos.file1png,
-          file2png: receivedPhotos.file2png,
-          file3png: receivedPhotos.file3png,
-          file4png: receivedPhotos.file4png,
-        });
         setRandomArray([
           receivedPhotos.output1,
           receivedPhotos.output2,
@@ -129,7 +123,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp1"
             />
           ))}
-        <InputWithPreview ext="png" num={1_1} />
+        <InputWithPreview ext="png" num="_1" />
       </div>
 
       <div className="centeredInRow">
@@ -154,7 +148,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp2"
             />
           ))}
-        <InputWithPreview ext="png" num={2_1} />
+        <InputWithPreview ext="png" num="_2" />
       </div>
 
       <div className="centeredInRow">
@@ -179,7 +173,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp3"
             />
           ))}
-        <InputWithPreview ext="png" num={3_1} />
+        <InputWithPreview ext="png" num="_3" />
       </div>
 
       <div className="centeredInRow">
@@ -204,7 +198,7 @@ function M12AdditionalBlock({ receivedPhotos }) {
               id="generatedInp4"
             />
           ))}
-        <InputWithPreview ext="png" num={4_1} />
+        <InputWithPreview ext="png" num="_4" />
       </div>
       <hr />
     </>
@@ -212,3 +206,4 @@ function M12AdditionalBlock({ receivedPhotos }) {
 }
 
 export default React.memo(M12AdditionalBlock);
+// export default M12AdditionalBlock;

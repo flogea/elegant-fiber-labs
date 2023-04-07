@@ -14,10 +14,10 @@ const initialState = {
   file11URL: '',
   file12URL: '',
   file13URL: '',
-  file1_1URL: '',
-  file2_1URL: '',
-  file3_1URL: '',
-  file4_1URL: '',
+  file_1URL: '',
+  file_2URL: '',
+  file_3URL: '',
+  file_4URL: '',
 };
 
 const fileURLSlice = createSlice({

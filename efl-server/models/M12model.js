@@ -11,13 +11,13 @@ const schema = new Schema({
   file5: { type: String },
   file6: { type: String },
   output1: { type: String },
-  file1png: { type: String },
+  file_1: { type: String },
   output2: { type: String },
-  file2png: { type: String },
+  file_2: { type: String },
   output3: { type: String },
-  file3png: { type: String },
+  file_3: { type: String },
   output4: { type: String },
-  file4png: { type: String },
+  file_4: { type: String },
 });
 
 module.exports = model('M12model', schema);
