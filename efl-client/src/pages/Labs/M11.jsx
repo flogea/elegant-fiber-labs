@@ -144,6 +144,35 @@ function M11() {
     );
   }, [str]);
 
+  React.useEffect(() => {
+    console.log(Object.values(dataName).filter((val) => val !== '' && val !== null).length);
+
+    const dataNameLength = Object.values(dataName).filter(
+      (val) => val !== '' && val !== null,
+    ).length;
+
+    try {
+      let counter = 0;
+      for (const obj in dataName) {
+        if (Object.hasOwnProperty.call(dataName, obj)) {
+          const element = dataName[obj];
+          if (element) {
+            console.log(counter, obj);
+            axios
+              .get('/api/labs/m11GetFiles/' + currentId + '/' + counter, { responseType: 'blob' })
+              .then((response) => {
+                const currentUrl = URL.createObjectURL(response.data).toString();
+                dispatch(setFileURL({ [`${obj}URL`]: `${currentUrl}` }));
+              });
+            counter++;
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dataName]);
+
   function TableGenerate(e) {
     e.preventDefault();
     const alphabet = [
@@ -631,15 +660,6 @@ function M11() {
       }
       setDisabledInp(true);
     });
-
-    for (let i = 0; i < 6; i++) {
-      await axios
-        .get('/api/labs/m11GetFiles/' + currentId + '/' + i, { responseType: 'blob' })
-        .then((response) => {
-          const currentUrl = URL.createObjectURL(response.data).toString();
-          dispatch(setFileURL({ [`file${[i + 1]}URL`]: `${currentUrl}` }));
-        });
-    }
   };
 
   const saveHandler = async (event) => {
