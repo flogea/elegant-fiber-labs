@@ -696,25 +696,37 @@ class m12_controller {
 
               const m12Obj = await M12model.find({ id_lab })
                 .then((result) => {
-                  console.log(result);
                   return result;
                 })
                 .catch((err) => res.status(500).json(err));
 
               const summaryObj = await Summary.find({ id_lab })
                 .then((result) => {
-                  console.log(result);
                   return result;
                 })
                 .catch((err) => res.status(500).json(err));
 
               const { group, email, performers, lab_name, photo } = summaryObj[0];
-              const { file1, file2, file3, file4, file5, file6, withBoard, dataArray } = m12Obj[0];
+              const {
+                file1,
+                file2,
+                file3,
+                file4,
+                file5,
+                file6,
+                file_1,
+                file_2,
+                file_3,
+                file_4,
+                output1,
+                output2,
+                output3,
+                output4,
+                withBoard,
+                dataArray,
+              } = m12Obj[0];
               const { quantity } = req.body;
-              console.log(m12Obj);
               res.locals.lab_name = lab_name;
-
-              console.log(file1, file2, file3, file4, file5, file6);
 
               let str = '';
               for (const [key, value] of Object.entries(dataArray[0])) {
@@ -723,8 +735,6 @@ class m12_controller {
                 }
                 str += value + '\n';
               }
-
-              console.log(str);
 
               let timeId = new Date();
               const newData = [
@@ -743,6 +753,22 @@ class m12_controller {
                   withBoard +
                   '\n' +
                   str +
+                  output1 +
+                  '\n' +
+                  (file_1 === undefined ? null : file_1) +
+                  '\n' +
+                  output2 +
+                  '\n' +
+                  (file_2 === undefined ? null : file_2) +
+                  '\n' +
+                  output3 +
+                  '\n' +
+                  (file_3 === undefined ? null : file_3) +
+                  '\n' +
+                  output4 +
+                  '\n' +
+                  (file_4 === undefined ? null : file_4) +
+                  '\n' +
                   (file1 === undefined ? null : file1) +
                   '\n' +
                   (file2 === undefined ? null : file2) +

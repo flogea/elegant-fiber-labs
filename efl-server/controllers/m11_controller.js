@@ -469,7 +469,7 @@ class m11_controller {
               const { group, email, performers, lab_name } = summaryObj[0];
               const { file1, file2, file3, file4, file5, file6, data } = m11Obj[0];
               const { quantity } = req.body;
-              console.log(m11Obj);
+              console.log('m11obj', m11Obj);
               res.locals.lab_name = lab_name;
 
               console.log(file1, file2, file3, file4, file5, file6);
