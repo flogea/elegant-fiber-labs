@@ -49,6 +49,7 @@ function M12() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const [arrayOfTable, setArrayOfTable] = React.useState({});
+  const [getDataFromDb, setGetDataFromDB] = React.useState(false);
   const [receivedPhotos, setReceivedPhotos] = React.useState({
     output1: '',
     output2: '',
@@ -97,7 +98,7 @@ function M12() {
     } catch (error) {
       console.log(error);
     }
-  }, [dataName]);
+  }, [getDataFromDb]);
 
   const findData = async (event) => {
     event.preventDefault();
@@ -148,6 +149,7 @@ function M12() {
         });
 
         setArrayOfTable(dataTable.dataArray[0]);
+        setGetDataFromDB(true);
       }
     });
   };
