@@ -19,6 +19,7 @@ import InputWithPreview from '../../components/Labs/InputWithPreview';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setArray } from '../../redux/slices/ArraySlice';
+import { setFileURL } from '../../redux/slices/fileURLSlice';
 
 function M13() {
   const lab_name = 'M13';
@@ -52,17 +53,26 @@ function M13() {
   const [isBtnExist2, setisBtnExist2] = React.useState(true);
   const [isBtnEnterExist2, setisBtnEnterExist2] = React.useState(true);
   const [tableState, setTableState] = React.useState(false);
-  const [lastRange1, setLastRange1] = React.useState([
-    table1data.hexNumbers[Math.floor(Math.random() * table1data.hexNumbers.length)],
-    Math.floor(Math.random() * 6) + 3,
-  ]);
-  const [lastRange2, setLastRange2] = React.useState([
-    table2data.hexNumbers[Math.floor(Math.random() * table2data.hexNumbers.length)],
-    Math.floor(Math.random() * 6) + 3,
-  ]);
+  const [lastRange1, setLastRange1] = React.useState([]);
+  const [lastRange2, setLastRange2] = React.useState([]);
+  const [getDataFromDb, setGetDataFromDB] = React.useState(false);
 
   const dispatch = useDispatch();
   const formRef = React.useRef();
+
+  React.useEffect(() => {
+    setLastRange1([
+      table1data.hexNumbers[Math.floor(Math.random() * table1data.hexNumbers.length)],
+      Math.floor(Math.random() * 6) + 3,
+    ]);
+  }, [table1data]);
+
+  React.useEffect(() => {
+    setLastRange2([
+      table2data.hexNumbers[Math.floor(Math.random() * table2data.hexNumbers.length)],
+      Math.floor(Math.random() * 6) + 3,
+    ]);
+  }, [table2data]);
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
@@ -72,6 +82,32 @@ function M13() {
   React.useEffect(() => {
     localStorage.setItem('withBoard', JSON.stringify(withBoard));
   }, [withBoard]);
+
+  React.useEffect(() => {
+    const dataNameLength = Object.values(fileName).filter(
+      (val) => val !== '' && val !== null,
+    ).length;
+
+    try {
+      let counter = 0;
+      for (const obj in fileName) {
+        if (Object.hasOwnProperty.call(fileName, obj)) {
+          const element = fileName[obj];
+          if (element) {
+            axios
+              .get('/api/labs/m13GetFiles/' + currentId + '/' + counter, { responseType: 'blob' })
+              .then((response) => {
+                const currentUrl = URL.createObjectURL(response.data).toString();
+                dispatch(setFileURL({ [`${obj}URL`]: `${currentUrl}` }));
+              });
+            counter++;
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [getDataFromDb]);
 
   function generateHexNumbers() {
     const hexNumbers = [];
@@ -85,7 +121,7 @@ function M13() {
 
   function generateRandomRange() {
     const rangeTable = [];
-    while (rangeTable.length < 10) {
+    while (rangeTable.length < 9) {
       let randomNumber = Math.floor(Math.random() * 31) * 5 + 5;
       if (!rangeTable.includes(randomNumber)) {
         rangeTable.push(randomNumber);
@@ -112,6 +148,25 @@ function M13() {
           </tr>
           <tr>
             <td className="halfCell">
+              <input type="text" defaultValue={0} readOnly className="halfInp right" />
+              {' — '}
+              <input
+                type="text"
+                defaultValue={array.length ? array[0] : ''}
+                readOnly={!manualEnter}
+                className="halfInp left"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                defaultValue={hexArray.length ? hexArray[0] : ''}
+                readOnly={!manualEnter}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="halfCell">
               <input
                 type="text"
                 defaultValue={array.length ? array[0] : ''}
@@ -129,7 +184,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[0] : ''}
+                defaultValue={hexArray.length ? hexArray[1] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -153,7 +208,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[1] : ''}
+                defaultValue={hexArray.length ? hexArray[2] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -177,7 +232,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[2] : ''}
+                defaultValue={hexArray.length ? hexArray[3] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -201,7 +256,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[3] : ''}
+                defaultValue={hexArray.length ? hexArray[4] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -225,7 +280,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[4] : ''}
+                defaultValue={hexArray.length ? hexArray[5] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -249,7 +304,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[5] : ''}
+                defaultValue={hexArray.length ? hexArray[6] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -273,7 +328,7 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[6] : ''}
+                defaultValue={hexArray.length ? hexArray[7] : ''}
                 readOnly={!manualEnter}
               />
             </td>
@@ -297,30 +352,6 @@ function M13() {
             <td>
               <input
                 type="text"
-                defaultValue={hexArray.length ? hexArray[7] : ''}
-                readOnly={!manualEnter}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="halfCell">
-              <input
-                type="text"
-                defaultValue={array.length ? array[8] : ''}
-                readOnly={!manualEnter}
-                className="halfInp right"
-              />
-              {' — '}
-              <input
-                type="text"
-                defaultValue={array.length ? array[9] : ''}
-                readOnly={!manualEnter}
-                className="halfInp left"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
                 defaultValue={hexArray.length ? hexArray[8] : ''}
                 readOnly={!manualEnter}
               />
@@ -330,7 +361,7 @@ function M13() {
             <td className="halfCell">
               <input
                 type="text"
-                defaultValue={array.length ? array[9] : ''}
+                defaultValue={array.length ? array[8] : ''}
                 readOnly={!manualEnter}
                 className="halfInp right"
               />
@@ -381,7 +412,6 @@ function M13() {
       if (dataSummary) {
         dispatch(
           setPerformers({
-            // ...performers,
             performers: dataSummary.performers,
             group: dataSummary.group,
             email: dataSummary.email,
@@ -399,32 +429,34 @@ function M13() {
         setisBtnExist(false);
         setisBtnExist2(false);
 
-        // dispatch(setFileName({}));
         dispatch(setArray(dataTable.additionalArray));
         setTable1data({ ...table1data, ranges: dataTable.range1, hexNumbers: dataTable.hex1 });
         setTable2data({ ...table2data, ranges: dataTable.range2, hexNumbers: dataTable.hex2 });
         setLastRange1(dataTable.lastRange1);
         setLastRange2(dataTable.lastRange2);
 
-        Object.keys(dataTable)
-          .filter((name) => name.includes('file'))
-          .map((name, index) => {
-            console.log(name, index);
-            dispatch(setFileName({ ...fileName, name: name, value: dataTable[name] }));
-          });
-
-        // for (const key in dataTable) {
-        //   if (Object.hasOwnProperty.call(dataTable, key)) {
-        //     const element = dataTable[key];
-        //   }
-        // }
-        // dispatch(setFileName({ ...fileName, [name]: dataTable[name] }));
-
-        // for (let i = 1; i < 113; i++) {
-        //   if (dataTable[i]) {
-        //     // setArrayOfTable((prev) => ({ ...prev, [i]: dataTable[i] }));
-        //   }
-        // }
+        dispatch(
+          setFileName({
+            file1: dataTable.file1,
+            file2: dataTable.file2,
+            file3: dataTable.file3,
+            file4: dataTable.file4,
+            file5: dataTable.file5,
+            file6: dataTable.file6,
+            file7: dataTable.file7,
+            file8: dataTable.file8,
+            file9: dataTable.file9,
+            file10: dataTable.file10,
+            file11: dataTable.file11,
+            file12: dataTable.file12,
+            file13: dataTable.file13,
+            file_1: dataTable.file_1,
+            file_2: dataTable.file_2,
+            file_3: dataTable.file_3,
+            file_4: dataTable.file_4,
+          }),
+        );
+        setGetDataFromDB(true);
       }
     });
   };
@@ -435,11 +467,6 @@ function M13() {
     const formData = new FormData(formRef.current);
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
-    // for (let i = 0; i < Object.values(arrayOfTable).length; i++) {
-    //   formData.delete(`${i}`);
-    // }
-    // formData.append('arrayOfTable', JSON.stringify(arrayOfTable));
-    // console.log(JSON.stringify(arrayOfTable));
 
     formData.append('range1', JSON.stringify(table1data.ranges));
     formData.append('hex1', JSON.stringify(table1data.hexNumbers));
@@ -448,6 +475,7 @@ function M13() {
     formData.append('additionalArray', JSON.stringify(additionalArray));
     formData.append('lastRange1', JSON.stringify(lastRange1));
     formData.append('lastRange2', JSON.stringify(lastRange2));
+    formData.append('withBoard', +withBoard);
 
     console.log(Array.from(formData));
 
@@ -472,37 +500,39 @@ function M13() {
   };
 
   const labHandler = async (e) => {
-    // e.preventDefault();
-    // setIsLoading(true);
-    // const formData = new FormData(formRef.current);
-    // formData.append('lab_name', lab_name);
-    // formData.append('id_lab', id_lab);
-    // try {
-    //   for (let i = 1; i < Object.values(arrayOfTable).length; i++) {
-    //     formData.delete(`${i}`);
-    //   }
-    //   formData.append('arrayOfTable', JSON.stringify(arrayOfTable));
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // console.log(Array.from(formData));
-    // try {
-    //   await axios
-    //     .post('/api/labs/m12', formData, {
-    //       headers: {
-    //         'Content-type': 'multipart/form-data',
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       setIsLoading(false);
-    //       setIsSended(true);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    //   setIsLoading(false);
-    //   setIsSended('error');
-    // }
+    e.preventDefault();
+    setIsLoading(true);
+
+    const formData = new FormData(formRef.current);
+    formData.append('lab_name', lab_name);
+    formData.append('id_lab', id_lab);
+    formData.append('range1', JSON.stringify(table1data.ranges));
+    formData.append('hex1', JSON.stringify(table1data.hexNumbers));
+    formData.append('range2', JSON.stringify(table2data.ranges));
+    formData.append('hex2', JSON.stringify(table2data.hexNumbers));
+    formData.append('additionalArray', JSON.stringify(additionalArray));
+    formData.append('lastRange1', JSON.stringify(lastRange1));
+    formData.append('lastRange2', JSON.stringify(lastRange2));
+    formData.append('withBoard', +withBoard);
+
+    console.log(Array.from(formData));
+    try {
+      await axios
+        .post('/api/labs/m13', formData, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          setIsSended(true);
+        });
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsSended('error');
+    }
   };
 
   return (

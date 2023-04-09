@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
   id_lab: { type: String, unique: true, required: true },
+  withBoard: { type: Number },
   range1: { type: Array },
   hex1: { type: Array },
   lastRange1: { type: Array },
@@ -22,10 +23,10 @@ const schema = new Schema({
   file11: { type: String },
   file12: { type: String },
   file13: { type: String },
-  file1_1: { type: String },
-  file2_1: { type: String },
-  file3_1: { type: String },
-  file4_1: { type: String },
+  file_1: { type: String },
+  file_2: { type: String },
+  file_3: { type: String },
+  file_4: { type: String },
 });
 
 module.exports = model('M13model', schema);

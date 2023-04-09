@@ -1,15 +1,49 @@
 const fs = require('fs');
 const path = require('path');
+const mime = require('mime-types');
 
 const M13model = require('../models/M13model');
 const Summary = require('../models/Summary');
 const { format } = require('date-fns');
 
 class m13_controller {
+  async getFiles(req, res) {
+    try {
+      const { id, i } = req.params;
+
+      const directoryPath = path.join(__dirname, './../Files/M13');
+
+      fs.readdir(directoryPath, (err, files) => {
+        if (err) {
+          return console.log('Unable to scan directory: ' + err);
+        }
+
+        const filteredFiles = files.filter((file) => file.includes(id));
+        console.log(filteredFiles);
+
+        const filePath = path.join(directoryPath, `${filteredFiles[i]}`);
+
+        fs.readFile(filePath, function (err, data) {
+          if (err) {
+            return console.log('Unable to read file: ' + err);
+          }
+          const contentType = mime.lookup(filePath);
+          res.writeHead(200, {
+            'Content-Type': contentType,
+          });
+          res.end(data);
+        });
+      });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json('error send files m13 ', error);
+    }
+  }
+
   async getData(req, res) {
     try {
       const { id } = req.params;
-      console.log(req.params);
+      // console.log(req.params);
       const m13Obj = await M13model.find({ id_lab: id })
         .then((result) => {
           return result;
@@ -26,7 +60,7 @@ class m13_controller {
       const result = summaryObj.concat(m13Obj);
 
       //const result = Object.assign(summaryObj, m11Obj[0]);
-      console.log(result);
+      // console.log(result);
       res.status(200).json({ result });
     } catch (error) {
       console.log(error.message);
@@ -52,9 +86,13 @@ class m13_controller {
         additionalArray,
         lastRange1,
         lastRange2,
+        withBoard,
       } = req.body;
       const formData = req.files;
-      //const dataArray = arrayOfTable.split(',');
+      console.log(formData);
+
+      let currentId = 0;
+      labId ? (currentId = labId) : (currentId = id_lab);
 
       // RENAME FILES AND WRITE DATA TO FILE
       if (formData !== null) {
@@ -62,72 +100,76 @@ class m13_controller {
           let newFileName;
           switch (oneObj) {
             case 'file1':
-              newFileName = id_lab + '_131_dc.v';
-              formData[oneObj].name = id_lab + '_131_dc.v';
+              newFileName = currentId + '_131_dc.v';
+              formData[oneObj].name = currentId + '_131_dc.v';
               break;
             case 'file2':
-              newFileName = id_lab + '_131_rtl.pdf';
-              formData[oneObj].name = id_lab + '_131_rtl.pdf';
+              newFileName = currentId + '_131_rtl.pdf';
+              formData[oneObj].name = currentId + '_131_rtl.pdf';
               break;
             case 'file3':
-              newFileName = id_lab + '_131_sim.png';
-              formData[oneObj].name = id_lab + '_131_sim.png';
+              newFileName = currentId + '_131_sim.png';
+              formData[oneObj].name = currentId + '_131_sim.png';
               break;
             case 'file4':
-              newFileName = id_lab + '_132_cd.v';
-              formData[oneObj].name = id_lab + '_132_cd.v';
+              newFileName = currentId + '_132_cd.v';
+              formData[oneObj].name = currentId + '_132_cd.v';
               break;
             case 'file5':
-              newFileName = id_lab + '_132_rtl.pdf';
-              formData[oneObj].name = id_lab + '_132_rtl.pdf';
+              newFileName = currentId + '_132_rtl.pdf';
+              formData[oneObj].name = currentId + '_132_rtl.pdf';
               break;
             case 'file6':
-              newFileName = id_lab + '_132_sim.png';
-              formData[oneObj].name = id_lab + '_132_sim.png';
+              newFileName = currentId + '_132_sim.png';
+              formData[oneObj].name = currentId + '_132_sim.png';
               break;
             case 'file7':
-              newFileName = id_lab + '_133_add.v';
-              formData[oneObj].name = id_lab + '_133_add.v';
+              newFileName = currentId + '_133_add.v';
+              formData[oneObj].name = currentId + '_133_add.v';
               break;
             case 'file8':
-              newFileName = id_lab + '_133_sim.png';
-              formData[oneObj].name = id_lab + '_133_sim.png';
+              newFileName = currentId + '_133_sim.png';
+              formData[oneObj].name = currentId + '_133_sim.png';
               break;
             case 'file9':
-              newFileName = id_lab + '_134_add.v';
-              formData[oneObj].name = id_lab + '_134_add.v';
+              newFileName = currentId + '_134_add.v';
+              formData[oneObj].name = currentId + '_134_add.v';
               break;
             case 'file10':
-              newFileName = id_lab + '_134_sim.png';
-              formData[oneObj].name = id_lab + '_134_sim.png';
+              newFileName = currentId + '_134_sim.png';
+              formData[oneObj].name = currentId + '_134_sim.png';
               break;
             case 'file11':
-              newFileName = id_lab + '_135_add.v';
-              formData[oneObj].name = id_lab + '_135_add.v';
+              newFileName = currentId + '_135_add.v';
+              formData[oneObj].name = currentId + '_135_add.v';
               break;
             case 'file12':
-              newFileName = id_lab + '_135_rtl.pdf';
-              formData[oneObj].name = id_lab + '_135_rtl.pdf';
+              newFileName = currentId + '_135_rtl.pdf';
+              formData[oneObj].name = currentId + '_135_rtl.pdf';
               break;
             case 'file13':
-              newFileName = id_lab + '_135_sim.png';
-              formData[oneObj].name = id_lab + '_135_sim.png';
+              newFileName = currentId + '_135_sim.png';
+              formData[oneObj].name = currentId + '_135_sim.png';
               break;
-            case 'file1_1':
-              newFileName = id_lab + '_1351_pr.png';
-              formData[oneObj].name = id_lab + '_1351_pr.png';
+            case 'file_1':
+              newFileName = currentId + '_13_51_pr.png';
+              formData[oneObj].name = currentId + '_1351_pr.png';
               break;
-            case 'file2_1':
-              newFileName = id_lab + '_1352_pr.png';
-              formData[oneObj].name = id_lab + '_1352_pr.png';
+            case 'file_2':
+              newFileName = currentId + '_13_52_pr.png';
+              formData[oneObj].name = currentId + '_1352_pr.png';
               break;
-            case 'file3_1':
-              newFileName = id_lab + '_1353_pr.png';
-              formData[oneObj].name = id_lab + '_1353_pr.png';
+            case 'file_3':
+              newFileName = currentId + '_13_53_pr.png';
+              formData[oneObj].name = currentId + '_1353_pr.png';
               break;
-            case 'file4_1':
-              newFileName = id_lab + '_1354_pr.png';
-              formData[oneObj].name = id_lab + '_1354_pr.png';
+            case 'file_4':
+              newFileName = currentId + '_13_54_pr.png';
+              formData[oneObj].name = currentId + '_1354_pr.png';
+              break;
+            case 'avatar':
+              newFileName = currentId + '_photo.png';
+              formData[oneObj].name = currentId + '_photo.png';
               break;
           }
 
@@ -152,106 +194,106 @@ class m13_controller {
                 {
                   file1:
                     formData === null
-                      ? null
+                      ? result.file1
                       : formData.file1 === undefined
                       ? result.file1
                       : formData.file1.name,
                   file2:
                     formData === null
-                      ? null
+                      ? result.file2
                       : formData.file2 === undefined
                       ? result.file2
                       : formData.file2.name,
                   file3:
                     formData === null
-                      ? null
+                      ? result.file3
                       : formData.file3 === undefined
                       ? result.file3
                       : formData.file3.name,
                   file4:
                     formData === null
-                      ? null
+                      ? result.file4
                       : formData.file4 === undefined
                       ? result.file4
                       : formData.file4.name,
                   file5:
                     formData === null
-                      ? null
+                      ? result.file5
                       : formData.file5 === undefined
                       ? result.file5
                       : formData.file5.name,
                   file6:
                     formData === null
-                      ? null
+                      ? result.file6
                       : formData.file6 === undefined
                       ? result.file6
                       : formData.file6.name,
                   file7:
                     formData === null
-                      ? null
+                      ? result.file7
                       : formData.file7 === undefined
                       ? result.file7
                       : formData.file7.name,
                   file8:
                     formData === null
-                      ? null
+                      ? result.file8
                       : formData.file8 === undefined
                       ? result.file8
                       : formData.file8.name,
                   file9:
                     formData === null
-                      ? null
+                      ? result.file9
                       : formData.file9 === undefined
                       ? result.file9
                       : formData.file9.name,
                   file10:
                     formData === null
-                      ? null
+                      ? result.file10
                       : formData.file10 === undefined
                       ? result.file10
                       : formData.file10.name,
                   file11:
                     formData === null
-                      ? null
+                      ? result.file11
                       : formData.file11 === undefined
                       ? result.file11
                       : formData.file11.name,
                   file12:
                     formData === null
-                      ? null
+                      ? result.file12
                       : formData.file12 === undefined
                       ? result.file12
                       : formData.file12.name,
                   file13:
                     formData === null
-                      ? null
+                      ? result.file13
                       : formData.file13 === undefined
                       ? result.file13
                       : formData.file13.name,
-                  file1_1:
+                  file_1:
                     formData === null
-                      ? null
-                      : formData.file1_1 === undefined
-                      ? null
-                      : formData.file1_1.name,
-                  file2_1:
+                      ? result.file_1
+                      : formData.file_1 === undefined
+                      ? result.file_1
+                      : formData.file_1.name,
+                  file_2:
                     formData === null
-                      ? null
-                      : formData.file2_1 === undefined
-                      ? null
-                      : formData.file2_1.name,
-                  file3_1:
+                      ? result.file_2
+                      : formData.file_2 === undefined
+                      ? result.file_2
+                      : formData.file_2.name,
+                  file_3:
                     formData === null
-                      ? null
-                      : formData.file3_1 === undefined
-                      ? null
-                      : formData.file3_1.name,
-                  file4_1:
+                      ? result.file_3
+                      : formData.file_3 === undefined
+                      ? result.file_3
+                      : formData.file_3.name,
+                  file_4:
                     formData === null
-                      ? null
-                      : formData.file4_1 === undefined
-                      ? null
-                      : formData.file4_1.name,
+                      ? result.file_4
+                      : formData.file_4 === undefined
+                      ? result.file_4
+                      : formData.file_4.name,
                 },
                 {
                   new: true,
@@ -283,6 +325,12 @@ class m13_controller {
                 group: group === undefined ? result.group : group,
                 email: email === undefined ? result.email : email,
                 quantity: quantity === undefined ? result.quantity : quantity,
+                photo:
+                  formData === null
+                    ? null
+                    : formData.avatar === undefined
+                    ? null
+                    : formData.avatar.name,
               },
               {
                 new: true,
@@ -316,106 +364,106 @@ class m13_controller {
                   {
                     file1:
                       formData === null
-                        ? null
+                        ? result.file1
                         : formData.file1 === undefined
                         ? result.file1
                         : formData.file1.name,
                     file2:
                       formData === null
-                        ? null
+                        ? result.file2
                         : formData.file2 === undefined
                         ? result.file2
                         : formData.file2.name,
                     file3:
                       formData === null
-                        ? null
+                        ? result.file3
                         : formData.file3 === undefined
                         ? result.file3
                         : formData.file3.name,
                     file4:
                       formData === null
-                        ? null
+                        ? result.file4
                         : formData.file4 === undefined
                         ? result.file4
                         : formData.file4.name,
                     file5:
                       formData === null
-                        ? null
+                        ? result.file5
                         : formData.file5 === undefined
                         ? result.file5
                         : formData.file5.name,
                     file6:
                       formData === null
-                        ? null
+                        ? result.file6
                         : formData.file6 === undefined
                         ? result.file6
                         : formData.file6.name,
                     file7:
                       formData === null
-                        ? null
+                        ? result.file7
                         : formData.file7 === undefined
                         ? result.file7
                         : formData.file7.name,
                     file8:
                       formData === null
-                        ? null
+                        ? result.file8
                         : formData.file8 === undefined
                         ? result.file8
                         : formData.file8.name,
                     file9:
                       formData === null
-                        ? null
+                        ? result.file9
                         : formData.file9 === undefined
                         ? result.file9
                         : formData.file9.name,
                     file10:
                       formData === null
-                        ? null
+                        ? result.file10
                         : formData.file10 === undefined
                         ? result.file10
                         : formData.file10.name,
                     file11:
                       formData === null
-                        ? null
+                        ? result.file11
                         : formData.file11 === undefined
                         ? result.file11
                         : formData.file11.name,
                     file12:
                       formData === null
-                        ? null
+                        ? result.file12
                         : formData.file12 === undefined
                         ? result.file12
                         : formData.file12.name,
                     file13:
                       formData === null
-                        ? null
+                        ? result.file13
                         : formData.file13 === undefined
                         ? result.file13
                         : formData.file13.name,
-                    file1_1:
+                    file_1:
                       formData === null
-                        ? null
-                        : formData.file1_1 === undefined
-                        ? null
-                        : formData.file1_1.name,
-                    file2_1:
+                        ? result.file_1
+                        : formData.file_1 === undefined
+                        ? result.file_1
+                        : formData.file_1.name,
+                    file_2:
                       formData === null
-                        ? null
-                        : formData.file2_1 === undefined
-                        ? null
-                        : formData.file2_1.name,
-                    file3_1:
+                        ? result.file_2
+                        : formData.file_2 === undefined
+                        ? result.file_2
+                        : formData.file_2.name,
+                    file_3:
                       formData === null
-                        ? null
-                        : formData.file3_1 === undefined
-                        ? null
-                        : formData.file3_1.name,
-                    file4_1:
+                        ? result.file_3
+                        : formData.file_3 === undefined
+                        ? result.file_3
+                        : formData.file_3.name,
+                    file_4:
                       formData === null
-                        ? null
-                        : formData.file4_1 === undefined
-                        ? null
-                        : formData.file4_1.name,
+                        ? result.file_4
+                        : formData.file_4 === undefined
+                        ? result.file_4
+                        : formData.file_4.name,
                   },
                   {
                     new: true,
@@ -443,6 +491,12 @@ class m13_controller {
                       group: group === undefined ? result.group : group,
                       email: email === undefined ? result.email : email,
                       quantity: quantity === undefined ? result.quantity : quantity,
+                      photo:
+                        formData === null
+                          ? null
+                          : formData.avatar === undefined
+                          ? null
+                          : formData.avatar.name,
                     },
                     {
                       new: true,
@@ -468,6 +522,7 @@ class m13_controller {
               try {
                 const m13 = new M13model({
                   id_lab,
+                  withBoard,
                   range1: JSON.parse(range1),
                   hex1: JSON.parse(hex1),
                   lastRange1: JSON.parse(lastRange1),
@@ -479,104 +534,104 @@ class m13_controller {
                     formData === null
                       ? null
                       : formData.file1 === undefined
-                      ? result.file1
+                      ? null
                       : formData.file1.name,
                   file2:
                     formData === null
                       ? null
                       : formData.file2 === undefined
-                      ? result.file2
+                      ? null
                       : formData.file2.name,
                   file3:
                     formData === null
                       ? null
                       : formData.file3 === undefined
-                      ? result.file3
+                      ? null
                       : formData.file3.name,
                   file4:
                     formData === null
                       ? null
                       : formData.file4 === undefined
-                      ? result.file4
+                      ? null
                       : formData.file4.name,
                   file5:
                     formData === null
                       ? null
                       : formData.file5 === undefined
-                      ? result.file5
+                      ? null
                       : formData.file5.name,
                   file6:
                     formData === null
                       ? null
                       : formData.file6 === undefined
-                      ? result.file6
+                      ? null
                       : formData.file6.name,
                   file7:
                     formData === null
                       ? null
                       : formData.file7 === undefined
-                      ? result.file7
+                      ? null
                       : formData.file7.name,
                   file8:
                     formData === null
                       ? null
                       : formData.file8 === undefined
-                      ? result.file8
+                      ? null
                       : formData.file8.name,
                   file9:
                     formData === null
                       ? null
                       : formData.file9 === undefined
-                      ? result.file9
+                      ? null
                       : formData.file9.name,
                   file10:
                     formData === null
                       ? null
                       : formData.file10 === undefined
-                      ? result.file10
+                      ? null
                       : formData.file10.name,
                   file11:
                     formData === null
                       ? null
                       : formData.file11 === undefined
-                      ? result.file11
+                      ? null
                       : formData.file11.name,
                   file12:
                     formData === null
                       ? null
                       : formData.file12 === undefined
-                      ? result.file12
+                      ? null
                       : formData.file12.name,
                   file13:
                     formData === null
                       ? null
                       : formData.file13 === undefined
-                      ? result.file13
+                      ? null
                       : formData.file13.name,
-                  file1_1:
+                  file_1:
                     formData === null
                       ? null
-                      : formData.file1_1 === undefined
+                      : formData.file_1 === undefined
                       ? null
-                      : formData.file1_1.name,
-                  file2_1:
+                      : formData.file_1.name,
+                  file_2:
                     formData === null
                       ? null
-                      : formData.file2_1 === undefined
+                      : formData.file_2 === undefined
                       ? null
-                      : formData.file2_1.name,
-                  file3_1:
+                      : formData.file_2.name,
+                  file_3:
                     formData === null
                       ? null
-                      : formData.file3_1 === undefined
+                      : formData.file_3 === undefined
                       ? null
-                      : formData.file3_1.name,
-                  file4_1:
+                      : formData.file_3.name,
+                  file_4:
                     formData === null
                       ? null
-                      : formData.file4_1 === undefined
+                      : formData.file_4 === undefined
                       ? null
-                      : formData.file4_1.name,
+                      : formData.file_4.name,
                 });
                 await m13.save();
 
@@ -587,6 +642,12 @@ class m13_controller {
                   lab_name,
                   id_lab,
                   quantity,
+                  photo:
+                    formData === null
+                      ? null
+                      : formData.avatar === undefined
+                      ? null
+                      : formData.avatar.name,
                 });
                 await summary.save();
                 res.locals.id_lab = id_lab;
@@ -670,19 +731,6 @@ class m13_controller {
           } else {
             try {
               console.log('second');
-              // const {
-              //   performers,
-              //   group,
-              //   email,
-              //   id_lab,
-              //   lab_name,
-              //   quantity,
-              //   data,
-              //   letterOne,
-              //   letterTwo,
-              // } = req.body;
-              // const formData = req.files;
-              // const dataArray = data.split(',');
               const id_lab = res.locals.id_lab;
 
               const m13Obj = await M13model.find({ id_lab })
@@ -699,34 +747,58 @@ class m13_controller {
                 })
                 .catch((err) => res.status(500).json(err));
 
-              const { group, email, performers, lab_name } = summaryObj[0];
-              const { file1, file2, file3, file4, file5, file6 } = m13Obj[0];
+              const { group, email, performers, lab_name, photo } = summaryObj[0];
+              const {
+                file1,
+                file2,
+                file3,
+                file4,
+                file5,
+                file6,
+                file7,
+                file8,
+                file9,
+                file10,
+                file11,
+                file12,
+                file13,
+                file_1,
+                file_2,
+                file_3,
+                file_4,
+                file_5,
+              } = m13Obj[0];
+              const {
+                range1,
+                hex1,
+                lastRange1,
+                range2,
+                hex2,
+                lastRange2,
+                additionalArray,
+                withBoard,
+              } = m13Obj[0];
               const { quantity } = req.body;
-              console.log(m13Obj);
               res.locals.lab_name = lab_name;
 
-              console.log(file1, file2, file3, file4, file5, file6);
+              const result1 = [];
+              for (let i = 0; i < range1.length; i++) {
+                result1.push(range1[i], hex1[i]);
+              }
+              result1.push(hex1[hex1.length - 1]);
 
-              const dataArray = m13Obj[0]._doc;
-              delete dataArray.id_lab;
-              delete dataArray.file1;
-              delete dataArray.file2;
-              delete dataArray.file3;
-              delete dataArray.file4;
-              delete dataArray.file5;
-              delete dataArray.file6;
-              delete dataArray._id;
-              delete dataArray.__v;
+              const result2 = [];
+              for (let i = 0; i < range2.length; i++) {
+                result2.push(range2[i], hex2[i]);
+              }
+              result2.push(hex2[hex2.length - 1]);
+
+              const arrayResult = result1.concat(lastRange1, result2, lastRange2, additionalArray);
 
               let str = '';
-              for (const [key, value] of Object.entries(dataArray)) {
-                if (value === '') {
-                  str += null;
-                }
-                str += value + '\n';
+              for (let i = 0; i < arrayResult.length; i++) {
+                str += `${arrayResult[i]}` + '\n';
               }
-
-              console.log(str);
 
               let timeId = new Date();
               const newData = [
@@ -742,6 +814,8 @@ class m13_controller {
                   '\n' +
                   quantity +
                   '\n' +
+                  withBoard +
+                  '\n' +
                   str +
                   (file1 === undefined ? null : file1) +
                   '\n' +
@@ -753,10 +827,32 @@ class m13_controller {
                   '\n' +
                   (file5 === undefined ? null : file5) +
                   '\n' +
-                  (file6 === undefined ? null : file6),
+                  (file6 === undefined ? null : file6) +
+                  '\n' +
+                  (file7 === undefined ? null : file7) +
+                  '\n' +
+                  (file8 === undefined ? null : file8) +
+                  '\n' +
+                  (file9 === undefined ? null : file9) +
+                  '\n' +
+                  (file10 === undefined ? null : file10) +
+                  '\n' +
+                  (file11 === undefined ? null : file11) +
+                  '\n' +
+                  (file12 === undefined ? null : file12) +
+                  '\n' +
+                  (file13 === undefined ? null : file13) +
+                  '\n' +
+                  (file_1 === undefined ? null : file_1) +
+                  '\n' +
+                  (file_2 === undefined ? null : file_2) +
+                  '\n' +
+                  (file_3 === undefined ? null : file_3) +
+                  '\n' +
+                  (file_4 === undefined ? null : file_4) +
+                  '\n' +
+                  photo,
               ];
-
-              console.log(newData);
 
               fs.writeFile(`${id_lab}_${lab_name}.txt`, `${newData}`, (err) => {
                 if (err) throw err;

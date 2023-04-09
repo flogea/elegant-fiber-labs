@@ -52,7 +52,7 @@ function M13AdditionalBlock() {
       </p>
 
       <div className="centeredInRow">
-        {isBtnExist && (
+        {arrayOfNums < 10 && (
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -64,7 +64,7 @@ function M13AdditionalBlock() {
             Сгенерировать
           </button>
         )}
-        {isBtnEnterExist && (
+        {arrayOfNums < 10 && (
           <button
             className="generate__btn hands"
             onClick={(e) => {
@@ -96,7 +96,7 @@ function M13AdditionalBlock() {
             value={arrayOfNums[1] || ''}
             readOnly={manualEntry ? false : true}
           />
-          <InputWithPreview num="1_1" ext="png" />
+          <InputWithPreview num="_1" ext="png" />
         </div>
         <div className="inARow">
           <input
@@ -111,7 +111,7 @@ function M13AdditionalBlock() {
             value={arrayOfNums[3] || ''}
             readOnly={manualEntry ? false : true}
           />
-          <InputWithPreview num="2_1" ext="png" />
+          <InputWithPreview num="_2" ext="png" />
         </div>
         <div className="inARow">
           <input
@@ -126,7 +126,7 @@ function M13AdditionalBlock() {
             value={arrayOfNums[5] || ''}
             readOnly={manualEntry ? false : true}
           />
-          <InputWithPreview num="3_1" ext="png" />
+          <InputWithPreview num="_3" ext="png" />
         </div>
         <div className="inARow">
           <input
@@ -141,7 +141,7 @@ function M13AdditionalBlock() {
             value={arrayOfNums[7] || ''}
             readOnly={manualEntry ? false : true}
           />
-          <InputWithPreview num="4_1" ext="png" />
+          <InputWithPreview num="_4" ext="png" />
         </div>
       </div>
 
