@@ -53,6 +53,7 @@ function M11() {
   const formRef = React.useRef();
   const [isBtnExist, setisBtnExist] = React.useState(true);
   const [isBtnEnterExist, setisBtnEnterExist] = React.useState(true);
+  const [getDataFromDb, setGetDataFromDB] = React.useState(false);
 
   React.useEffect(() => {
     setIdLab(new Date().getTime());
@@ -171,7 +172,7 @@ function M11() {
     } catch (error) {
       console.log(error);
     }
-  }, [dataName]);
+  }, [getDataFromDb]);
 
   function TableGenerate(e) {
     e.preventDefault();
@@ -657,6 +658,7 @@ function M11() {
         setStr(newDataTable);
         setisBtnExist(null);
         setisBtnEnterExist(null);
+        setGetDataFromDB(true);
       }
       setDisabledInp(true);
     });

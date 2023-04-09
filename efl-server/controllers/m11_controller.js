@@ -74,34 +74,37 @@ class m11_controller {
       console.log(dataArray);
       console.log(formData);
 
+      let currentId = 0;
+      labId ? (currentId = labId) : (currentId = id_lab);
+
       // RENAME FILES AND WRITE DATA TO FILE
       if (formData) {
         for (var oneObj in formData) {
           let newFileName;
           switch (oneObj) {
             case 'file1':
-              newFileName = id_lab + '_111_sch.pdf';
-              formData[oneObj].name = id_lab + '_111_sch.pdf';
+              newFileName = currentId + '_111_sch.pdf';
+              formData[oneObj].name = currentId + '_111_sch.pdf';
               break;
             case 'file2':
-              newFileName = id_lab + '_111_rtl.pdf';
-              formData[oneObj].name = id_lab + '_111_rtl.pdf';
+              newFileName = currentId + '_111_rtl.pdf';
+              formData[oneObj].name = currentId + '_111_rtl.pdf';
               break;
             case 'file3':
-              newFileName = id_lab + '_111_sim.png';
-              formData[oneObj].name = id_lab + '_111_sim.png';
+              newFileName = currentId + '_111_sim.png';
+              formData[oneObj].name = currentId + '_111_sim.png';
               break;
             case 'file4':
-              newFileName = id_lab + '_112_code.v';
-              formData[oneObj].name = id_lab + '_112_code.v';
+              newFileName = currentId + '_112_code.v';
+              formData[oneObj].name = currentId + '_112_code.v';
               break;
             case 'file5':
-              newFileName = id_lab + '_112_rtl.pdf';
-              formData[oneObj].name = id_lab + '_112_rtl.pdf';
+              newFileName = currentId + '_112_rtl.pdf';
+              formData[oneObj].name = currentId + '_112_rtl.pdf';
               break;
             case 'file6':
-              newFileName = id_lab + '_112_sim.png';
-              formData[oneObj].name = id_lab + '_112_sim.png';
+              newFileName = currentId + '_112_sim.png';
+              formData[oneObj].name = currentId + '_112_sim.png';
               break;
           }
 
