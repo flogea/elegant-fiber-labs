@@ -217,6 +217,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home mat={false} />} />
             <Route path="/f11" element={<F11 />} />
+            {/* <Route path="/f12" element={<F12 />} /> */}
+            <Route path="/f13" element={<F13 />} />
 
             <Route path="/m11" element={<M11 />} />
             <Route path="/m12" element={<M12 />} />

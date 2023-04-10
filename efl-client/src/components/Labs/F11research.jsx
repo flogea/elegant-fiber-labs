@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import parse from 'html-react-parser';
 import { setArray } from '../../redux/slices/ArraySlice';
 
 function F11research(props) {
@@ -30,8 +31,8 @@ function F11research(props) {
       <table className="iksweb">
         <thead>
           <tr>
-            <th>{props.colNames[0]}</th>
-            <th>{props.colNames[1]}</th>
+            <th>{parse(props.colNames[0])}</th>
+            <th>{parse(props.colNames[1])}</th>
           </tr>
         </thead>
         <tbody>

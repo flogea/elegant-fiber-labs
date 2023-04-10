@@ -479,7 +479,8 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     }
 
     table.iksweb th {
-      background: #347c99;
+      // background: $orange;
+      border-bottom: 2px solid $orange;
       color: #fff;
       font-weight: normal;
     }
