@@ -7,6 +7,7 @@ import search from '../../images/icons/search.svg';
 import clear from '../../images/icons/clear.svg';
 
 function Search() {
+  const [isActive, setIsActive] = React.useState(true);
   const searchValue = useSelector((state) => state.SearchSlice.searchInputValue);
   const dispatch = useDispatch();
 
@@ -18,8 +19,12 @@ function Search() {
     dispatch(setSearchInputValue(''));
   };
 
+  const handleClickInputSearch = (e) => {
+    setIsActive(!isActive);
+  };
+
   return (
-    <div className="search">
+    <div className={isActive ? 'search active' : 'search'}>
       <img src={search} alt="searcg" className="search__img" />
       <input
         type="text"
@@ -27,6 +32,7 @@ function Search() {
         className="search__input"
         value={searchValue}
         onChange={handleChangeSearchInput}
+        onClick={handleClickInputSearch}
       />
       {searchValue && (
         <img src={clear} alt="clear" className="search__clear" onClick={handleClearInput} />

@@ -28,11 +28,13 @@ function Navbar() {
             <img src={logo} alt="Logo" />
           </a>
         </div>
-        <Search />
-        <label className="switch">
-          <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
-          <span className="slider round"></span>
-        </label>
+        <div className="rightPanel">
+          <Search />
+          <label className="switch">
+            <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+            <span className="slider round"></span>
+          </label>
+        </div>
       </nav>
 
       {/* <div className="navlist">
