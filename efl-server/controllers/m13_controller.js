@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const mime = require('mime-types');
 
-const M13model = require('../models/M13model');
+const M13model = require('../models/M13Model');
 const Summary = require('../models/Summary');
 const { format } = require('date-fns');
 
@@ -735,14 +735,12 @@ class m13_controller {
 
               const m13Obj = await M13model.find({ id_lab })
                 .then((result) => {
-                  console.log(result);
                   return result;
                 })
                 .catch((err) => res.status(500).json(err));
 
               const summaryObj = await Summary.find({ id_lab })
                 .then((result) => {
-                  console.log(result);
                   return result;
                 })
                 .catch((err) => res.status(500).json(err));
