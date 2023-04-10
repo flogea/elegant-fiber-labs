@@ -16,9 +16,9 @@ const Labs = require('../models/Labs');
 
 const router = new Router();
 
-router.post('/f11', checkKey, decode, f11_controller.addData, runScriptMW);
-router.post('/f12', checkKey, decode, f12_controller.addData, runScriptMW);
-router.post('/f13', checkKey, decode, f13_controller.addData, runScriptMW);
+router.post('/f11', checkKey, f11_controller.addData, runScriptMW);
+router.post('/f12', checkKey, f12_controller.addData, runScriptMW);
+router.post('/f13', checkKey, f13_controller.addData, runScriptMW);
 
 router.get('/m11save/:id', m11_controller.getData);
 router.get('/m11GetFiles/:id/:i', m11_controller.getFiles);

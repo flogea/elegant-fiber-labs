@@ -2,6 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   someArray: [],
+  table1: [],
+  table2: [],
+  table3: [],
+  table4: [],
 };
 
 const ArraySlice = createSlice({
@@ -9,7 +13,7 @@ const ArraySlice = createSlice({
   initialState,
   reducers: {
     setArray(state, action) {
-      state.someArray = action.payload;
+      state[action.payload.name] = action.payload.value;
     },
   },
 });

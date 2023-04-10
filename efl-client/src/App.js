@@ -216,10 +216,13 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home mat={false} />} />
+            <Route path="/f11" element={<F11 />} />
+
             <Route path="/m11" element={<M11 />} />
             <Route path="/m12" element={<M12 />} />
             <Route path="/m13" element={<M13 />} />
             <Route path="/m14" element={<M14 />} />
+
             <Route path="/n11" element={<N11 />} />
             <Route path="/n21" element={<N21 />} />
             <Route path="/promtm" element={<PromtM />} />
