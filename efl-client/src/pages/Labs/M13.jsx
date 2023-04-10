@@ -429,7 +429,7 @@ function M13() {
         setisBtnExist(false);
         setisBtnExist2(false);
 
-        dispatch(setArray(dataTable.additionalArray));
+        dispatch(setArray({ name: 'someArray', value: dataTable.additionalArray }));
         setTable1data({ ...table1data, ranges: dataTable.range1, hexNumbers: dataTable.hex1 });
         setTable2data({ ...table2data, ranges: dataTable.range2, hexNumbers: dataTable.hex2 });
         setLastRange1(dataTable.lastRange1);
