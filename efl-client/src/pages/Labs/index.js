@@ -10,6 +10,7 @@ export { default as M11 } from './M11';
 export { default as M12 } from './M12';
 export { default as M13 } from './M13';
 export { default as M14 } from './M14';
+export { default as M21 } from './M21';
 
 export { default as N11 } from './N11';
 export { default as N21 } from './N21';

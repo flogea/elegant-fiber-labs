@@ -18,6 +18,7 @@ import {
   M12,
   M13,
   M14,
+  M21,
   N11,
   N21,
   PromtM,
@@ -224,6 +225,7 @@ function App() {
             <Route path="/m12" element={<M12 />} />
             <Route path="/m13" element={<M13 />} />
             <Route path="/m14" element={<M14 />} />
+            <Route path="/m21" element={<M21 />} />
 
             <Route path="/n11" element={<N11 />} />
             <Route path="/n21" element={<N21 />} />
