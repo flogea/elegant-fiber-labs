@@ -10,6 +10,7 @@ function Search() {
   // const [isActive, setIsActive] = React.useState(true);
   const searchValue = useSelector((state) => state.SearchSlice.searchInputValue);
   const dispatch = useDispatch();
+  const inputRef = React.useRef();
 
   const handleChangeSearchInput = (e) => {
     dispatch(setSearchInputValue(e.target.value));
@@ -17,6 +18,7 @@ function Search() {
 
   const handleClearInput = () => {
     dispatch(setSearchInputValue(''));
+    inputRef.current.focus();
   };
 
   // const handleClickInputSearch = (e) => {
@@ -27,6 +29,7 @@ function Search() {
     <div className="search">
       <img src={search} alt="searcg" className="search__img" />
       <input
+        ref={inputRef}
         type="text"
         placeholder="Поиск лабоньки"
         className="search__input"
