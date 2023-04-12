@@ -4,6 +4,7 @@ import InputWithPreview from './InputWithPreview';
 function M21AdditionalBlock() {
   return (
     <>
+      <hr />
       <h3>Модуль wrapper_ff — обертка для триггеров</h3>
       <p>
         38 Создайте новый файл типа Verilog HDL File. Сохраните его под именем{' '}
@@ -60,6 +61,7 @@ function M21AdditionalBlock() {
         46 Проверьте корректность разработанного модуля, изменяя входные сигналы и наблюдая за
         результатом.
       </p>
+      <hr />
     </>
   );
 }

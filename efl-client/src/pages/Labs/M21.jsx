@@ -17,8 +17,8 @@ import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
 import M21AdditionalBlock from '../../components/Labs/M21AdditionalBlock';
 
-function M14() {
-  const lab_name = 'M14';
+function M21() {
+  const lab_name = 'M21';
   const Subject = 'Вычислительная техника';
   const LabName = 'М21 ЗАЩЕЛКИ И ТРИГГЕРЫ (LATCH, FF)';
   const LabLink = 'ъыъ.рф/ьАЬЕ';
@@ -739,4 +739,4 @@ function M14() {
   );
 }
 
-export default M14;
+export default M21;
