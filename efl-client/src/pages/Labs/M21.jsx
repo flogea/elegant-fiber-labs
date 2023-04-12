@@ -16,6 +16,20 @@ import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
 import M21AdditionalBlock from '../../components/Labs/M21AdditionalBlock';
+import PicAndLabel from '../../components/PicAndLabel';
+
+import pic1 from '../../images/M21/pic1.png';
+import pic2 from '../../images/M21/pic2.png';
+import pic3 from '../../images/M21/pic3.png';
+import pic4 from '../../images/M21/pic4.png';
+import pic5 from '../../images/M21/pic5.png';
+import pic6 from '../../images/M21/pic6.png';
+import pic7 from '../../images/M21/pic7.png';
+import pic8 from '../../images/M21/pic8.png';
+import pic9 from '../../images/M21/pic9.png';
+import pic10 from '../../images/M21/pic10.png';
+import pic11 from '../../images/M21/pic11.png';
+import pic12 from '../../images/M21/pic12.png';
 
 function M21() {
   const lab_name = 'M21';
@@ -241,6 +255,7 @@ function M21() {
               <p>Вспомним принципы работы логических элементов 2И-НЕ и 2ИЛИ-НЕ:</p>
 
               {/* picture */}
+              <PicAndLabel image={pic1} label={null} num={1} />
 
               <p>
                 Если на один из входов логического элемента 2И-НЕ будет подан логический 0, то выход
@@ -264,6 +279,7 @@ function M21() {
               </p>
 
               {/* picture */}
+              <PicAndLabel image={pic2} label={null} num={2} />
 
               <p>
                 В зависимости от типа используемых элементов активными уровнями триггера являются
@@ -272,6 +288,7 @@ function M21() {
               </p>
 
               {/* picture */}
+              <PicAndLabel image={pic3} label={null} num={3} />
 
               <p>
                 Таким образом, при подаче нуля на вход S (Set — установка) состояние триггера
@@ -284,7 +301,47 @@ function M21() {
               </p>
 
               {/* table */}
+              <table class="iksweb">
+                <tbody>
+                  <tr>
+                    <td>R</td>
+                    <td>S</td>
+                    <td>Q</td>
+                    <td>!Q</td>
+                    <td>Состояние</td>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>Запрещенное</td>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>Сброшен</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>Установлен</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>Q</td>
+                    <td>!Q</td>
+                    <td>Хранение</td>
+                  </tr>
+                </tbody>
+              </table>
               {/* picture */}
+              <PicAndLabel image={pic4} label={null} num={4} />
 
               <p>
                 Обращая внимание на временные диаграммы работы асинхронного RS-триггера, можно
@@ -294,6 +351,84 @@ function M21() {
               </p>
 
               {/* code */}
+              <pre
+                class="hljs"
+                style={{
+                  display: 'block',
+                  overflowX: 'auto',
+                  padding: '0.5em',
+                  background: 'rgb(0, 0, 0)',
+                  color: 'rgb(170, 170, 170)',
+                }}>
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  always
+                </span>{' '}
+                @ (S , R){' '}
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  begin
+                  <br />
+                </span>
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}if
+                </span>{' '}
+                (~ S ){' '}
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  begin
+                  <br />
+                </span>
+                {'\t   '}Q &lt;={' '}
+                <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1'b1
+                </span>{' '}
+                ;<br /> {'\t   '}nQ &lt;= !( R &amp; Q ) ;<br />
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}end
+                  <br />
+                </span>
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}if
+                </span>{' '}
+                (~ R ){' '}
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  begin
+                  <br />
+                </span>
+                {'\t   '}nQ &lt;={' '}
+                <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1'b1
+                </span>{' '}
+                ;<br /> {'\t   '}Q &lt;= !( S &amp; nQ ) ;<br />
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}end
+                  <br />
+                </span>
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}if
+                </span>{' '}
+                (~ R &amp; ~ S ){' '}
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  begin
+                  <br />
+                </span>
+                {'\t   '}nQ &lt;={' '}
+                <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                ;<br /> {'\t   '}Q &lt;={' '}
+                <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  1
+                </span>
+                ;<br />
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  {'\t'}end
+                  <br />
+                </span>
+                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  end
+                  <br />
+                  <br />
+                </span>
+              </pre>
 
               <h3>D-защелка (D-Latch)</h3>
               <p>
@@ -309,7 +444,9 @@ function M21() {
               </p>
 
               {/* picture */}
+              <PicAndLabel image={pic3} label={null} num={5} />
               {/* picture */}
+              <PicAndLabel image={pic6} label={null} num={6} />
 
               <p>
                 При описании D-защелки на Verilog условия для R и S сохраняются, при этом
@@ -332,10 +469,12 @@ function M21() {
               {/* formula */}
               {/* formula */}
               {/* picture */}
+              <PicAndLabel image={pic3} label={null} num={7} />
 
               <p>Рассмотрим поведение D-триггера на временной диаграмме.</p>
 
               {/* picture */}
+              <PicAndLabel image={pic8} label={null} num={8} />
 
               <p>
                 При описании D-триггера на Verilog условия для R и S сохраняются, при этом
@@ -357,11 +496,52 @@ function M21() {
               </p>
 
               {/* table */}
+              <table class="iksweb">
+                <tbody>
+                  <tr>
+                    <td>J</td>
+                    <td>K</td>
+                    <td>Q</td>
+                    <td>!Q</td>
+                    <td>Событие</td>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>Q</td>
+                    <td>!Q</td>
+                    <td>Хранение</td>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>Запись “0”</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>Запись “1”</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>!Q</td>
+                    <td>Q</td>
+                    <td>Переключение</td>
+                  </tr>
+                </tbody>
+              </table>
               {/* picture */}
+              <PicAndLabel image={pic3} label={null} num={9} />
 
               <p>Рассмотрим поведение JK-триггера на временной диаграмме.</p>
 
               {/* picture */}
+              <PicAndLabel image={pic10} label={null} num={10} />
 
               <p>
                 JK-триггер описывается аналогично D-триггеру, но в этом случае необходимо
@@ -383,9 +563,11 @@ function M21() {
               </p>
 
               {/* picture */}
+              <PicAndLabel image={pic3} label={null} num={11} />
 
               <p>Рассмотрим поведение T-триггера на временной диаграмме.</p>
               {/* picture */}
+              <PicAndLabel image={pic12} label={null} num={12} />
 
               <p>
                 На Verilog T-триггер описывается аналогично D-триггеру, однако, если J = K = T, то
