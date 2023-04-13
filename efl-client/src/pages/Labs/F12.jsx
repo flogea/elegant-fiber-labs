@@ -1,144 +1,122 @@
 import React from 'react';
 import axios from 'axios';
-import { v4 } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../../styles/Labs.scss';
 
 import HeaderLab from '../../components/Labs/HeaderLab';
 import Performers from '../../components/Labs/Performers';
 import FooterLab from '../../components/Labs/FooterLab';
-import f12Qr from '../../images/qr/f12.png';
-import F12Research1 from '../../components/Labs/F12Research1';
-import F12Research2 from '../../components/Labs/F12Research2';
-import F12Research3 from '../../components/Labs/F12Research3';
+import F12research1 from '../../components/Labs/F12Research1';
 import { Context } from '../../Context';
+import { setPerformers } from '../../redux/slices/PerformerSlice';
+import ParticlesBG from '../../components/ParticlesBG';
+import preloader from '../../images/Infinity.gif';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 function F12() {
   const lab_name = 'F12';
-  const id_lab = new Date().getTime();
   const Subject = 'Фотоника';
   const LabName = 'Ф12 АКУСТООПТИЧЕСКАЯ МОДУЛЯЦИЯ';
   const LabLink = 'ъыъ.рф/АЪыЬ';
 
-  const {
-    performers,
-    table12,
-    setTable12,
-    table12_1,
-    table12_2,
-    table12_3,
-    photo,
-    quantity,
-    secretKey,
-  } = React.useContext(Context);
+  const { quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
+  const performers = useSelector((state) => state.PerformerSlice);
+
+  const [id_lab, setIdLab] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isSended, setIsSended] = React.useState(null);
+
+  const dispatch = useDispatch();
+  const formRef = React.useRef();
+
+  React.useEffect(() => {
+    setIdLab(new Date().getTime());
+  }, []);
 
   const labHandler = async () => {
-    try {
-      await axios
-        .post(
-          '/api/labs/f12',
-          {
-            token: secretKey.token,
-            table12,
-            table12_1,
-            table12_2,
-            table12_3,
-            performers: performers.performers,
-            group: performers.group,
-            email: performers.email,
-            lab_name: lab_name,
-            id_lab: id_lab,
-            photo,
-            quantity: quantity.quantity,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-        .then((res) => console.log(res));
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await axios
+    //     .post(
+    //       '/api/labs/f12',
+    //       {
+    //         token: secretKey.token,
+    //         table12,
+    //         table12_1,
+    //         table12_2,
+    //         table12_3,
+    //         performers: performers.performers,
+    //         group: performers.group,
+    //         email: performers.email,
+    //         lab_name: lab_name,
+    //         id_lab: id_lab,
+    //         photo,
+    //         quantity: quantity.quantity,
+    //       },
+    //       {
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //       },
+    //     )
+    //     .then((res) => console.log(res));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
-    <div className="container">
-      <HeaderLab Qr={f12Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />
-      <Performers />
-      <div>
-        <h2>Выполнение работы</h2>
-        <div className="main-text">
-          1 Включите приборы:
-          <ul>
-            <li>Генератор сигнала высокой частоты</li>
-            <li>Вольтметр</li>
-            <li>Блок питания лазера</li>
-          </ul>
-        </div>
-        <div className="main-text">
-          2 Убедитесь, что луч лазера проходит через модулятор и попадает на плоскость
-          фотоприемника, отраженный луч попадает на плоскость торца лазера и совмещен с отверстием
-          излучателя. В противном случае отрегулируйте траекторию луча изменением положения зеркал,
-          модулятора.
-        </div>
-        <div className="main-text">
-          3 Вольтметр переведите в режим измерения постоянного тока (U=) с автоматическим выбором
-          предела (АВП). Измерьте ток, генерируемый нулевым порядком.
-        </div>
-        <div className="row">
-          <div className="col">
-            <div className="input col s12 m6 l6">
-              <input type="text" name="tok" className="validate" required="required" />
-              <span htmlFor="tok">ток, мкА</span>
-              <i></i>
-            </div>
-          </div>
-        </div>
+    <>
+      <ScrollToTopButton />
+      {darkMode ? <ParticlesBG /> : null}
+      <div className={darkMode ? 'container dark' : 'container'}>
+        <HeaderLab Subject={Subject} LabName={LabName} LabLink={LabLink} />
+        <form ref={formRef}>
+          <Performers />
 
-        <div className="main-text">
-          4 Генератор сигнала высокой частоты настройте на частоту 25 МГц. Ручки управления
-          мощностью сигнала (3 шт) установите в крайние правые положения.
-        </div>
-        <div className="main-text">5 Измерьте расстояния:</div>
-        <div className="row">
-          <div className="col">
-            <div className="input col s12 m6 l6">
-              <input type="text" name="tok" className="validate" required="required" />
-              <span htmlFor="tok">Расстояние от плоскости лазера до модулятора, см</span>
-              <i></i>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <div className="input col s12 m6 l6">
-              <input type="text" name="tok" className="validate" required="required" />
-              <span htmlFor="tok">Расстояние от модулятора до плоскости фотоприемника, см</span>
-              <i></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <F12Research1 />
-      <F12Research2 />
-      <F12Research3 />
+          <div className="completing">
+            <div className="left-text">
+              <h3>Выполнение работы</h3>
+              <p>1 Включите приборы:</p>
+              <ul>
+                <li>Генератор сигнала высокой частоты</li>
+                <li>Вольтметр</li>
+                <li>Блок питания лазера</li>
+              </ul>
+              <p>
+                2 Убедитесь, что луч лазера проходит через модулятор и попадает на плоскость
+                фотоприемника, отраженный луч попадает на плоскость торца лазера и совмещен с
+                отверстием излучателя. В противном случае отрегулируйте траекторию луча изменением
+                положения зеркал, модулятора.
+              </p>
+              <p>
+                3 Вольтметр переведите в режим измерения постоянного тока (I=) с автоматическим
+                выбором предела (АВП). Измерьте ток, генерируемый нулевым порядком.
+              </p>
 
-      <div className="footer">
-        <FooterLab />
-        <div className="row">
-          <div className="centering">
-            <button
-              className="wawes-effect wawes-light btn btn-blue"
-              onClick={labHandler}
-              id="subm_btn">
-              Отправить
-            </button>
+              {/* input */}
+
+              <p>
+                4 Включите генератор сигнала высокой частоты. Генератор сигнала высокой частоты
+                настройте на частоту, указанную преподавателем. Ручки управления мощностью сигнала
+                (3 шт) установите в крайние правые положения.
+              </p>
+              <p>5 Измерьте расстояния: </p>
+            </div>
           </div>
-        </div>
+
+          <FooterLab needPhoto={true} />
+          <div className="row">
+            {isLoading ? <img src={preloader} className="preloader" /> : null}
+            <div className="centering">
+              <button className="send__button" onClick={labHandler} id="subm_btn">
+                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 }
 

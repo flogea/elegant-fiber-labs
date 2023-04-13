@@ -15,6 +15,7 @@ import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
 
 import Foldable from '../../components/Labs/Foldable';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 import pic1 from '../../images/M11/kcu.png';
 import pic2 from '../../images/M11/formula1.png';
@@ -741,6 +742,7 @@ function M11() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Qr={m11Qr} Subject={Subject} LabName={LabName} LabLink={LabLink} />

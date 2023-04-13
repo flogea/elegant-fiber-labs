@@ -17,6 +17,7 @@ import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
 import M21AdditionalBlock from '../../components/Labs/M21AdditionalBlock';
 import M22AdditionalBlock from '../../components/Labs/M22AdditionalBlock';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 function M22() {
   const lab_name = 'M22';
@@ -185,6 +186,7 @@ function M22() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Subject={Subject} LabName={LabName} />

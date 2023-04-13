@@ -20,6 +20,7 @@ import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setArray } from '../../redux/slices/ArraySlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 function M13() {
   const lab_name = 'M13';
@@ -537,6 +538,7 @@ function M13() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Subject={Subject} LabName={LabName} />

@@ -16,6 +16,7 @@ import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
 import M23AdditionalBlock from '../../components/Labs/M23AdditionalBlock';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 import pic1 from '../../images/M23/pic1.png';
 import pic2 from '../../images/M23/pic2.png';
@@ -196,6 +197,7 @@ function M23() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Subject={Subject} LabName={LabName} />

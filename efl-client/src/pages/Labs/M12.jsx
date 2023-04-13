@@ -29,6 +29,7 @@ import kakietoSignals_white from '../../images/M12/kakietoSignals_white.svg';
 import driver7seg_white from '../../images/M12/driver7seg_white.svg';
 import driverascii_white from '../../images/M12/driverascii_white.svg';
 import InputWithPreview from '../../components/Labs/InputWithPreview';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 function M12() {
   const lab_name = 'M12';
@@ -233,6 +234,7 @@ function M12() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Subject={Subject} LabName={LabName} />

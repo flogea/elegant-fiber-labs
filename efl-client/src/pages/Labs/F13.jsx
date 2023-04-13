@@ -12,6 +12,7 @@ import F13research from '../../components/Labs/F11research';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import ParticlesBG from '../../components/ParticlesBG';
 import preloader from '../../images/Infinity.gif';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 function F13() {
   const lab_name = 'F13';
@@ -73,6 +74,7 @@ function F13() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Subject={Subject} LabName={LabName} LabLink={LabLink} />

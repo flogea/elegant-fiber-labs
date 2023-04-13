@@ -12,6 +12,7 @@ import { Context } from '../../Context';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import ParticlesBG from '../../components/ParticlesBG';
 import preloader from '../../images/Infinity.gif';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 function F11() {
   const lab_name = 'F11';
@@ -73,6 +74,7 @@ function F11() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
 
       <div className={darkMode ? 'container dark' : 'container'}>

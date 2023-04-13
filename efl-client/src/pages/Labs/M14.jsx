@@ -16,6 +16,7 @@ import InputWithPreview from '../../components/Labs/InputWithPreview';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
 
 import signals1 from '../../images/M14/signals1.png';
 import signals2 from '../../images/M14/signals2.png';
@@ -184,6 +185,7 @@ function M14() {
 
   return (
     <>
+      <ScrollToTopButton />
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
         <HeaderLab Subject={Subject} LabName={LabName} />
