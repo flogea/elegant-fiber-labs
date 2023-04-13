@@ -21,7 +21,7 @@ import M22AdditionalBlock from '../../components/Labs/M22AdditionalBlock';
 function M22() {
   const lab_name = 'M22';
   const Subject = 'Вычислительная техника';
-  const LabName = 'М22С РЕГИСТРЫ (RG)';
+  const LabName = 'М22 РЕГИСТРЫ (RG)';
   const LabLink = 'ъыъ.рф/ЕЪыА';
 
   const { photo, quantity, secretKey, setDisabledInp, darkMode } = React.useContext(Context);
@@ -126,6 +126,7 @@ function M22() {
     const formData = new FormData(formRef.current);
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('withBoard', +withBoard);
 
     console.log(Array.from(formData));
 
@@ -156,6 +157,7 @@ function M22() {
     const formData = new FormData(formRef.current);
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('withBoard', +withBoard);
 
     console.log(Array.from(formData));
     try {
@@ -181,7 +183,6 @@ function M22() {
     <>
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
-        <i className="centeredInRow">В разработке :)</i>
         <HeaderLab Subject={Subject} LabName={LabName} />
         <form ref={formRef}>
           <Performers />
@@ -813,6 +814,7 @@ function M22() {
                 этом разверните все шины., формат отображения всех шин переведите в
                 шестнадцатеричный.
               </p>
+              <InputWithPreview num={18} ext="png" />
 
               {withBoard ? <M22AdditionalBlock /> : null}
             </div>

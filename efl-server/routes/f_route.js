@@ -12,6 +12,8 @@ const m12_controller = require('../controllers/m12_controller');
 const m13_controller = require('../controllers/m13_controller');
 const m14_controller = require('../controllers/m14_controller');
 const m21_controller = require('../controllers/m21_controller');
+const m22_controller = require('../controllers/m22_controller');
+const m23_controller = require('../controllers/m23_controller');
 const decode = require('../middleware/decode');
 const Labs = require('../models/Labs');
 
@@ -59,6 +61,22 @@ router.post('/m21', checkKey, m21_controller.saveData, m21_controller.addData, r
 router.post('/m21save', m21_controller.saveData, (req, res) => {
   const id_lab = res.locals.id_lab;
   res.status(201).json({ message: 'success save m21', id_lab });
+});
+
+router.get('/m22save/:id', m22_controller.getData);
+router.get('/m22GetFiles/:id/:i', m22_controller.getFiles);
+router.post('/m22', checkKey, m22_controller.saveData, m22_controller.addData, runScriptMW);
+router.post('/m22save', m22_controller.saveData, (req, res) => {
+  const id_lab = res.locals.id_lab;
+  res.status(201).json({ message: 'success save m22', id_lab });
+});
+
+router.get('/m23save/:id', m23_controller.getData);
+router.get('/m23GetFiles/:id/:i', m23_controller.getFiles);
+router.post('/m23', checkKey, m23_controller.saveData, m23_controller.addData, runScriptMW);
+router.post('/m23save', m23_controller.saveData, (req, res) => {
+  const id_lab = res.locals.id_lab;
+  res.status(201).json({ message: 'success save m23', id_lab });
 });
 
 router.post('/n11', checkKey, decode, n11_controller.addData, runScriptMW);
