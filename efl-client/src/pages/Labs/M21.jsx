@@ -16,20 +16,21 @@ import { setPerformers } from '../../redux/slices/PerformerSlice';
 import { setFileName } from '../../redux/slices/fileNameSlice';
 import { setFileURL } from '../../redux/slices/fileURLSlice';
 import M21AdditionalBlock from '../../components/Labs/M21AdditionalBlock';
-import PicAndLabel from '../../components/PicAndLabel';
+import PicAndLabel from '../../components/Labs/PicAndLabel';
 
 import pic1 from '../../images/M21/pic1.png';
 import pic2 from '../../images/M21/pic2.png';
-import pic3 from '../../images/M21/pic3.png';
+import pic3_1 from '../../images/M21/pic3_1.png';
+import pic3_2 from '../../images/M21/pic3_2.png';
+import pic3_3 from '../../images/M21/pic3_3.png';
+import pic3_4 from '../../images/M21/pic3_4.png';
+import pic3_5 from '../../images/M21/pic3_5.png';
 import pic4 from '../../images/M21/pic4.png';
 import pic5 from '../../images/M21/pic5.png';
 import pic6 from '../../images/M21/pic6.png';
 import pic7 from '../../images/M21/pic7.png';
 import pic8 from '../../images/M21/pic8.png';
 import pic9 from '../../images/M21/pic9.png';
-import pic10 from '../../images/M21/pic10.png';
-import pic11 from '../../images/M21/pic11.png';
-import pic12 from '../../images/M21/pic12.png';
 
 function M21() {
   const lab_name = 'M21';
@@ -139,6 +140,7 @@ function M21() {
     const formData = new FormData(formRef.current);
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('withBoard', +withBoard);
 
     console.log(Array.from(formData));
 
@@ -169,6 +171,7 @@ function M21() {
     const formData = new FormData(formRef.current);
     formData.append('lab_name', lab_name);
     formData.append('id_lab', id_lab);
+    formData.append('withBoard', +withBoard);
 
     console.log(Array.from(formData));
     try {
@@ -194,7 +197,6 @@ function M21() {
     <>
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
-        <i className="centeredInRow">В разработке :)</i>
         <HeaderLab Subject={Subject} LabName={LabName} />
         <form ref={formRef}>
           <Performers />
@@ -288,7 +290,7 @@ function M21() {
               </p>
 
               {/* picture */}
-              <PicAndLabel image={pic3} label={null} num={3} />
+              <PicAndLabel image={pic3_1} label={null} num={3} />
 
               <p>
                 Таким образом, при подаче нуля на вход S (Set — установка) состояние триггера
@@ -355,7 +357,7 @@ function M21() {
                 class="hljs"
                 style={{
                   display: 'block',
-                  overflowX: 'auto',
+                  overflowX: 'hidden',
                   padding: '0.5em',
                   background: 'rgb(0, 0, 0)',
                   color: 'rgb(170, 170, 170)',
@@ -444,9 +446,9 @@ function M21() {
               </p>
 
               {/* picture */}
-              <PicAndLabel image={pic3} label={null} num={5} />
+              <PicAndLabel image={pic3_2} label={null} num={5} />
               {/* picture */}
-              <PicAndLabel image={pic6} label={null} num={6} />
+              <PicAndLabel image={pic5} label={null} num={6} />
 
               <p>
                 При описании D-защелки на Verilog условия для R и S сохраняются, при этом
@@ -469,12 +471,12 @@ function M21() {
               {/* formula */}
               {/* formula */}
               {/* picture */}
-              <PicAndLabel image={pic3} label={null} num={7} />
+              <PicAndLabel image={pic3_3} label={null} num={7} />
 
               <p>Рассмотрим поведение D-триггера на временной диаграмме.</p>
 
               {/* picture */}
-              <PicAndLabel image={pic8} label={null} num={8} />
+              <PicAndLabel image={pic6} label={null} num={8} />
 
               <p>
                 При описании D-триггера на Verilog условия для R и S сохраняются, при этом
@@ -536,12 +538,12 @@ function M21() {
                 </tbody>
               </table>
               {/* picture */}
-              <PicAndLabel image={pic3} label={null} num={9} />
+              <PicAndLabel image={pic3_4} label={null} num={9} />
 
               <p>Рассмотрим поведение JK-триггера на временной диаграмме.</p>
 
               {/* picture */}
-              <PicAndLabel image={pic10} label={null} num={10} />
+              <PicAndLabel image={pic7} label={null} num={10} />
 
               <p>
                 JK-триггер описывается аналогично D-триггеру, но в этом случае необходимо
@@ -563,11 +565,11 @@ function M21() {
               </p>
 
               {/* picture */}
-              <PicAndLabel image={pic3} label={null} num={11} />
+              <PicAndLabel image={pic3_5} label={null} num={11} />
 
               <p>Рассмотрим поведение T-триггера на временной диаграмме.</p>
               {/* picture */}
-              <PicAndLabel image={pic12} label={null} num={12} />
+              <PicAndLabel image={pic8} label={null} num={12} />
 
               <p>
                 На Verilog T-триггер описывается аналогично D-триггеру, однако, если J = K = T, то

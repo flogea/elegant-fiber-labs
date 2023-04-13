@@ -65,7 +65,7 @@ class m21_controller {
   async saveData(req, res, next) {
     // GET DATA
     try {
-      const { performers, group, email, id_lab, lab_name, quantity, labId } = req.body;
+      const { performers, group, email, id_lab, lab_name, quantity, labId, withBoard } = req.body;
       const formData = req.files;
       console.log(formData);
 
@@ -716,6 +716,7 @@ class m21_controller {
                 file15,
                 file_1,
                 file_2,
+                withBoard,
               } = m21Obj[0];
               const { quantity } = req.body;
               res.locals.lab_name = lab_name;

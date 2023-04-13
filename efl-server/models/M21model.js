@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
   id_lab: { type: String, unique: true, required: true },
+  withBoard: { type: Number },
   file1: { type: String },
   file2: { type: String },
   file3: { type: String },
