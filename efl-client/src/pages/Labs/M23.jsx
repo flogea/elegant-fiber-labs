@@ -84,7 +84,7 @@ function M23() {
 
   const findData = async (event) => {
     event.preventDefault();
-    await axios.get('/api/labs/23save/' + currentId).then((res) => {
+    await axios.get('/api/labs/m23save/' + currentId).then((res) => {
       const dataSummary = res.data.result[0];
       const dataTable = res.data.result[1];
       console.log(res.data);
@@ -118,8 +118,15 @@ function M23() {
             file13: dataTable.file13,
             file14: dataTable.file14,
             file15: dataTable.file15,
+            file16: dataTable.file16,
+            file17: dataTable.file17,
+            file18: dataTable.file18,
+            file19: dataTable.file19,
+            file20: dataTable.file20,
+            file21: dataTable.file21,
             file_1: dataTable.file_1,
             file_2: dataTable.file_2,
+            file_3: dataTable.file_3,
           }),
         );
         setGetDataFromDB(true);
@@ -295,7 +302,7 @@ function M23() {
               </p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>Суммирующий</td>
@@ -392,11 +399,11 @@ function M23() {
               </p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
-                    <td colspan="4">Текущее состояние</td>
-                    <td colspan="4">Следующее состояние</td>
+                    <td colSpan="4">Текущее состояние</td>
+                    <td colSpan="4">Следующее состояние</td>
                   </tr>
                   <tr>
                     <td>#</td>
@@ -468,7 +475,7 @@ function M23() {
               </p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>J</td>
@@ -542,7 +549,7 @@ function M23() {
               <p>Опишем данные принципы в виде таблицы:</p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>Q (текущее)</td>
@@ -613,7 +620,7 @@ function M23() {
               <p>Упростим таблицу:</p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>Q (текущее)</td>
@@ -655,12 +662,12 @@ function M23() {
               </p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
-                    <td colspan="4">Текущее состояние</td>
-                    <td colspan="4">Следующее состояние</td>
-                    <td colspan="6">Формируемые сигналы</td>
+                    <td colSpan="4">Текущее состояние</td>
+                    <td colSpan="4">Следующее состояние</td>
+                    <td colSpan="6">Формируемые сигналы</td>
                   </tr>
                   <tr>
                     <td>#</td>
@@ -773,11 +780,11 @@ function M23() {
               <p>Рассмотрим карту Карно для сигнала J[0].</p>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>J[0]</td>
-                    <td colspan="4">Q[1]Q[0]</td>
+                    <td colSpan="4">Q[1]Q[0]</td>
                   </tr>
                   <tr>
                     <td>Q[2]</td>
@@ -805,11 +812,11 @@ function M23() {
 
               <p>Свободные ячейки карты Карно можно заполнить удобными значениями:</p>
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>J[0]</td>
-                    <td colspan="4">Q[1]Q[0]</td>
+                    <td colSpan="4">Q[1]Q[0]</td>
                   </tr>
                   <tr>
                     <td>Q[2]</td>
@@ -836,11 +843,11 @@ function M23() {
               </table>
 
               {/* table */}
-              <table class="iksweb">
+              <table className="iksweb">
                 <tbody>
                   <tr>
                     <td>J[0]</td>
-                    <td colspan="4">Q[1]Q[0]</td>
+                    <td colSpan="4">Q[1]Q[0]</td>
                   </tr>
                   <tr>
                     <td>Q[2]</td>
@@ -885,7 +892,7 @@ function M23() {
                 <li>сбрасывать счетчик</li>
                 {/* code */}
                 <pre
-                  class="hljs"
+                  className="hljs"
                   style={{
                     display: 'block',
                     overflowX: 'hidden',
@@ -894,11 +901,11 @@ function M23() {
                     color: 'rgb(170, 170, 170)',
                     textIndent: '0',
                   }}>
-                  <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
                     if
                   </span>{' '}
                   (rq == top) rq &lt;= &#123;N&#123;
-                  <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
                     1'b0
                   </span>
                   &#125;&#125;;
@@ -906,7 +913,7 @@ function M23() {
                 <li>формировать сигнал, когда счетчик достигнет максимального значения</li>
                 {/* code */}
                 <pre
-                  class="hljs"
+                  className="hljs"
                   style={{
                     display: 'block',
                     overflowX: 'hidden',
@@ -915,15 +922,15 @@ function M23() {
                     color: 'rgb(170, 170, 170)',
                     textIndent: '0',
                   }}>
-                  <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                  <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
                     wire
                   </span>{' '}
                   clkp = (rq == top) ?{' '}
-                  <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
                     1
                   </span>{' '}
                   :{' '}
-                  <span class="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
+                  <span className="hljs-number" style={{ color: 'rgb(255, 85, 255)' }}>
                     0
                   </span>
                   ;
@@ -936,7 +943,7 @@ function M23() {
               </p>
               {/* code */}
               <pre
-                class="hljs"
+                className="hljs"
                 style={{
                   display: 'block',
                   overflowX: 'hidden',
@@ -945,11 +952,11 @@ function M23() {
                   color: 'rgb(170, 170, 170)',
                   textIndent: '0',
                 }}>
-                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
                   always
                 </span>{' '}
                 @(
-                <span class="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
+                <span className="hljs-keyword" style={{ color: 'rgb(255, 255, 85)' }}>
                   posedge
                 </span>{' '}
                 rclkp)

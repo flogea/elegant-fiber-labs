@@ -110,8 +110,12 @@ function M22() {
             file13: dataTable.file13,
             file14: dataTable.file14,
             file15: dataTable.file15,
+            file16: dataTable.file16,
+            file17: dataTable.file17,
+            file18: dataTable.file18,
             file_1: dataTable.file_1,
             file_2: dataTable.file_2,
+            file_3: dataTable.file_3,
           }),
         );
         setGetDataFromDB(true);
