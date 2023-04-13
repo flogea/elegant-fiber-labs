@@ -539,7 +539,6 @@ function M13() {
     <>
       {darkMode ? <ParticlesBG /> : null}
       <div className={darkMode ? 'container dark' : 'container'}>
-        <i className="centeredInRow">В разработке :)</i>
         <HeaderLab Subject={Subject} LabName={LabName} />
         <form ref={formRef}>
           <Performers />
