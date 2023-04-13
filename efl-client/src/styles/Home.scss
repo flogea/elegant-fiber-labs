@@ -199,6 +199,32 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     }
   }
 
+  .scroll-to-top-button {
+    position: fixed;
+    z-index: 1000;
+    right: 5vw;
+    bottom: 3vh;
+    width: 55px;
+    height: 55px;
+    background-color: transparent;
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    color: $orange;
+    border: 2px solid $orange;
+    border-radius: 50px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+
   .search {
     display: flex;
     position: relative;
