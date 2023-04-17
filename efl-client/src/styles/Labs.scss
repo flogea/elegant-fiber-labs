@@ -691,6 +691,18 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
       transition: all 0.2s cubic-bezier(0.42, 0.97, 0.52, 1.49);
       margin: 10px 5px;
 
+      span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          margin: 0;
+        }
+      }
+
       &:disabled {
         background: darken($color: $orange, $amount: 30);
         border: 1px solid darken($color: $orange, $amount: 30);
@@ -819,6 +831,19 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
         width: 100%;
         font-size: 10pt;
         text-indent: 0;
+      }
+
+      .centering {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          color: gray;
+          padding: 5px;
+          margin-bottom: 10px;
+        }
       }
 
       .preloader {
