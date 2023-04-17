@@ -9,7 +9,8 @@ import HeaderLab from '../../components/Labs/HeaderLab';
 import Performers from '../../components/Labs/Performers';
 import { Context } from '../../Context';
 import Foldable from '../../components/Labs/Foldable';
-import preloader from '../../images/Infinity.gif';
+import preloader from '../../images/Infinity.svg';
+import preloaderWhite from '../../images/Infinity-white.svg';
 import ParticlesBG from '../../components/ParticlesBG';
 
 import InputWithPreview from '../../components/Labs/InputWithPreview';
@@ -28,6 +29,8 @@ import code3 from '../../images/M14/code3.png';
 import code4 from '../../images/M14/code4.png';
 import code5 from '../../images/M14/code5.png';
 import code6 from '../../images/M14/code6.png';
+import SaveButton from '../../components/Labs/SaveButton';
+import SendButton from '../../components/Labs/SendButton';
 
 function M14() {
   const lab_name = 'M14';
@@ -43,6 +46,7 @@ function M14() {
   const [receivedId, setReceivedId] = React.useState('');
   const [currentId, setCurrentId] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isSaved, setIsSaved] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const [getDataFromDb, setGetDataFromDB] = React.useState(false);
 
@@ -145,13 +149,13 @@ function M14() {
         const newId = res.data.id_lab;
         setReceivedId(newId);
         setIsLoading(false);
-        setIsSended(true);
+        setIsSaved('Сохранено');
         console.log(`Success `, res.data);
       })
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
-        setIsSended('error');
+        setIsSaved('Ошибка');
       });
   };
 
@@ -174,12 +178,12 @@ function M14() {
         .then((res) => {
           console.log(res);
           setIsLoading(false);
-          setIsSended(true);
+          setIsSended('Отправлено');
         });
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      setIsSended('error');
+      setIsSended('Ошибка');
     }
   };
 
@@ -557,59 +561,21 @@ function M14() {
             </div>
           </div>
 
-          <div className="row">
-            <div className="centering">
-              <button
-                type="submit"
-                onClick={saveHandler}
-                className="generate__btn"
-                value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
-                disabled={
-                  !(performers.performers && performers.group && performers.email)
-                    ? 'disabled'
-                    : null
-                }>
-                <span className="text">
-                  {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
-                </span>
-              </button>
-            </div>
-
-            <div>
-              {isLoading ? <img src={preloader} className="preloader" /> : null}
-              {isSended === true && (
-                <>
-                  ID (Сохраните, пожалуйста): <b>{receivedId}</b>
-                </>
-              )}
-            </div>
-          </div>
+          <SaveButton
+            isLoading={isLoading}
+            isSaved={isSaved}
+            receivedId={receivedId}
+            preloader={darkMode ? preloaderWhite : preloader}
+            onClick={saveHandler}
+          />
 
           <FooterLab needPhoto={false} />
-          <div className="row">
-            {isLoading ? <img src={preloader} className="preloader" /> : null}
-            <div className="centering">
-              <button
-                className="send__button"
-                onClick={labHandler}
-                id="subm_btn"
-                // disabled={
-                //   !(
-                //     dataName.file1 &&
-                //     dataName.file2 &&
-                //     dataName.file3 &&
-                //     dataName.file4 &&
-                //     dataName.file5 &&
-                //     dataName.file6
-                //   )
-                //     ? 'disabled'
-                //     : null
-                // }
-              >
-                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
-              </button>
-            </div>
-          </div>
+          <SendButton
+            isLoading={isLoading}
+            isSended={isSended}
+            preloader={darkMode ? preloaderWhite : preloader}
+            onClick={labHandler}
+          />
         </form>
       </div>
     </>

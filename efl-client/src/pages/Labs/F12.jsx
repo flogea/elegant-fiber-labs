@@ -11,8 +11,10 @@ import F12research1 from '../../components/Labs/F12Research1';
 import { Context } from '../../Context';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import ParticlesBG from '../../components/ParticlesBG';
-import preloader from '../../images/Infinity.gif';
+import preloader from '../../images/Infinity.svg';
+import preloaderWhite from '../../images/Infinity-white.svg';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
+import SendButton from '../../components/Labs/SendButton';
 
 function F12() {
   const lab_name = 'F12';
@@ -106,14 +108,12 @@ function F12() {
           </div>
 
           <FooterLab needPhoto={true} />
-          <div className="row">
-            {isLoading ? <img src={preloader} className="preloader" /> : null}
-            <div className="centering">
-              <button className="send__button" onClick={labHandler} id="subm_btn">
-                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
-              </button>
-            </div>
-          </div>
+          <SendButton
+            isLoading={isLoading}
+            isSended={isSended}
+            preloader={darkMode ? preloaderWhite : preloader}
+            onClick={labHandler}
+          />
         </form>
       </div>
     </>

@@ -9,7 +9,8 @@ import FooterLab from '../../components/Labs/FooterLab';
 import n11Qr from '../../images/qr/n11.png';
 import Foldable from '../../components/Labs/Foldable';
 import CableExample from '../../components/Labs/CableExample';
-import preloader from '../../images/Infinity.gif';
+import preloader from '../../images/Infinity.svg';
+import preloaderWhite from '../../images/Infinity-white.svg';
 import eks097 from '../../images/eks097.png';
 import sechenie from '../../images/sechenie.png';
 import eks078 from '../../images/eks078.png';
@@ -19,6 +20,7 @@ import '../../styles/Labs.scss';
 import Symmetric from '../../components/Labs/Symmetric';
 import Coaxial from '../../components/Labs/Coaxial';
 import Twisted from '../../components/Labs/Twisted';
+import SendButton from '../../components/Labs/SendButton';
 
 function N11() {
   const lab_name = 'N11';
@@ -26,7 +28,7 @@ function N11() {
   const LabName = 'Н11 КОНСТРУКЦИИ ЭЛЕКТРИЧЕСКИХ НАПРАВЛЯЮЩИХ СИСТЕМ';
   const LabLink = 'ъыъ.рф/уЬыА';
 
-  const { performers, photo, quantity, secretKey } = React.useContext(Context);
+  const { performers, photo, quantity, secretKey, darkMode } = React.useContext(Context);
 
   const [id_lab, setIdLab] = React.useState('');
   const [quantTables, setQuantTables] = React.useState([]);
@@ -666,19 +668,12 @@ function N11() {
         </div>
       </form>
       <FooterLab needPhoto={true} />
-      <div className="row">
-        {isLoading ? <img src={preloader} className="preloader" /> : null}
-        {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
-        <div className="centering">
-          <button
-            className="wawes-effect wawes-light btn btn-blue"
-            onClick={labHandler}
-            id="subm_btn">
-            Отправить
-          </button>
-          {/* <button onClick={clearHandler}>Clear</button> */}
-        </div>
-      </div>
+      <SendButton
+        isLoading={isLoading}
+        isSended={isSended}
+        preloader={darkMode ? preloaderWhite : preloader}
+        onClick={labHandler}
+      />
     </div>
   );
 }

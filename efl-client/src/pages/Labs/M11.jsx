@@ -27,9 +27,12 @@ import pic7 from '../../images/M11/formula4.png';
 import pic8 from '../../images/M11/electric_scheme.png';
 import pic9 from '../../images/M11/diagramm1.png';
 import pic10 from '../../images/M11/diagramm2.png';
-import preloader from '../../images/Infinity.gif';
+import preloader from '../../images/Infinity.svg';
+import preloaderWhite from '../../images/Infinity-white.svg';
 import ParticlesBG from '../../components/ParticlesBG';
 import InputWithPreview from '../../components/Labs/InputWithPreview';
+import SaveButton from '../../components/Labs/SaveButton';
+import SendButton from '../../components/Labs/SendButton';
 
 function M11() {
   const lab_name = 'M11';
@@ -50,6 +53,7 @@ function M11() {
   const [array, setArray] = React.useState({});
   const [str, setStr] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isSaved, setIsSaved] = React.useState(false);
   const [isSended, setIsSended] = React.useState(null);
   const formRef = React.useRef();
   const [isBtnExist, setisBtnExist] = React.useState(true);
@@ -690,13 +694,13 @@ function M11() {
         const newId = res.data.id_lab;
         setId(newId);
         setIsLoading(false);
-        setIsSended(true);
+        setIsSaved('Сохранено');
         console.log(`Success `, res.data);
       })
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
-        setIsSended('error');
+        setIsSaved('Ошибка');
       });
   };
 
@@ -716,7 +720,7 @@ function M11() {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      setIsSended('error');
+      setIsSended('Ошибка');
     }
 
     console.log(Array.from(formData));
@@ -731,12 +735,12 @@ function M11() {
         .then((res) => {
           console.log(res);
           setIsLoading(false);
-          setIsSended(true);
+          setIsSended('Отправлено');
         });
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      setIsSended('error');
+      setIsSended('Ошибка');
     }
   };
 
@@ -1144,57 +1148,34 @@ function M11() {
               <p>18 Сравните полученные результаты (временные диаграммы и схемы).</p>
             </div>
           </div>
-          <div className="row">
-            <div className="centering">
-              <button
-                type="submit"
-                onClick={saveHandler}
-                className="generate__btn"
-                value={isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
-                disabled={
-                  !(performers.performers && performers.group && performers.email)
-                    ? 'disabled'
-                    : null
-                }>
-                <span className="text">
-                  {isSended ? (isSended === 'error' ? 'Ошибка' : 'Сохранено') : 'Сохранить'}
-                </span>
-              </button>
-            </div>
-            <div>
-              {isLoading ? <img src={preloader} className="preloader" /> : null}
-              {isSended === true && (
-                <>
-                  ID (Сохраните, пожалуйста): <b>{id}</b>
-                </>
-              )}
-            </div>
-          </div>
+
+          <SaveButton
+            isLoading={isLoading}
+            isSaved={isSaved}
+            receivedId={id}
+            preloader={darkMode ? preloaderWhite : preloader}
+            onClick={saveHandler}
+          />
+
           <FooterLab needPhoto={false} />
-          <div className="row">
-            {isLoading ? <img src={preloader} className="preloader" /> : null}
-            <div className="centering">
-              <button
-                type="submit"
-                className="send__button"
-                onClick={labHandler}
-                id="subm_btn"
-                disabled={
-                  !(
-                    dataName.file1 &&
-                    dataName.file2 &&
-                    dataName.file3 &&
-                    dataName.file4 &&
-                    dataName.file5 &&
-                    dataName.file6
-                  )
-                    ? 'disabled'
-                    : null
-                }>
-                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
-              </button>
-            </div>
-          </div>
+          <SendButton
+            isLoading={isLoading}
+            isSended={isSended}
+            preloader={darkMode ? preloaderWhite : preloader}
+            disabled={
+              !(
+                dataName.file1 &&
+                dataName.file2 &&
+                dataName.file3 &&
+                dataName.file4 &&
+                dataName.file5 &&
+                dataName.file6
+              )
+                ? 'disabled'
+                : null
+            }
+            onClick={labHandler}
+          />
         </form>
       </div>
     </>

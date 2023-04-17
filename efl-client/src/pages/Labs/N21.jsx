@@ -10,7 +10,8 @@ import HeaderLab from '../../components/Labs/HeaderLab';
 import FooterLab from '../../components/Labs/FooterLab';
 import n21Qr from '../../images/qr/n21.png';
 import Foldable from '../../components/Labs/Foldable';
-import preloader from '../../images/Infinity.gif';
+import preloader from '../../images/Infinity.svg';
+import preloaderWhite from '../../images/Infinity-white.svg';
 import CableExample from '../../components/Labs/CableExample';
 import oks097 from '../../images/oks097.png';
 import sechenie3 from '../../images/sechenie3.png';
@@ -18,6 +19,7 @@ import oks078 from '../../images/oks078.png';
 import sechenie4 from '../../images/sechenie4.png';
 import oks098 from '../../images/oks098.png';
 import sechenie5 from '../../images/sechenie5.png';
+import SendButton from '../../components/Labs/SendButton';
 
 function N21() {
   const lab_name = 'N21';
@@ -25,7 +27,7 @@ function N21() {
   const LabName = 'Н21 КОНСТРУКЦИИ ОПТИЧЕСКИХ НАПРАВЛЯЮЩИХ СИСТЕМ';
   const LabLink = 'ъыъ.рф/ЕАыЪ';
 
-  const { performers, photo, quantity, secretKey } = React.useContext(Context);
+  const { performers, photo, quantity, secretKey, darkMode } = React.useContext(Context);
 
   const [id_lab, setIdLab] = React.useState('');
   const [quantTables, setQuantTables] = React.useState([]);
@@ -473,18 +475,12 @@ function N21() {
         </div>
       </form>
       <FooterLab needPhoto={true} />
-      <div className="row">
-        {isLoading ? <img src={preloader} className="preloader" /> : null}
-        {isSended && (isSended ? 'Отправлено' : 'Ошибка')}
-        <div className="centering">
-          <button
-            className="wawes-effect wawes-light btn btn-blue"
-            onClick={labHandler}
-            id="subm_btn">
-            Отправить
-          </button>
-        </div>
-      </div>
+      <SendButton
+        isLoading={isLoading}
+        isSended={isSended}
+        preloader={darkMode ? preloaderWhite : preloader}
+        onClick={labHandler}
+      />
     </div>
   );
 }

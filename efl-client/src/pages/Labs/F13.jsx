@@ -11,8 +11,10 @@ import { Context } from '../../Context';
 import F13research from '../../components/Labs/F11research';
 import { setPerformers } from '../../redux/slices/PerformerSlice';
 import ParticlesBG from '../../components/ParticlesBG';
-import preloader from '../../images/Infinity.gif';
+import preloader from '../../images/Infinity.svg';
+import preloaderWhite from '../../images/Infinity-white.svg';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
+import SendButton from '../../components/Labs/SendButton';
 
 function F13() {
   const lab_name = 'F13';
@@ -63,12 +65,12 @@ function F13() {
         .then((res) => {
           console.log(res);
           setIsLoading(false);
-          setIsSended(true);
+          setIsSended('Отправлено');
         });
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      setIsSended('error');
+      setIsSended('Ошибка');
     }
   };
 
@@ -144,14 +146,12 @@ function F13() {
           </div>
 
           <FooterLab needPhoto={true} />
-          <div className="row">
-            {isLoading ? <img src={preloader} className="preloader" /> : null}
-            <div className="centering">
-              <button className="send__button" onClick={labHandler} id="subm_btn">
-                {isSended ? (isSended === 'error' ? 'Ошибка' : 'Отправлено') : 'Отправить'}
-              </button>
-            </div>
-          </div>
+          <SendButton
+            isLoading={isLoading}
+            isSended={isSended}
+            preloader={darkMode ? preloaderWhite : preloader}
+            onClick={labHandler}
+          />
         </form>
       </div>
     </>
