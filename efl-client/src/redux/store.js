@@ -4,6 +4,7 @@ import SearchSlice from './slices/SearchSlice';
 import PerformerSlice from './slices/PerformerSlice';
 import ArraySlice from './slices/ArraySlice';
 import fileURLSlice from './slices/fileURLSlice';
+import ShowModalSlice from './slices/ShowModalSlice';
 
 const rootReducer = combineReducers({
   fileNameSlice,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   PerformerSlice,
   ArraySlice,
   fileURLSlice,
+  ShowModalSlice,
 });
 
 export const store = configureStore({

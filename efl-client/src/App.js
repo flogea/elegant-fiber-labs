@@ -1,12 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Context } from './Context';
 
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import {
+  DnDLab,
+  DnDLab2,
+  DndConstructor,
   F11,
   F12,
   F13,
@@ -14,6 +19,7 @@ import {
   F15,
   F21,
   F22,
+  F51,
   M11,
   M12,
   M13,
@@ -24,6 +30,7 @@ import {
   N11,
   N21,
   PromtM,
+  UniversalLab,
 } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import ParticlesBG from './components/ParticlesBG';
@@ -216,26 +223,33 @@ function App() {
           setDarkMode,
         }}>
         <Navbar />
-        <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element={<Home mat={false} />} />
-            <Route path="/f11" element={<F11 />} />
-            {/* <Route path="/f12" element={<F12 />} /> */}
-            <Route path="/f13" element={<F13 />} />
+        {/* <AuthPage /> */}
+        <DndProvider backend={HTML5Backend}>
+          <BrowserRouter>
+            <Routes>
+              <Route exact path="/" element={<Home mat={false} />} />
+              <Route path="/f11" element={<F11 />} />
+              {/* <Route path="/f12" element={<F12 />} /> */}
+              <Route path="/f13" element={<F13 />} />
+              <Route path="/f51" element={<F51 />} />
 
-            <Route path="/m11" element={<M11 />} />
-            <Route path="/m12" element={<M12 />} />
-            <Route path="/m13" element={<M13 />} />
-            <Route path="/m14" element={<M14 />} />
-            <Route path="/m21" element={<M21 />} />
-            <Route path="/m22" element={<M22 />} />
-            <Route path="/m23" element={<M23 />} />
+              <Route path="/m11" element={<M11 />} />
+              <Route path="/m12" element={<M12 />} />
+              <Route path="/m13" element={<M13 />} />
+              <Route path="/m14" element={<M14 />} />
+              <Route path="/m21" element={<M21 />} />
+              <Route path="/m22" element={<M22 />} />
+              <Route path="/m23" element={<M23 />} />
 
-            <Route path="/n11" element={<N11 />} />
-            <Route path="/n21" element={<N21 />} />
-            <Route path="/promtm" element={<PromtM />} />
-          </Routes>
-        </BrowserRouter>
+              <Route path="/n11" element={<N11 />} />
+              <Route path="/n21" element={<N21 />} />
+              <Route path="/promtm" element={<PromtM />} />
+              <Route path="/universal" element={<UniversalLab />} />
+              <Route path="/dnd" element={<DnDLab2 />} />
+              <Route path="/constructor" element={<DndConstructor />} />
+            </Routes>
+          </BrowserRouter>
+        </DndProvider>
       </Context.Provider>
     </>
   );

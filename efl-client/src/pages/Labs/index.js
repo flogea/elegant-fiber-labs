@@ -5,6 +5,7 @@ export { default as F14 } from './F14';
 export { default as F15 } from './F15';
 export { default as F21 } from './F21';
 export { default as F22 } from './F22';
+export { default as F51 } from './F51';
 
 export { default as M11 } from './M11';
 export { default as M12 } from './M12';
@@ -18,3 +19,7 @@ export { default as N11 } from './N11';
 export { default as N21 } from './N21';
 
 export { default as PromtM } from './PromtM';
+export { default as UniversalLab } from './UniversalLab';
+export { default as DnDLab2 } from './DnDLab2';
+export { default as DnDLab } from './DnDLab';
+export { default as DndConstructor } from './DndConstructor';

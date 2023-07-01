@@ -275,6 +275,60 @@ $textInDarkMode: rgba(255, 255, 255, 0.9);
     // }
   }
 
+  //Modal window
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-content {
+      background-color: #170034;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      max-width: 80%;
+      max-height: 80%;
+      overflow-y: auto;
+      color: white;
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+          margin: 0;
+          color: white;
+        }
+
+        .modal-close {
+          cursor: pointer;
+          font-size: 24px;
+        }
+      }
+
+      .modal-status {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          font-size: 24px;
+          margin: 5px;
+          color: #c6c6c6;
+          font-family: 'Bruno Ace SC';
+        }
+      }
+    }
+  }
+
   // DARK MODE TOGGLE
   .switch {
     position: relative;
