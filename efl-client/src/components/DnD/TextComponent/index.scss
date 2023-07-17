@@ -1,0 +1,13 @@
+.mainText {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  width: 80%;
+  text-indent: 15px;
+
+  &:focus {
+    background: gray;
+  }
+}

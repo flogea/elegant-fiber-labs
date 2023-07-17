@@ -1,8 +1,9 @@
 import React from 'react';
 
-import '../../styles/Labs.scss';
+// import '../../styles/Labs.scss';
+import './index.scss';
 
-import { ReactComponent as ArrowRight } from '../../images/arrowR.svg';
+import { ReactComponent as ArrowRight } from '../../../images/arrowR.svg';
 
 function Foldable(props) {
   const [isOpen, setIsOpen] = React.useState(true);

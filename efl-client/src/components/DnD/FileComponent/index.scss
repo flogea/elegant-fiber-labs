@@ -1,0 +1,137 @@
+$orange: #ff5712;
+
+.input-file {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+  margin: 15px auto;
+
+  &.png {
+    label {
+      &:before {
+        content: url(../../../images/icons/png.svg);
+        height: 24px;
+      }
+    }
+  }
+
+  &.pdf {
+    label {
+      // display: flex;
+      &:before {
+        content: url(../../../images/icons/pdf.svg);
+        height: 24px;
+      }
+    }
+  }
+
+  &.verilog,
+  &.v {
+    label {
+      &:before {
+        content: url(../../../images/icons/verilog.svg);
+        height: 24px;
+      }
+    }
+  }
+
+  label {
+    outline: 0;
+    grid-gap: 8px;
+    align-items: center;
+    background: 0 0;
+    border: 1px solid $orange;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 16px;
+    gap: 8px;
+    justify-content: center;
+    line-height: 1.5;
+    overflow: hidden;
+    padding: 0.6em 2em;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition: all 0.14s ease-out;
+    white-space: nowrap;
+    //color: $orange;
+
+    &:hover {
+      box-shadow: 4px 4px 0 $orange;
+      transform: translate(-4px, -4px);
+    }
+
+    &:focus-visible {
+      outline-offset: 1px;
+    }
+
+    @media (min-width: 768px) {
+      .generate__btn {
+        padding: 13px 50px 13px;
+      }
+    }
+  }
+
+  input[type='file'] {
+    display: none;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &:disabled + span {
+      background-color: #eee;
+    }
+  }
+}
+
+.foldable__content {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.preview {
+    width: 60%;
+
+    .foldable {
+      padding: 10px;
+      box-shadow: none;
+      margin-bottom: 0;
+
+      .toggle {
+        justify-content: center;
+      }
+
+      h2 {
+        color: gray;
+      }
+    }
+  }
+}
+
+.output__span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 5px auto;
+  color: gray;
+  font-size: 12pt;
+  text-align: center;
+  font-style: italic;
+  text-indent: 0;
+
+  img {
+    width: 50%;
+    margin: 1em;
+  }
+}

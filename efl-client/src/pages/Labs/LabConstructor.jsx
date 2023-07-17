@@ -8,16 +8,17 @@ function LabConstructor() {
   return (
     <div className="constructor">
       <LeftMenu />
-      <EditBlock>
-        <FileComponent />
+
+      {/* <EditBlock>
+        <FileComponent ext="png" num="1" />
       </EditBlock>
       <EditBlock>
         <TextComponent />
       </EditBlock>
       <EditBlock>
         <PictureComponent />
-      </EditBlock>
-      <EditBlock>Ghbdtn</EditBlock>
+      </EditBlock> */}
+
       <Blocks />
     </div>
   );

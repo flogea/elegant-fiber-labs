@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import image from '../../../images/qr/f11.png';
 
 import './index.scss';
+import EditBlock from '../EditBlock';
 
 function PictureComponent() {
   const [isEditable, setIsEditable] = React.useState(false);
@@ -25,22 +26,24 @@ function PictureComponent() {
   };
 
   return (
-    <div className="content-image">
-      <input
-        type="file"
-        name="inputFile"
-        id="inputFile"
-        onChange={changePhoto}
-        accept="image/*, .png, .jpg, .jpeg"
-        style={{ display: 'none' }}
-      />
-      <label htmlFor="inputFile" className="editablePic">
-        <img src={fileURL} name={`pic`} htmlFor="inputFile" />
-      </label>
-      <label htmlFor="pic" onClick={changeLabel} contentEditable={isEditable}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      </label>
-    </div>
+    <EditBlock>
+      <div className="content-image">
+        <input
+          type="file"
+          name="inputFile"
+          id="inputFile"
+          onChange={changePhoto}
+          accept="image/*, .png, .jpg, .jpeg"
+          style={{ display: 'none' }}
+        />
+        <label htmlFor="inputFile" className="editablePic">
+          <img src={fileURL} name={`pic`} htmlFor="inputFile" />
+        </label>
+        <label htmlFor="pic" onClick={changeLabel} contentEditable={isEditable}>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+        </label>
+      </div>
+    </EditBlock>
   );
 }
 

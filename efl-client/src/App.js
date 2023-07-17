@@ -9,8 +9,6 @@ import { Context } from './Context';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import {
-  DnDLab,
-  DnDLab2,
   DndConstructor,
   F11,
   F12,
@@ -31,7 +29,6 @@ import {
   N11,
   N21,
   PromtM,
-  UniversalLab,
 } from './pages/Labs';
 import AuthPage from './pages/AuthPage';
 import ParticlesBG from './components/ParticlesBG';
@@ -245,8 +242,6 @@ function App() {
               <Route path="/n11" element={<N11 />} />
               <Route path="/n21" element={<N21 />} />
               <Route path="/promtm" element={<PromtM />} />
-              <Route path="/universal" element={<UniversalLab />} />
-              <Route path="/dnd" element={<DnDLab2 />} />
               <Route path="/constructor" element={<LabConstructor />} />
             </Routes>
           </BrowserRouter>
