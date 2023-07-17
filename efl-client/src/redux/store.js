@@ -5,6 +5,8 @@ import PerformerSlice from './slices/PerformerSlice';
 import ArraySlice from './slices/ArraySlice';
 import fileURLSlice from './slices/fileURLSlice';
 import ShowModalSlice from './slices/ShowModalSlice';
+import SideMenuStatus from './slices/SideMenuStatus';
+import ConstructorArraySlice from './slices/ConstructorArraySlice';
 
 const rootReducer = combineReducers({
   fileNameSlice,
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   ArraySlice,
   fileURLSlice,
   ShowModalSlice,
+  SideMenuStatus,
+  ConstructorArraySlice,
 });
 
 export const store = configureStore({

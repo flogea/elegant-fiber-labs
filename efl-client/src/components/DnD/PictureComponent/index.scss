@@ -1,0 +1,41 @@
+.content-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  .editablePic {
+    max-width: 50%;
+
+    img {
+      width: 100%;
+      margin: 10px 0 5px 0;
+      cursor: pointer;
+
+      &.formula {
+        width: 70%;
+
+        &.smaller {
+          width: 40%;
+        }
+      }
+    }
+  }
+
+  label {
+    width: 100%;
+    text-align: center;
+    text-indent: 0;
+    font-size: 14px;
+    color: lightgray;
+    line-height: 1.1;
+    outline: none;
+    cursor: text;
+
+    &:focus {
+      background: gray;
+    }
+  }
+}

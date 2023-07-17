@@ -23,3 +23,4 @@ export { default as UniversalLab } from './UniversalLab';
 export { default as DnDLab2 } from './DnDLab2';
 export { default as DnDLab } from './DnDLab';
 export { default as DndConstructor } from './DndConstructor';
+export { default as LabConstructor } from './LabConstructor';

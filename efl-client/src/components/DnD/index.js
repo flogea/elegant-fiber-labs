@@ -5,3 +5,5 @@ export { default as PictureComponent } from './PictureComponent';
 export { default as TableComponent } from './TableComponent';
 export { default as TextComponent } from './TextComponent';
 export { default as ModalWindow } from './ModalWindow';
+export { default as LeftMenu } from './LeftMenu';
+export { default as Blocks } from './InlineBlocks';

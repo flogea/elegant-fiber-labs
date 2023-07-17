@@ -20,6 +20,7 @@ import {
   F21,
   F22,
   F51,
+  LabConstructor,
   M11,
   M12,
   M13,
@@ -246,7 +247,7 @@ function App() {
               <Route path="/promtm" element={<PromtM />} />
               <Route path="/universal" element={<UniversalLab />} />
               <Route path="/dnd" element={<DnDLab2 />} />
-              <Route path="/constructor" element={<DndConstructor />} />
+              <Route path="/constructor" element={<LabConstructor />} />
             </Routes>
           </BrowserRouter>
         </DndProvider>
