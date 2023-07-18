@@ -33,43 +33,41 @@ function FileComponent({ ext, num }) {
 
   return (
     <>
-      <EditBlock>
-        <div className={`input-file ${ext}`}>
-          <input
-            type="file"
-            onChange={onChangeInput}
-            name={nameOfFile}
-            required="required"
-            id={`upload_file_input${num}`}
-            accept={`text/plain, .${ext}`}
-          />
-          <label htmlFor={`upload_file_input${num}`}></label>
+      <div className={`input-file ${ext}`}>
+        <input
+          type="file"
+          onChange={onChangeInput}
+          name={nameOfFile}
+          required="required"
+          id={`upload_file_input${num}`}
+          accept={`text/plain, .${ext}`}
+        />
+        <label htmlFor={`upload_file_input${num}`}></label>
+      </div>
+      <span id={`output__data${num}`} className="output__span">
+        {fileName[nameOfFile]}
+      </span>
+      {fileURL[`${nameOfFile}URL`] && ext === 'png' ? (
+        <div className="foldable__content preview">
+          <Foldable header="Предпросмотр" preview={true}>
+            <div className="centeredInRow">
+              <img src={fileURL[`${nameOfFile}URL`]} />
+            </div>
+          </Foldable>
         </div>
-        <span id={`output__data${num}`} className="output__span">
-          {fileName[nameOfFile]}
-        </span>
-        {fileURL[`${nameOfFile}URL`] && ext === 'png' ? (
-          <div className="foldable__content preview">
-            <Foldable header="Предпросмотр" preview={true}>
-              <div className="centeredInRow">
-                <img src={fileURL[`${nameOfFile}URL`]} />
-              </div>
-            </Foldable>
-          </div>
-        ) : null}
-        {fileURL[`${nameOfFile}URL`] && (ext === 'pdf' || ext === 'v') ? (
-          <div className="foldable__content preview">
-            <Foldable header="Предпросмотр" preview={true}>
-              <div className="centeredInRow">
-                <iframe
-                  style={{ width: '100%', height: '50vh' }}
-                  src={fileURL[`${nameOfFile}URL`]}
-                  frameBorder="0"></iframe>
-              </div>
-            </Foldable>
-          </div>
-        ) : null}
-      </EditBlock>
+      ) : null}
+      {fileURL[`${nameOfFile}URL`] && (ext === 'pdf' || ext === 'v') ? (
+        <div className="foldable__content preview">
+          <Foldable header="Предпросмотр" preview={true}>
+            <div className="centeredInRow">
+              <iframe
+                style={{ width: '100%', height: '50vh' }}
+                src={fileURL[`${nameOfFile}URL`]}
+                frameBorder="0"></iframe>
+            </div>
+          </Foldable>
+        </div>
+      ) : null}
     </>
   );
 }

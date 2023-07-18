@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers, getDefaultMiddleware } from '@reduxjs/toolkit';
 import fileNameSlice from './slices/fileNameSlice';
 import SearchSlice from './slices/SearchSlice';
 import PerformerSlice from './slices/PerformerSlice';
@@ -21,4 +21,12 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: {
+  //       ignoredActions: ['RegExp'],
+  //       ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
+  //       ignoredPaths: ['items.dates'],
+  //     },
+  //   }),
 });

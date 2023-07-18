@@ -1,19 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  Components: [],
-};
+const initialState = [];
 
 const ConstructorArraySlice = createSlice({
   name: 'ConstructorArray',
   initialState,
   reducers: {
     setComponents(state, action) {
-      state[action.payload.name] = action.payload.value;
+      const { componentId, componentData } = action.payload;
+      state.push({ id: componentId, data: componentData });
+      console.log(state);
+    },
+    deleteComponent: (state, action) => {
+      return state.filter((block) => block.id !== action.payload);
     },
   },
 });
 
-export const { setComponents } = ConstructorArraySlice.actions;
+export const { setComponents, deleteComponent } = ConstructorArraySlice.actions;
 
 export default ConstructorArraySlice.reducer;

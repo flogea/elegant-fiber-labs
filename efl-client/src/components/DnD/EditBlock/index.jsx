@@ -1,11 +1,20 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './EditBlock.scss';
 
 import dub from '../../../images/icons/dub.svg';
 import del from '../../../images/icons/trash.svg';
 
-function EditBlock({ children }) {
+import { deleteComponent } from '../../../redux/slices/ConstructorArraySlice';
+
+function EditBlock({ children, id }) {
+  const dispatch = useDispatch();
+
+  const deleteBlock = () => {
+    dispatch(deleteComponent(id));
+  };
+
   return (
     <div className="editBlock">
       <div className="leftBlocks">
@@ -17,7 +26,7 @@ function EditBlock({ children }) {
           <button>
             <img src={dub} alt="Дублировать" />
           </button>
-          <button>
+          <button onClick={deleteBlock}>
             <img src={del} alt="Удалить" />
           </button>
         </div>
