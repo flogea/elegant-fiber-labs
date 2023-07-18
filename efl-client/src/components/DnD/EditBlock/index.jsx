@@ -6,13 +6,21 @@ import './EditBlock.scss';
 import dub from '../../../images/icons/dub.svg';
 import del from '../../../images/icons/trash.svg';
 
-import { deleteComponent } from '../../../redux/slices/ConstructorArraySlice';
+import { deleteComponent, moveDown, moveUp } from '../../../redux/slices/ConstructorArraySlice';
 
 function EditBlock({ children, id }) {
   const dispatch = useDispatch();
 
   const deleteBlock = () => {
     dispatch(deleteComponent(id));
+  };
+
+  const moveUpHandler = () => {
+    dispatch(moveUp(id));
+  };
+
+  const moveDownHandler = () => {
+    dispatch(moveDown(id));
   };
 
   return (
@@ -31,8 +39,8 @@ function EditBlock({ children, id }) {
           </button>
         </div>
         <div className="moveLine">
-          <button>&#9650;</button>
-          <button>&#9660;</button>
+          <button onClick={moveUpHandler}>&#9650;</button>
+          <button onClick={moveDownHandler}>&#9660;</button>
         </div>
       </div>
       <div className="add">
